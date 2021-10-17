@@ -1,1 +1,12 @@
-#import <ctype.h>
+#include <stdio.h>
+
+int main(){
+    int res;
+    printf("entrez un caca");
+    scanf("%d",&res);
+    printf("Bonjour!",res);
+    return 0;
+
+
+
+}
