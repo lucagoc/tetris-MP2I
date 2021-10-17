@@ -2,7 +2,7 @@
 
 int main(){
     int res;
-    printf("entrez un caca");
+    printf("entrez un pouce");
     scanf("%d",&res);
     printf("Bonjour!",res);
     return 0;
