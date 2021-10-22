@@ -7,8 +7,9 @@ int main(){
     initscr();
     start_color();
     init_pair(1, COLOR_WHITE, COLOR_BLUE);
+
+    printw("%d",generation_bloc(2,4,4,0));
     
-    printw("En avant pour le projet!");
     refresh();
     getch();
 
@@ -18,4 +19,6 @@ int main(){
     /*cbreak();*/
 
     return 0;
+
 }
+   
