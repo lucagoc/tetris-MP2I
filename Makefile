@@ -1,5 +1,5 @@
 tetris: regles.o interface.o functions.o tetris.o
-	gcc regles.o interface.o functions.o tetris.o -o tetris
+	gcc regles.o interface.o functions.o tetris.o -o tetris -lncurses
 
 regles.o: regles.c
 	gcc -c regles.c
