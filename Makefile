@@ -10,7 +10,7 @@ interface.o: interface.c
 fucntions.o: fucntions.c
 	gcc -c functions.c
 
-tetris.o: tetris.c
+tetris.o: tetris.c functions.h
 	gcc -c tetris.c
 
 clean:
