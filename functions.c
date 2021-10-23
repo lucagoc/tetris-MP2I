@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-/* chaque bloc défini dans cette structure sera un couple avec ses coorodnnées x,y, 
-le tout sera dans une stucture avec un int pour lequel on définirales différentes couleurs (un peu plus tard)*/
+
 
 int* generation_bloc(int bloc[],int id,int x,int y,int id_couleur){
     int rouge=0;
