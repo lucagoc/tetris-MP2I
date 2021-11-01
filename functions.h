@@ -2,9 +2,9 @@
 
 #define FUNCTIONS_H
 
+void grille_vide(int grille[20][25]);
 
-
-int* generation_bloc(int id,int x,int y,int id_couleur);
+void generation_bloc(int bloc[],int id,int x,int y,int id_couleur);
 
 
 
