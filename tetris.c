@@ -29,8 +29,8 @@ int main(){
     refresh();
     box(fenetre,0,0);
     wrefresh(fenetre);
-    for(int x=0;x<=19;x++){
-        for (int y; y<=24;y++){
+    for(int x=1;x<=18;x++){
+        for (int y=1; y<=23;y++){
             wmove(fenetre,x,y);
             wprintw(fenetre,"%d",grille[x][y]);
         }
