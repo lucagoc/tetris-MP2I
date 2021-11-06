@@ -10,7 +10,7 @@ extern void* affichage_tab(int tab[],int longueur);  */
 
 int main(){
     /* tests */
-    int* tetrimino_test=malloc(5*sizeof(int));
+    int* tetrimino_test=malloc(10*sizeof(int));
     generation_tetrimino(tetrimino_test,2,3,4,1);
     for(int i=0;i<=4;i++){
         printf("[%d]",tetrimino_test[i]);

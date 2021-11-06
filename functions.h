@@ -2,6 +2,7 @@
 
 #define FUNCTIONS_H
 
+/*
 const int VIDE;
 const int O; 
 const int I; 
@@ -17,7 +18,10 @@ const int orange;
 const int jaune;
 const int vert;
 const int bleu;
-const int violet;
+const int violet; 
+
+truc bizarre, sur mon mac pas de soucis mais ici si mets pas en commentaire ça empêche de compiler sous debian
+*/ 
 
 void grille_vide(int grille[20][25]);
 
