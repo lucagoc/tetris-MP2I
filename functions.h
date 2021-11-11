@@ -2,26 +2,26 @@
 
 #define FUNCTIONS_H
 
-/*
-const int VIDE;
-const int O; 
-const int I; 
-const int S; 
-const int Z; 
-const int L; 
-const int J; 
-const int T; 
+
+extern const int VIDE;
+extern const int O; 
+extern const int I; 
+extern const int S; 
+extern const int Z; 
+extern const int L; 
+extern const int J; 
+extern const int T; 
 
 
-const int rouge;
-const int orange;
-const int jaune;
-const int vert;
-const int bleu;
-const int violet; 
+extern const int rouge;
+extern const int orange;
+extern const int jaune;
+extern const int vert;
+extern const int bleu;
+extern const int violet; 
 
-truc bizarre, sur mon mac pas de soucis mais ici si mets pas en commentaire ça empêche de compiler sous debian
-*/ 
+
+
 
 void grille_vide(int grille[20][25]);
 
