@@ -15,14 +15,14 @@ int main(){
     start_color();
     init_pair(1, COLOR_WHITE, COLOR_BLUE);
 
-    /*Grille du jeu de tetris 12x22*/
-    int grille[12][22];
+    /*Grille du jeu de tetris 10x20*/
+    int grille[200]; 
 
     /*fonction qui génère le bloc selon son ID, indiqué dans le header*/
-    int bloc = J;// <-- ID du bloc vas-y change-le tu veras c'est fou.
+    int bloc = J;// <-- ID du bloc vas-y change-le tu verras c'est fou.
     int* t = generation_bloc(bloc);
     
-    /*Récupérer la taille de grille du tetromino pour l'affichage, pas optimiser du tout mais c'est temporaire*/
+    /*Récupérer la taille de grille du tetromino pour l'affichage, pas optimisé du tout mais c'est temporaire*/
     int n;
     if (bloc == I){
         n = 5;

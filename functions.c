@@ -10,7 +10,7 @@ const int L = 5;
 const int J = 6;
 const int T = 7;
 
-/*Remplis la grille de VIDE*/
+/*Remplit la grille de VIDE*/
 void initialisation_bloc(int* bloc, int n){
     for (int i = 0; i <= n; i++){
         bloc[i] = VIDE;
