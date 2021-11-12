@@ -25,9 +25,9 @@ extern const int violet;
 
 void grille_vide(int grille[20][25]);
 
-void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur);
+void generation_tetrimino(int** bloc,int id_bloc,int x,int y,int id_couleur);
 
-void tetrimino_dans_grille(int tetrimino[5],int grille[20][25]);
+void tetrimino_dans_grille(int** tetrimino,int grille[20][25]);
 
 void affiche_grille(int grille[20][25],WINDOW *fenetre);
 

@@ -27,7 +27,7 @@ void grille_vide(int grille[20][25]){
     }
 }
 /* id_bloc correspond à un chiffre qui désigne tel ou tel bloc selon ce qui a été défini plus haut */
-void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur){
+void generation_tetrimino(int** bloc,int id_bloc,int x,int y,int id_couleur){
     if (id_bloc==1){
         bloc[0][0]=x ; bloc[0][1]=y ;
         bloc[1][0]=x ; bloc[1][1]=y+1 ;
@@ -86,7 +86,7 @@ void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur)
 
 }
 /* on utilise ici 1 pour le moment pour dire que la case n'est pas vide, on s'occupera d'implémenter la couleur plus tard */
-void tetrimino_dans_grille(int tetrimino[5][2],int grille[20][25]){
+void tetrimino_dans_grille(int** tetrimino,int grille[20][25]){
     for(int i=0; i<4;i++){
         int x_temp; int y_temp;
         x_temp=tetrimino[i][0];
