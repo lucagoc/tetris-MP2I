@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #include <ncurses.h>
 
-const int VIDE = 0;
-const int O = 1; /* correspond au tétromino en forme de carré */
-const int I = 2; /* correspond au tétromino en forme de baton */
-const int S = 3; /* correspond au tétromino en forme de biais inversé */
-const int Z = 4; /* correspond au tétromino en forme de biais */
-const int L = 5; /* correspond au tétromino en forme de L */
-const int J = 6; /* correspond au tétromino en forme de L inversé */
-const int T = 7; /* correspond au tétromino en forme de T */
+const int bloc_VIDE = 0;
+const int bloc_O = 1; /* correspond au tétromino en forme de carré */
+const int bloc_I = 2; /* correspond au tétromino en forme de baton */
+const int bloc_S = 3; /* correspond au tétromino en forme de biais inversé */
+const int bloc_Z = 4; /* correspond au tétromino en forme de biais */
+const int bloc_L = 5; /* correspond au tétromino en forme de L */
+const int bloc_J = 6; /* correspond au tétromino en forme de L inversé */
+const int bloc_T = 7; /* correspond au tétromino en forme de T */
 
 /* on définit ici des constantes pour attribuer les couleurs (sera utile lors de l'affichage avec ncurses) */
 const int rouge = 0;
@@ -27,8 +27,8 @@ void grille_vide(int grille[20][25]){
     }
 }
 /* id_bloc correspond à un chiffre qui désigne tel ou tel bloc selon ce qui a été défini plus haut */
-void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur){
-    if (id_bloc==1){
+void generation_tetrimino(int** bloc,int id_bloc,int x,int y,int id_couleur){
+    if (id_bloc==bloc_O){
         bloc[0][0]=x ; bloc[0][1]=y ;
         bloc[1][0]=x ; bloc[1][1]=y+1 ;
         bloc[2][0]=x ; bloc[2][1]=y+1 ;
@@ -36,7 +36,7 @@ void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur)
         bloc[4][0]=id_couleur;
     }
 
-    else if (id_bloc==2){
+    else if (id_bloc==bloc_I){
         bloc[0][0]=x ; bloc[0][1]=y ;
         bloc[1][0]=x+1 ; bloc[1][1]=y ;
         bloc[2][0]=x+2 ; bloc[2][1]=y ;
@@ -44,7 +44,7 @@ void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur)
         bloc[4][0]=id_couleur;
     }
 
-    else if (id_bloc==3){
+    else if (id_bloc==bloc_S){
         bloc[0][0]=x+1 ; bloc[0][1]=y ;
         bloc[1][0]=x+2 ; bloc[1][1]=y ;
         bloc[2][0]=x ; bloc[2][1]=y+1 ;
@@ -52,7 +52,7 @@ void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur)
         bloc[4][0]=id_couleur;
     }
 
-    else if (id_bloc==4){
+    else if (id_bloc==bloc_Z){
         bloc[0][0]=x ; bloc[0][1]=y ;
         bloc[1][0]=x+1 ; bloc[1][1]=y ;
         bloc[2][0]=x+1 ; bloc[2][1]=y+1 ;
@@ -60,7 +60,7 @@ void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur)
         bloc[4][0]=id_couleur;
     }
 
-    else if (id_bloc==5){
+    else if (id_bloc==bloc_L){
         bloc[0][0]=x ; bloc[0][1]=y ;
         bloc[1][0]=x+1 ; bloc[1][1]=y ;
         bloc[2][0]=x+2 ; bloc[2][1]=y+1 ;
@@ -68,7 +68,7 @@ void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur)
         bloc[4][0]=id_couleur;
     }
 
-    else if (id_bloc==6){
+    else if (id_bloc==bloc_J){
         bloc[0][0]=x ; bloc[0][1]=y ;
         bloc[1][0]=x+1 ; bloc[1][1]=y ;
         bloc[2][0]=x+2 ; bloc[2][1]=y ;
@@ -76,7 +76,7 @@ void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur)
         bloc[4][0]=id_couleur;
     }
 
-    else if (id_bloc==7){
+    else if (id_bloc==bloc_T){
         bloc[0][0]=x ; bloc[0][1]=y ;
         bloc[1][0]=x+1 ; bloc[1][1]=y ;
         bloc[2][0]=x+2 ; bloc[2][1]=y ;
@@ -86,7 +86,7 @@ void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur)
 
 }
 /* on utilise ici 1 pour le moment pour dire que la case n'est pas vide, on s'occupera d'implémenter la couleur plus tard */
-void tetrimino_dans_grille(int tetrimino[5][2],int grille[20][25]){
+void tetrimino_dans_grille(int** tetrimino,int grille[20][25]){
     for(int i=0; i<4;i++){
         int x_temp; int y_temp;
         x_temp=tetrimino[i][0];
