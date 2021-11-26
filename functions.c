@@ -27,7 +27,7 @@ void grille_vide(int grille[20][25]){
     }
 }
 /* id_bloc correspond à un chiffre qui désigne tel ou tel bloc selon ce qui a été défini plus haut */
-void generation_tetrimino(int** bloc,int id_bloc,int x,int y,int id_couleur){
+void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur){
     if (id_bloc==bloc_O){
         bloc[0][0]=x ; bloc[0][1]=y ;
         bloc[1][0]=x ; bloc[1][1]=y+1 ;
@@ -86,7 +86,7 @@ void generation_tetrimino(int** bloc,int id_bloc,int x,int y,int id_couleur){
 
 }
 /* on utilise ici 1 pour le moment pour dire que la case n'est pas vide, on s'occupera d'implémenter la couleur plus tard */
-void tetrimino_dans_grille(int** tetrimino,int grille[20][25]){
+void tetrimino_dans_grille(int tetrimino[5][2],int grille[20][25]){
     for(int i=0; i<4;i++){
         int x_temp; int y_temp;
         x_temp=tetrimino[i][0];
@@ -94,6 +94,50 @@ void tetrimino_dans_grille(int** tetrimino,int grille[20][25]){
         grille[x_temp][y_temp] = 1;
     }
 }
+
+
+
+void deplacement_bas(int bloc[5][2],int grille[20][25]){
+    for(int i=0;i<4;i++){
+        if(bloc[i][1]==24){ /*Si le petit cube du bloc est situé sur la ligne du bas*/
+            tetrimino_dans_grille(bloc,grille); /*Alors on place le bloc !*/
+        } else if (!(grille[bloc[0][i]-1][bloc[1][i]]==0)){ /*Si le petit cube du bloc n'est pas situé au-dessus d'un espace libre*/
+            tetrimino_dans_grille(bloc,grille); /*Alors on place le bloc !*/
+        }
+    } /*Si tout s'est bien passé jusqu'à cette étape, alors on translate tout*/
+    for(int i=0;i<4;i++){
+       bloc[0][i]-=1;
+    }
+}
+
+/*Cette fonction permet de vérifier si le bloc actuellement sélectionné peut subir une translation horizontale*/
+
+void translation(int bloc[5][2], char lor, int grille[20][25]){ /*Le caractère lor signifie "Left or right", il permet de savoir si l'utilisateur veut faire sa translation à gauche ou à droite*/
+    if(lor=='l'){ /*Si l'utilisateur souhaite faire sa translation vers la gauche, lor vaudra alors 'l' (left)*/
+        for(int i=0;i<4;i++){
+            if(bloc[i][0]==0){ /*Si le tetromino est situé sur la ligne à gauche de l'arène de jeu, il ne peut pas bouger à gauche*/
+                return; /*La fonction étant un void, on ne renvoie rien. La ligne ici est juste pour montrer que le cas où le tetrimino est au bord est étudié.*/
+            } else if (!(grille[bloc[i][0]-1][bloc[i][1]]==0)){ /*Cette ligne permet de vérifier si il n'y a aucun tetrimino situé à gauche du bloc actuel.*/
+                return;
+            } /*Ce sont les seuls cas de figure dans lesquels le tetromino ne peut pas bouger vers la gauche. Dans le vrai Tetris, le tetromino peut bouger, même si il est situé au-dessus d'un bloc qui est censé l'immobiliser.*/
+        }
+        for(int i=0;i<4;i++){ /*Cette boucle permet, une fois que l'on a vérifié, d'effectuer la translation sur chacun des blocs*/
+            bloc[i][0]-=1;
+        } /*Fin de la translation gauche.*/
+    } else { /*Maintenant, étudions le cas "Translation à droite". Les commentaires sont les mêmes que ceux de gauche*/
+        for(int i=0;i<4;i++){
+            if(bloc[i][0]==10){
+                return;
+            } else if (!(grille[bloc[i][0]+1][bloc[i][1]]==0)){
+                return;
+            }
+        }
+        for(int i=0;i<4;i++){
+            bloc[i][0]+=1;
+        } /*Fin de la translation droite.*/
+    }
+}
+
 
 void affiche_grille(int grille[20][25],WINDOW *fenetre){
     for(int x=1;x<=18;x++){
