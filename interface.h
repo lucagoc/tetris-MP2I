@@ -11,6 +11,7 @@ extern const int bleu;
 extern const int violet; 
 
 
-void affiche_grille(int grille[nblignes][nbcolonnes],WINDOW *fenetre);
+void affiche_grille(int grille[nblignes][nbcolonnes], WINDOW *fenetre);
 
-void initialisation_interface(int grille[nblignes][nbcolonnes], WINDOW *fenetre);
+void initialisation_interface();
+

@@ -16,8 +16,8 @@ int main(){
     int grille[nblignes][nbcolonnes];
     grille_vide(grille);
 
+    initialisation_interface();
     WINDOW *fenetre = newwin(nblignes,nbcolonnes,0,0); //création de la fenêtre de jeu
-    initialisation_interface(grille, fenetre);
 
     generation_tetrimino(tetrimino_test,2,3,4,1);
     generation_tetrimino(tetrimino_test_2,3,5,6,1);
@@ -25,6 +25,7 @@ int main(){
     tetrimino_dans_grille(tetrimino_test,grille);
     tetrimino_dans_grille(tetrimino_test_2,grille);
 
+    affiche_grille(grille,fenetre);
 
     /*Commande de controle*/
     int key;
