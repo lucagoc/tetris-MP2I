@@ -1,10 +1,15 @@
 #include <stdio.h>
 #include <ncurses.h>
 #include <time.h>
-#include "functions.h"
 #include <stdlib.h>
 #include <stdbool.h>
-/*cette fonction permet de vérifier si le joueur n'a pas perdu, c'est-à-dire si aucun bloc ne touche le haut de l'écran*/
+
+
+const int nblignes = 20;
+const int nbcolonnes = 25;
+
+
+/*Cette fonction permet de vérifier si le joueur n'a pas perdu, c'est-à-dire si aucun bloc ne touche le haut de l'écran*/
 bool endgame(int* grille){
     for(int i=0;i<10;i++){ /*Ici, on fait bouger i de 0 à 9 pour étudier toutes les positions du haut de l'écran*/
         if(i!=0){
