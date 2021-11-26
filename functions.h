@@ -35,6 +35,8 @@ void deplacement_bas(int bloc[5][2],int grille[20][25]);
 
 void translation(int bloc[5][2], char lor, int grille[20][25]);
 
+void delai(int nb_secondes);
+
 
 
 #endif

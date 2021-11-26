@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ncurses.h>
+#include <time.h>
 
 const int bloc_VIDE = 0;
 const int bloc_O = 1; /* correspond au tétromino en forme de carré */
@@ -152,4 +153,10 @@ void affiche_grille(int grille[20][25],WINDOW *fenetre){
             }
         }
     }
+}
+
+void delai(int nb_secondes)
+{
+    clock_t temps = clock();
+    while (clock() < temps + 1000*nb_secondes);
 }
