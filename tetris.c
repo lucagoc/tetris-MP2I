@@ -27,6 +27,8 @@ int main(){
     int grille[20][25];
     grille_vide(grille);
     initscr();
+    bool tab[4]={true,true,true,true};
+    bool lol;
     start_color();
     init_pair(1, COLOR_WHITE, COLOR_BLUE);
     raw();
@@ -37,6 +39,9 @@ int main(){
     wrefresh(fenetre);
     tetrimino_dans_grille(tetrimino_test,grille);
     affiche_grille(grille,fenetre);
+    lol=verif_dispo(bool tab[4]);
+    printf("%d",lol);
+    /* deplacement_bas(tetrimino_test,grille); */
 
     wrefresh(fenetre);
     getch();

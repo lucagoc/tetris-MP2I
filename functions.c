@@ -19,72 +19,6 @@ const int vert = 3;
 const int bleu = 4;
 const int violet = 5;
 
-void grille_vide(int grille[20][25]){
-    for (int x=0;x<=19;x++){
-        for (int y=0;y<=24;y++){
-            grille[x][y]=0;
-        }
-    }
-}
-/* id_bloc correspond à un chiffre qui désigne tel ou tel bloc selon ce qui a été défini plus haut */
-void generation_tetrimino(int** bloc,int id_bloc,int x,int y,int id_couleur){
-    if (id_bloc==bloc_O){
-        bloc[0][0]=x ; bloc[0][1]=y ;
-        bloc[1][0]=x ; bloc[1][1]=y+1 ;
-        bloc[2][0]=x ; bloc[2][1]=y+1 ;
-        bloc[3][0]=x+1 ; bloc[3][1]=y+1 ;
-        bloc[4][0]=id_couleur;
-    }
-
-    else if (id_bloc==bloc_I){
-        bloc[0][0]=x ; bloc[0][1]=y ;
-        bloc[1][0]=x+1 ; bloc[1][1]=y ;
-        bloc[2][0]=x+2 ; bloc[2][1]=y ;
-        bloc[3][0]=x+3 ; bloc[3][1]=y ;
-        bloc[4][0]=id_couleur;
-    }
-
-    else if (id_bloc==bloc_S){
-        bloc[0][0]=x+1 ; bloc[0][1]=y ;
-        bloc[1][0]=x+2 ; bloc[1][1]=y ;
-        bloc[2][0]=x ; bloc[2][1]=y+1 ;
-        bloc[3][0]=x+1 ; bloc[3][1]=y+1 ;
-        bloc[4][0]=id_couleur;
-    }
-
-    else if (id_bloc==bloc_Z){
-        bloc[0][0]=x ; bloc[0][1]=y ;
-        bloc[1][0]=x+1 ; bloc[1][1]=y ;
-        bloc[2][0]=x+1 ; bloc[2][1]=y+1 ;
-        bloc[3][0]=x+2 ; bloc[3][1]=y+1 ;
-        bloc[4][0]=id_couleur;
-    }
-
-    else if (id_bloc==bloc_L){
-        bloc[0][0]=x ; bloc[0][1]=y ;
-        bloc[1][0]=x+1 ; bloc[1][1]=y ;
-        bloc[2][0]=x+2 ; bloc[2][1]=y+1 ;
-        bloc[3][0]=x ; bloc[3][1]=y+1 ;
-        bloc[4][0]=id_couleur;
-    }
-
-    else if (id_bloc==bloc_J){
-        bloc[0][0]=x ; bloc[0][1]=y ;
-        bloc[1][0]=x+1 ; bloc[1][1]=y ;
-        bloc[2][0]=x+2 ; bloc[2][1]=y ;
-        bloc[3][0]=x+2 ; bloc[3][1]=y+1 ;
-        bloc[4][0]=id_couleur;
-    }
-
-    else if (id_bloc==bloc_T){
-        bloc[0][0]=x ; bloc[0][1]=y ;
-        bloc[1][0]=x+1 ; bloc[1][1]=y ;
-        bloc[2][0]=x+2 ; bloc[2][1]=y ;
-        bloc[3][0]=x+1 ; bloc[3][1]=y+1 ;
-        bloc[4][0]=id_couleur;
-    }
-
-}
 /* on utilise ici 1 pour le moment pour dire que la case n'est pas vide, on s'occupera d'implémenter la couleur plus tard */
 void tetrimino_dans_grille(int** tetrimino,int grille[20][25]){
     for(int i=0; i<4;i++){
@@ -93,6 +27,104 @@ void tetrimino_dans_grille(int** tetrimino,int grille[20][25]){
         y_temp=tetrimino[i][1];
         grille[x_temp][y_temp] = 1;
     }
+}
+
+void grille_vide(int grille[20][25]){
+    for (int x=0;x<=19;x++){
+        for (int y=0;y<=24;y++){
+            grille[x][y]=0;
+        }
+    }
+}
+
+/*Cette fonction permet de vérifier si tous les éléments d'un tableau sont à True. Utilisée dans "deplacement_bas"*/
+bool verif_dispo(bool dispo[4]){
+    for(int i=0;i<4;i++){
+        if (dispo[i]==false){
+            return false;
+        }
+    } 
+    return true;
+}
+
+void deplacement_bas(int bloc[5][2],int grille[20][25]){
+    for(int i=0;i<4;i++){
+    bool* dispo[4];
+        if(bloc[0][i]==24){
+            tetrimino_dans_grille(bloc,grille);
+        } else if (grille[bloc[0][i]-1][bloc[1][i]]==0){
+            dispo[i]=true;
+        } else {
+            dispo[i]=false;
+        }
+    }
+    if(verif_dispo(dispo)==true){
+        for(int i=0;i<4;i++){
+            bloc[0][i]-=1;
+        }
+    } else {
+        tetrimino_dans_grille(bloc,grille);
+    }
+}
+
+/* id_bloc correspond à un chiffre qui désigne tel ou tel bloc selon ce qui a été défini plus haut */
+void generation_tetrimino(int** bloc,int id_bloc,int x,int y,int id_couleur){
+    if (id_bloc==bloc_O){
+        bloc[0][0]=x ; bloc[0][1]=y ;
+        bloc[1][0]=x ; bloc[1][1]=y+1 ;
+        bloc[2][0]=x ; bloc[2][1]=y+1 ;
+        bloc[3][0]=x+1 ; bloc[3][1]=y+1 ;
+        bloc[4][0]=id_couleur; bloc[4][1]=id_bloc;
+    }
+
+    else if (id_bloc==bloc_I){
+        bloc[0][0]=x ; bloc[0][1]=y ;
+        bloc[1][0]=x+1 ; bloc[1][1]=y ;
+        bloc[2][0]=x+2 ; bloc[2][1]=y ;
+        bloc[3][0]=x+3 ; bloc[3][1]=y ;
+        bloc[4][0]=id_couleur; bloc[4][1]=id_bloc;
+    }
+
+    else if (id_bloc==bloc_S){
+        bloc[0][0]=x+1 ; bloc[0][1]=y ;
+        bloc[1][0]=x+2 ; bloc[1][1]=y ;
+        bloc[2][0]=x ; bloc[2][1]=y+1 ;
+        bloc[3][0]=x+1 ; bloc[3][1]=y+1 ;
+        bloc[4][0]=id_couleur; bloc[4][1]=id_bloc;
+    }
+
+    else if (id_bloc==bloc_Z){
+        bloc[0][0]=x ; bloc[0][1]=y ;
+        bloc[1][0]=x+1 ; bloc[1][1]=y ;
+        bloc[2][0]=x+1 ; bloc[2][1]=y+1 ;
+        bloc[3][0]=x+2 ; bloc[3][1]=y+1 ;
+        bloc[4][0]=id_couleur; bloc[4][1]=id_bloc;
+    }
+
+    else if (id_bloc==bloc_L){
+        bloc[0][0]=x ; bloc[0][1]=y ;
+        bloc[1][0]=x+1 ; bloc[1][1]=y ;
+        bloc[2][0]=x+2 ; bloc[2][1]=y+1 ;
+        bloc[3][0]=x ; bloc[3][1]=y+1 ;
+        bloc[4][0]=id_couleur; bloc[4][1]=id_bloc;
+    }
+
+    else if (id_bloc==bloc_J){
+        bloc[0][0]=x ; bloc[0][1]=y ;
+        bloc[1][0]=x+1 ; bloc[1][1]=y ;
+        bloc[2][0]=x+2 ; bloc[2][1]=y ;
+        bloc[3][0]=x+2 ; bloc[3][1]=y+1 ;
+        bloc[4][0]=id_couleur; bloc[4][1]=id_bloc;
+    }
+
+    else if (id_bloc==bloc_T){
+        bloc[0][0]=x ; bloc[0][1]=y ;
+        bloc[1][0]=x+1 ; bloc[1][1]=y ;
+        bloc[2][0]=x+2 ; bloc[2][1]=y ;
+        bloc[3][0]=x+1 ; bloc[3][1]=y+1 ;
+        bloc[4][0]=id_couleur; bloc[4][1]=id_bloc;
+    }
+
 }
 
 void affiche_grille(int grille[20][25],WINDOW *fenetre){

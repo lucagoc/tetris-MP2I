@@ -31,6 +31,8 @@ void tetrimino_dans_grille(int** tetrimino,int grille[20][25]);
 
 void affiche_grille(int grille[20][25],WINDOW *fenetre);
 
+void deplacement_bas(int bloc[5][2],int grille[20][25]);
+
 
 
 #endif
