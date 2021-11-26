@@ -19,6 +19,7 @@ const int vert = 3;
 const int bleu = 4;
 const int violet = 5;
 
+
 void grille_vide(int grille[20][25]){
     for (int x=0;x<=19;x++){
         for (int y=0;y<=24;y++){
@@ -26,6 +27,8 @@ void grille_vide(int grille[20][25]){
         }
     }
 }
+
+
 /* id_bloc correspond à un chiffre qui désigne tel ou tel bloc selon ce qui a été défini plus haut */
 void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur){
     if (id_bloc==bloc_O){
@@ -33,7 +36,7 @@ void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur)
         bloc[1][0]=x ; bloc[1][1]=y+1 ;
         bloc[2][0]=x ; bloc[2][1]=y+1 ;
         bloc[3][0]=x+1 ; bloc[3][1]=y+1 ;
-        bloc[4][0]=id_couleur;
+        bloc[4][0]=id_couleur; bloc[4][1]=id_bloc;
     }
 
     else if (id_bloc==bloc_I){
@@ -41,7 +44,7 @@ void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur)
         bloc[1][0]=x+1 ; bloc[1][1]=y ;
         bloc[2][0]=x+2 ; bloc[2][1]=y ;
         bloc[3][0]=x+3 ; bloc[3][1]=y ;
-        bloc[4][0]=id_couleur;
+        bloc[4][0]=id_couleur; bloc[4][1]=id_bloc;
     }
 
     else if (id_bloc==bloc_S){
@@ -49,7 +52,7 @@ void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur)
         bloc[1][0]=x+2 ; bloc[1][1]=y ;
         bloc[2][0]=x ; bloc[2][1]=y+1 ;
         bloc[3][0]=x+1 ; bloc[3][1]=y+1 ;
-        bloc[4][0]=id_couleur;
+        bloc[4][0]=id_couleur; bloc[4][1]=id_bloc;
     }
 
     else if (id_bloc==bloc_Z){
@@ -57,7 +60,7 @@ void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur)
         bloc[1][0]=x+1 ; bloc[1][1]=y ;
         bloc[2][0]=x+1 ; bloc[2][1]=y+1 ;
         bloc[3][0]=x+2 ; bloc[3][1]=y+1 ;
-        bloc[4][0]=id_couleur;
+        bloc[4][0]=id_couleur; bloc[4][1]=id_bloc;
     }
 
     else if (id_bloc==bloc_L){
@@ -65,7 +68,7 @@ void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur)
         bloc[1][0]=x+1 ; bloc[1][1]=y ;
         bloc[2][0]=x+2 ; bloc[2][1]=y+1 ;
         bloc[3][0]=x ; bloc[3][1]=y+1 ;
-        bloc[4][0]=id_couleur;
+        bloc[4][0]=id_couleur; bloc[4][1]=id_bloc;
     }
 
     else if (id_bloc==bloc_J){
@@ -73,7 +76,7 @@ void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur)
         bloc[1][0]=x+1 ; bloc[1][1]=y ;
         bloc[2][0]=x+2 ; bloc[2][1]=y ;
         bloc[3][0]=x+2 ; bloc[3][1]=y+1 ;
-        bloc[4][0]=id_couleur;
+        bloc[4][0]=id_couleur; bloc[4][1]=id_bloc;
     }
 
     else if (id_bloc==bloc_T){
@@ -81,10 +84,11 @@ void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur)
         bloc[1][0]=x+1 ; bloc[1][1]=y ;
         bloc[2][0]=x+2 ; bloc[2][1]=y ;
         bloc[3][0]=x+1 ; bloc[3][1]=y+1 ;
-        bloc[4][0]=id_couleur;
+        bloc[4][0]=id_couleur; bloc[4][1]=id_bloc;
     }
 
 }
+
 /* on utilise ici 1 pour le moment pour dire que la case n'est pas vide, on s'occupera d'implémenter la couleur plus tard */
 void tetrimino_dans_grille(int tetrimino[5][2],int grille[20][25]){
     for(int i=0; i<4;i++){
@@ -94,8 +98,6 @@ void tetrimino_dans_grille(int tetrimino[5][2],int grille[20][25]){
         grille[x_temp][y_temp] = 1;
     }
 }
-
-
 
 void deplacement_bas(int bloc[5][2],int grille[20][25]){
     for(int i=0;i<4;i++){
@@ -109,6 +111,8 @@ void deplacement_bas(int bloc[5][2],int grille[20][25]){
        bloc[0][i]-=1;
     }
 }
+
+
 
 /*Cette fonction permet de vérifier si le bloc actuellement sélectionné peut subir une translation horizontale*/
 
