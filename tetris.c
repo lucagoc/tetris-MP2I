@@ -22,33 +22,47 @@ int main(){
     generation_tetrimino(tetrimino_test,2,3,4,1);
     generation_tetrimino(tetrimino_test_2,3,5,6,1);
     
+
+    translation(tetrimino_test,'r',grille);
+    translation(tetrimino_test,'r',grille);
+    translation(tetrimino_test,'r',grille);
     tetrimino_dans_grille(tetrimino_test,grille);
     tetrimino_dans_grille(tetrimino_test_2,grille);
+    
 
     affiche_grille(grille,fenetre);
 
     /*Commande de controle*/
     int key;
-    while(((key) = getch()) != 'q'){ //Touche Q pour quitter la boucle.
+    bool ingame=true;
+    while(ingame==true){ 
+        key=wgetch(fenetre);
 
-        timeout(1000);// définie une seconde d'attente pour le getch, retourne ERR si rien n'est pressé.
+        /*timeout(1000);*/ //défini une seconde d'attente pour le getch, retourne ERR si rien n'est pressé.
 
-        if(key = KEY_LEFT){
-            //fonction de déplacement vers la gauche
-        }
-        if(key = KEY_RIGHT){
-            //fonction de déplacement vers la droite
-        }
-        if(key = KEY_DOWN){
-            //fonction de déplacement vers le bas
-        }
-        if(key = KEY_UP){
-            //fonction de déplacement vers le bas d'un seul coup
-        }
+        switch(key){
+            case 'd':
+                translation(tetrimino_test,'l',grille);
+                tetrimino_dans_grille(tetrimino_test,grille);
+                break;
+            case 'f':
+                translation(tetrimino_test,'r',grille);
+                tetrimino_dans_grille(tetrimino_test,grille);
+                break;
+            case 'g':
+                deplacement_bas(tetrimino_test,grille);
+                tetrimino_dans_grille(tetrimino_test,grille);
+                break;
+            case 'q': //Touche Q pour quitter la boucle.
+                ingame=false;
+                endwin();
+                exit(0);
 
-        wrefresh(fenetre);
+        };
 
-        delai(1); //délai de 1 seconde.
+        affiche_grille(grille,fenetre);
+
+        /*delai(1);*/ //délai de 1 seconde.
     }
 
     endwin();
