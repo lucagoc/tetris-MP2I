@@ -18,7 +18,6 @@ int main(){
         debug_start(fp);
     }
 
-
     int tetrimino_test[5][2];
     int tetrimino_test_2[5][2];
 
@@ -48,24 +47,24 @@ int main(){
         /*timeout(1000);*/ //défini une seconde d'attente pour le getch, retourne ERR si rien n'est pressé.
 
         switch(key){
-            case 68: //Gauche
-                translation(tetrimino_test,'l',grille);
+            case 66: //Touche flèche bas
+                deplacement_bas(tetrimino_test,grille);
                 tetrimino_dans_grille(tetrimino_test,grille);
                 break;
-            case 67: //Droite
+            case 67: //Touche flèche droite
                 translation(tetrimino_test,'r',grille);
                 tetrimino_dans_grille(tetrimino_test,grille);
                 break;
-            case 66: //Bas
-                deplacement_bas(tetrimino_test,grille);
+            case 68: //Touche flèche gauche
+                translation(tetrimino_test,'l',grille);
                 tetrimino_dans_grille(tetrimino_test,grille);
                 break;
             case 'q': //Touche Q pour quitter la boucle.
                 ingame = false;
                 endwin();
                 exit(0);
-
         };
+
         wclear(fenetre);
         affiche_grille(grille,fenetre);
     }
