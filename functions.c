@@ -25,12 +25,12 @@ void grille_vide(int grille[nblignes][nbcolonnes]){
 
 /* id_bloc correspond à un chiffre qui désigne tel ou tel bloc selon ce qui a été défini plus haut */
 void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur){
-    if (id_bloc==bloc_O){
-        bloc[0][0]=x ; bloc[0][1]=y ;
-        bloc[1][0]=x ; bloc[1][1]=y+1 ;
-        bloc[2][0]=x ; bloc[2][1]=y+1 ;
-        bloc[3][0]=x+1 ; bloc[3][1]=y+1 ;
-        bloc[4][0]=id_couleur; bloc[4][1]=id_bloc;
+    if (id_bloc == bloc_O){
+        bloc[0][0] = x ; bloc[0][1] = y ;
+        bloc[1][0] = x ; bloc[1][1] = y+1 ;
+        bloc[2][0] = x ; bloc[2][1] = y+1 ;
+        bloc[3][0] = x+1 ; bloc[3][1] = y+1 ;
+        bloc[4][0] = id_couleur; bloc[4][1] = id_bloc;
     }
 
     else if (id_bloc==bloc_I){

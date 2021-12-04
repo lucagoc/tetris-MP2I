@@ -10,7 +10,7 @@ void affiche_debug(int grille[nblignes][nbcolonnes]){
 		for (int i = 0; i < nblignes; ++i)
 	    {
 	    	for (int j = 0; j < nbcolonnes; ++j)
-	        {   
+	        {
 	            move(i,30+j);
 	            printw("%d", grille[i][j]);
 	        }

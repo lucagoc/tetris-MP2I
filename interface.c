@@ -1,28 +1,47 @@
 #include <ncurses.h>
+
 #include "regles.h"
 #include "debug.h"
+#include "functions.h"
 
-
-/*On définit ici des constantes pour attribuer les couleurs (sera utile lors de l'affichage avec ncurses)*/
-const int rouge = 0;
-const int orange = 1;
-const int jaune = 2;
-const int vert = 3;
-const int bleu = 4;
-const int violet = 5;
 
 /*Permet d'afficher la grille de jeu*/
 void affiche_grille(int grille[nblignes][nbcolonnes], WINDOW *fenetre){
-    wbkgd(fenetre, COLOR_PAIR(1));
     box(fenetre, 0, 0);
     wrefresh(fenetre);
     for(int x = 0; x < nblignes; x++){
         for (int y = 0; y < nbcolonnes; y++){
-            if (grille[x][y] != 0){
-                wattron(fenetre, COLOR_PAIR(2));
-                wmove(fenetre,x+1,y+1);
-                wprintw(fenetre," "); //Affichage d'un espace avec une palette de couleur différente pour faire un rectangle
-                wattroff(fenetre, COLOR_PAIR (2));
+            wmove(fenetre,x+1,y+1);
+
+            /*Implémentation des couleurs selon le type du bloc*/
+            if(grille[x][y] == bloc_O){
+                wattron(fenetre, COLOR_PAIR(bloc_O));
+                wprintw(fenetre," ");
+                wattroff(fenetre, COLOR_PAIR(bloc_O));
+            } else if(grille[x][y] == bloc_I){
+                wattron(fenetre, COLOR_PAIR(bloc_I));
+                wprintw(fenetre," ");
+                wattroff(fenetre, COLOR_PAIR(bloc_I));
+            } else if(grille[x][y] == bloc_S){
+                wattron(fenetre, COLOR_PAIR(bloc_S));
+                wprintw(fenetre," ");
+                wattroff(fenetre, COLOR_PAIR(bloc_S));
+            } else if(grille[x][y] == bloc_Z){
+                wattron(fenetre, COLOR_PAIR(bloc_Z));
+                wprintw(fenetre," ");
+                wattroff(fenetre, COLOR_PAIR(bloc_Z));
+            } else if(grille[x][y] == bloc_L){
+                wattron(fenetre, COLOR_PAIR(bloc_L));
+                wprintw(fenetre," ");
+                wattroff(fenetre, COLOR_PAIR(bloc_L));
+            } else if(grille[x][y] == bloc_J){
+                wattron(fenetre, COLOR_PAIR(bloc_J));
+                wprintw(fenetre," ");
+                wattroff(fenetre, COLOR_PAIR(bloc_J));
+            } else if(grille[x][y] == bloc_T){
+                wattron(fenetre, COLOR_PAIR(bloc_T));
+                wprintw(fenetre," ");
+                wattroff(fenetre, COLOR_PAIR(bloc_T));
             }
         }
     }
@@ -38,9 +57,16 @@ void initialisation_interface(){
 	
 	initscr();  // Initialise l'affichage
     start_color();  // Initialise la palette de couleur
-    init_pair(1, COLOR_WHITE, COLOR_BLACK);
-    init_pair(2, COLOR_WHITE, COLOR_BLUE);
-    attron(COLOR_PAIR(1));  // Définition des couleurs
+
+    // Définition des couleurs
+    init_pair(bloc_O, COLOR_WHITE, COLOR_YELLOW);
+    init_pair(bloc_I, COLOR_WHITE, COLOR_CYAN);
+    init_pair(bloc_S, COLOR_WHITE, COLOR_GREEN);
+    init_pair(bloc_Z, COLOR_WHITE, COLOR_RED);
+    init_pair(bloc_L, COLOR_WHITE, COLOR_WHITE);
+    init_pair(bloc_J, COLOR_WHITE, COLOR_BLUE);
+    init_pair(bloc_T, COLOR_WHITE, COLOR_MAGENTA);
+
     curs_set(0);  // Cache le curseur
     noecho();  // Cache les touches pressées
     refresh();

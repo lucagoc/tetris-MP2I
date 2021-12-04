@@ -18,4 +18,5 @@ tetris.o: tetris.c functions.h interface.h regles.h debug.h
 
 clean:
 	rm -f *.o
+	rm -f *.log
 	rm -f tetris

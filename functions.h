@@ -3,14 +3,14 @@
 #define FUNCTIONS_H
 
 
-extern const int VIDE;
-extern const int O; 
-extern const int I; 
-extern const int S; 
-extern const int Z; 
-extern const int L; 
-extern const int J; 
-extern const int T; 
+extern const int bloc_VIDE;
+extern const int bloc_O; 
+extern const int bloc_I; 
+extern const int bloc_S; 
+extern const int bloc_Z; 
+extern const int bloc_L; 
+extern const int bloc_J; 
+extern const int bloc_T; 
 
 extern const int nblignes;
 extern const int nbcolonnes;
