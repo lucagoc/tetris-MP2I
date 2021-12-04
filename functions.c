@@ -15,9 +15,9 @@ const int bloc_T = 7; /* correspond au tétromino en forme de T */
 
 
 void grille_vide(int grille[nblignes][nbcolonnes]){
-    for (int x=0;x<=19;x++){
-        for (int y=0;y<=24;y++){
-            grille[x][y]=0;
+    for (int x = 0; x < nblignes; x++){
+        for (int y=0; y < nbcolonnes; y++){
+            grille[x][y] = 0;
         }
     }
 }
@@ -84,33 +84,33 @@ void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur)
 }
 
 /* on utilise ici 1 pour le moment pour dire que la case n'est pas vide, on s'occupera d'implémenter la couleur plus tard */
-void tetrimino_dans_grille(int tetrimino[5][2],int grille[nblignes][nbcolonnes]){
-    for(int i=0; i<4;i++){
+void tetrimino_dans_grille(int tetrimino[5][2], int grille[nblignes][nbcolonnes]){
+    for(int i = 0; i < 4; i++){
         int x_temp; int y_temp;
-        x_temp=tetrimino[i][0];
-        y_temp=tetrimino[i][1];
+        x_temp = tetrimino[i][0];
+        y_temp = tetrimino[i][1];
         grille[x_temp][y_temp] = 1;
     }
 }
 
-void deplacement_bas(int bloc[5][2],int grille[nblignes][nbcolonnes]){
-    for(int i=0;i<4;i++){
-        if(bloc[i][1]==24){ /*Si le petit cube du bloc est situé sur la ligne du bas*/
+void deplacement_bas(int bloc[5][2], int grille[nblignes][nbcolonnes]){
+    for(int i = 0; i < 4; i++){
+        if(bloc[i][1] == nblignes-1){ /*Si le petit cube du bloc est situé sur la ligne du bas*/
             tetrimino_dans_grille(bloc,grille); /*Alors on place le bloc !*/
-        } else if (!(grille[bloc[0][i]-1][bloc[1][i]]==0)){ /*Si le petit cube du bloc n'est pas situé au-dessus d'un espace libre*/
+        } else if (!(grille[bloc[0][i]-1][bloc[1][i]] == 0)){ /*Si le petit cube du bloc n'est pas situé au-dessus d'un espace libre*/
             tetrimino_dans_grille(bloc,grille); /*Alors on place le bloc !*/
         }
     } /*Si tout s'est bien passé jusqu'à cette étape, alors on translate tout*/
-    for(int i=0;i<4;i++){
-       bloc[i][0]+=1;
+    for(int i = 0; i < 4; i++){
+       bloc[i][0] += 1;
     }
 }
 
 void suppr_tetrimino(int tetrimino[5][2], int grille[nblignes][nbcolonnes]){
-    for(int i=0; i<4;i++){
+    for(int i = 0; i < 4; i++){
         int x_temp; int y_temp;
-        x_temp=tetrimino[i][0];
-        y_temp=tetrimino[i][1];
+        x_temp = tetrimino[i][0];
+        y_temp = tetrimino[i][1];
         grille[x_temp][y_temp] = 0;
     }
 }
@@ -118,9 +118,9 @@ void suppr_tetrimino(int tetrimino[5][2], int grille[nblignes][nbcolonnes]){
 /*Cette fonction permet de vérifier si le bloc actuellement sélectionné peut subir une translation horizontale*/
 
 void translation(int bloc[5][2], char lor, int grille[nblignes][nbcolonnes]){ /*Le caractère lor signifie "Left or right", il permet de savoir si l'utilisateur veut faire sa translation à gauche ou à droite*/
-    if(lor=='l'){ /*Si l'utilisateur souhaite faire sa translation vers la gauche, lor vaudra alors 'l' (left)*/
-        for(int i=0;i<4;i++){
-            if(bloc[i][1]==10){ /*Si le tetromino est situé sur la ligne à gauche de l'arène de jeu, il ne peut pas bouger à gauche*/
+    if(lor == 'l'){ /*Si l'utilisateur souhaite faire sa translation vers la gauche, lor vaudra alors 'l' (left)*/
+        for(int i = 0; i < 4; i++){
+            if(bloc[1][i] == nbcolonnes){ /*Si le tetromino est situé sur la ligne à gauche de l'arène de jeu, il ne peut pas bouger à gauche*/
                 return; /*La fonction étant un void, on ne renvoie rien. La ligne ici est juste pour montrer que le cas où le tetrimino est au bord est étudié.*/
             } else if (!(grille[bloc[i][1]+1][bloc[i][0]]==0)){ /*Cette ligne permet de vérifier si il n'y a aucun tetrimino situé à gauche du bloc actuel.*/
                 return;

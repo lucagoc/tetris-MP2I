@@ -6,12 +6,14 @@
 
 
 const int nblignes = 20;
-const int nbcolonnes = 25;
+const int nbcolonnes = 10;
+
+const bool debug = true;
 
 
 /*Cette fonction permet de vérifier si le joueur n'a pas perdu, c'est-à-dire si aucun bloc ne touche le haut de l'écran*/
 bool endgame(int* grille){
-    for(int i=0;i<10;i++){ /*Ici, on fait bouger i de 0 à 9 pour étudier toutes les positions du haut de l'écran*/
+    for(int i=0;i<nbcolonnes;i++){ /*Ici, on fait bouger i de 0 à 9 pour étudier toutes les positions du haut de l'écran*/
         if(i!=0){
             return true; /*Si l'une des positions est prise, alors le joueur a perdu, on renvoie alors true pour indiquer que le jeu est fini*/
         }
