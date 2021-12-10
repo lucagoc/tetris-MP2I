@@ -4,8 +4,7 @@
 #include "regles.h"
 
 
-
-void affiche_debug(int grille[nblignes][nbcolonnes]){
+void affiche_debug(int movingrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]){
 	if(debug){
 		for (int i = 0; i < nblignes; ++i)
 	    {
@@ -13,6 +12,8 @@ void affiche_debug(int grille[nblignes][nbcolonnes]){
 	        {
 	            move(i,30+j);
 	            printw("%d", grille[i][j]);
+	            move(i,60+j);
+	            printw("%d", movingrid[i][j]);
 	        }
 	    }
 	}

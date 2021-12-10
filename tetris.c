@@ -18,25 +18,26 @@ int main(){
         debug_start(fp);
     }
 
-    int tetrimino_test[5][2];
-    int tetrimino_test_2[5][2];
-
     int grille[nblignes][nbcolonnes];
-    grille_vide(grille);
+    int movinggrid[nblignes][nbcolonnes];
+
+    init_grille(grille);
 
     initialisation_interface();
     WINDOW *fenetre = newwin(nblignes+2,nbcolonnes+2,0,0); //création de la fenêtre de jeu
 
-    generation_tetrimino(tetrimino_test,2,3,4,1);
-    generation_tetrimino(tetrimino_test_2,3,5,6,1);
+    generation_tetrimino(movinggrid, 3);
+    grille[3][9] = 2;
+    grille[4][9] = 2;
+    grille[5][9] = 2;
+    grille[6][9] = 2;
 
-    translation(tetrimino_test,'r',grille);
-    translation(tetrimino_test,'r',grille);
-    translation(tetrimino_test,'r',grille);
-    tetrimino_dans_grille(tetrimino_test,grille);
-    tetrimino_dans_grille(tetrimino_test_2,grille);
-    
-    affiche_grille(grille,fenetre);
+    grille[3][5] = 6;
+    grille[4][5] = 6;
+    grille[5][5] = 6;
+    grille[5][4] = 6;
+
+    draw_interface(grille, movinggrid, fenetre);
 
     /*Commande de controle*/
     int key;
@@ -48,16 +49,13 @@ int main(){
 
         switch(key){
             case 66: //Touche flèche bas
-                deplacement_bas(tetrimino_test,grille);
-                tetrimino_dans_grille(tetrimino_test,grille);
+                deplacement_bas(movinggrid, grille);
                 break;
             case 67: //Touche flèche droite
-                translation(tetrimino_test,'r',grille);
-                tetrimino_dans_grille(tetrimino_test,grille);
+                //translation(movinggrid, grille, r);
                 break;
             case 68: //Touche flèche gauche
-                translation(tetrimino_test,'l',grille);
-                tetrimino_dans_grille(tetrimino_test,grille);
+                //translation(movinggrid, grille, l);
                 break;
             case 'q': //Touche Q pour quitter la boucle.
                 ingame = false;
@@ -65,8 +63,7 @@ int main(){
                 exit(0);
         };
 
-        wclear(fenetre);
-        affiche_grille(grille,fenetre);
+        draw_interface(grille, movinggrid, fenetre);
     }
 
     endwin();

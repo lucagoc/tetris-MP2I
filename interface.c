@@ -7,13 +7,12 @@
 
 /*Permet d'afficher la grille de jeu*/
 void affiche_grille(int grille[nblignes][nbcolonnes], WINDOW *fenetre){
-    box(fenetre, 0, 0);
-    wrefresh(fenetre);
     for(int x = 0; x < nblignes; x++){
         for (int y = 0; y < nbcolonnes; y++){
             wmove(fenetre,x+1,y+1);
 
             /*Implémentation des couleurs selon le type du bloc*/
+
             if(grille[x][y] == bloc_O){
                 wattron(fenetre, COLOR_PAIR(bloc_O));
                 wprintw(fenetre," ");
@@ -45,9 +44,20 @@ void affiche_grille(int grille[nblignes][nbcolonnes], WINDOW *fenetre){
             }
         }
     }
+}
+
+void draw_interface(int grille[nblignes][nbcolonnes], int movinggrid[nblignes][nbcolonnes], WINDOW *fenetre){
+
+    wclear(fenetre); //efface la frame précédente
+
+    box(fenetre, 0, 0);
+    affiche_grille(grille, fenetre);
+    affiche_grille(movinggrid, fenetre);
+
     if (debug){
-        affiche_debug(grille);
+        affiche_debug(movinggrid, grille);
     }
+
     wrefresh(fenetre);
     refresh();
 }

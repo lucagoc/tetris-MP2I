@@ -16,15 +16,13 @@ extern const int nblignes;
 extern const int nbcolonnes;
 
 
-void grille_vide(int grille[nblignes][nbcolonnes]);
+void init_grille(int grille[nblignes][nbcolonnes]);
 
-void generation_tetrimino(int bloc[5][2],int id_bloc,int x,int y,int id_couleur);
+void generation_tetrimino(int movinggrid[nblignes][nbcolonnes],int id_bloc);
 
-void tetrimino_dans_grille(int tetrimino[5][2],int grille[nblignes][nbcolonnes]);
+void deplacer(char dir[],int movinggrid[nblignes][nbcolonnes]);
 
-void deplacement_bas(int bloc[5][2],int grille[nblignes][nbcolonnes]);
-
-void translation(int bloc[5][2], char lor, int grille[nblignes][nbcolonnes]);
+void deplacement_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]);
 
 void delai(int nb_secondes);
 
