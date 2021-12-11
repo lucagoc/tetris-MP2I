@@ -27,9 +27,9 @@ void init_grille(int grille[nblignes][nbcolonnes]){
 }
 
 /*Cette fonction permet de placer un tetrimino directement prêt en haut de la grille secondaire*/
-void generation_tetrimino(int movinggrid[nblignes][nbcolonnes],int id_bloc){
-    init_grille(movinggrid); /*On nettoie notre grille en premier lieu*/
+void generation_tetrimino(int movinggrid[nblignes][nbcolonnes]){
 
+    int id_bloc = (rand()%7)+1; // Génération d'un bloc random. La fonction rand() n'ayant pas de max, on utilise un modulo 8. On veut aussi ne pas obtenir la valeur 0.
     /*les différents if correspondent à une disjonction de cas*/
     
     if(id_bloc == bloc_O){
@@ -80,11 +80,14 @@ void generation_tetrimino(int movinggrid[nblignes][nbcolonnes],int id_bloc){
 void placer(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]){
     for (int i = 0; i < nblignes; i++){
         for (int j = 0; j < nbcolonnes; j++){
-            if(movinggrid[i][j] ==! 0){
+            if(movinggrid[i][j] != 0){
                 grille[i][j] = movinggrid[i][j];
             }
         }
     }
+    init_grille(movinggrid);
+    generation_tetrimino(movinggrid); //Regénére un tetrimino une fois l'autre placer.
+    return;
 }
 
 /*Cette fonction permet de descendre un bloc vers le bas lorsque c'est possible*/
@@ -150,12 +153,31 @@ void deplacement_droite(int movinggrid[nblignes][nbcolonnes], int grille[nbligne
         for(int j = nbcolonnes-1; j > 0; j--){
             movinggrid[i][j] = movinggrid[i][j-1];
         }
-        movinggrid[i][0] = bloc_VIDE; //on remplis de bloc_VIDE sur la dernière colonne
+        movinggrid[i][0] = bloc_VIDE; //on remplit de bloc_VIDE sur la dernière colonne
     }
     return;
 }
 
-
+void teleportation_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]){
+    bool descend = true;
+    while(descend){
+        for (int i = 0; i < nblignes; i++){
+            for (int j = 0; j < nbcolonnes; j++){
+                if (movinggrid[i][j] != bloc_VIDE){
+                    if(grille[i+1][j] != bloc_VIDE){/*Si le carré dans 'grille' juste au-dessous de celui qu'on vient de détecter dans 'movinggrid' n'est pas vide, on ne peut pas descendre*/
+                        placer(movinggrid,grille); /*Donc on place le bloc dans la grille*/
+                        descend = false;
+                    } else if (i == nblignes-1){
+                        placer(movinggrid,grille); /*Et si on a atteint la ligne du bas, le bloc ne peut plus descendre, donc on le place dans 'grille'*/
+                        descend = false;
+                    }
+                }
+            }
+        }
+        deplacement_bas(movinggrid,grille);
+    }
+    return;
+}
 
 void delai(int nb_secondes)
 {

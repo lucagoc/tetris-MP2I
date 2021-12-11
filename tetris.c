@@ -19,23 +19,13 @@ int main(){
     int movinggrid[nblignes][nbcolonnes];
 
     init_grille(grille);
+    init_grille(movinggrid);    
 
     initialisation_interface();
-    WINDOW *fenetre = newwin(nblignes+2,nbcolonnes+2,0,0); //création de la fenêtre de jeu
-
-    generation_tetrimino(movinggrid, 3);
-
-    grille[16][9] = 2;
-    grille[17][9] = 2;
-    grille[18][9] = 2;
-    grille[19][9] = 2;
-
-    grille[8][5] = 6;
-    grille[9][5] = 6;
-    grille[10][5] = 6;
-    grille[10][4] = 6;
-
+    WINDOW *fenetre = newwin(nblignes+2,(nbcolonnes*2)+2,0,0); //création de la fenêtre de jeu, nombre de colonne multiplié par 2 pour faire des carrés.
     draw_interface(grille, movinggrid, fenetre);
+
+    generation_tetrimino(movinggrid);
 
     /*Commande de controle*/
     int key;
@@ -46,6 +36,10 @@ int main(){
         /*timeout(1000);*/ //défini une seconde d'attente pour le getch, retourne ERR si rien n'est pressé.
 
         switch(key){
+            case 65:
+                teleportation_bas(movinggrid, grille);
+                debug_write_deplacement(fp, 'U');
+                break;
             case 66: //Touche flèche bas
                 deplacement_bas(movinggrid, grille);
                 debug_write_deplacement(fp, 'D');
@@ -68,8 +62,6 @@ int main(){
     }
 
     endwin();
-
     return 0;
 
 }
-   

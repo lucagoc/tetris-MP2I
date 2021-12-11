@@ -9,37 +9,37 @@
 void affiche_grille(int grille[nblignes][nbcolonnes], WINDOW *fenetre){
     for(int x = 0; x < nblignes; x++){
         for (int y = 0; y < nbcolonnes; y++){
-            wmove(fenetre,x+1,y+1);
+            wmove(fenetre,x+1,(y*2)+1);
 
             /*Implémentation des couleurs selon le type du bloc*/
 
             if(grille[x][y] == bloc_O){
                 wattron(fenetre, COLOR_PAIR(bloc_O));
-                wprintw(fenetre," ");
+                wprintw(fenetre,"  ");
                 wattroff(fenetre, COLOR_PAIR(bloc_O));
             } else if(grille[x][y] == bloc_I){
                 wattron(fenetre, COLOR_PAIR(bloc_I));
-                wprintw(fenetre," ");
+                wprintw(fenetre,"  ");
                 wattroff(fenetre, COLOR_PAIR(bloc_I));
             } else if(grille[x][y] == bloc_S){
                 wattron(fenetre, COLOR_PAIR(bloc_S));
-                wprintw(fenetre," ");
+                wprintw(fenetre,"  ");
                 wattroff(fenetre, COLOR_PAIR(bloc_S));
             } else if(grille[x][y] == bloc_Z){
                 wattron(fenetre, COLOR_PAIR(bloc_Z));
-                wprintw(fenetre," ");
+                wprintw(fenetre,"  ");
                 wattroff(fenetre, COLOR_PAIR(bloc_Z));
             } else if(grille[x][y] == bloc_L){
                 wattron(fenetre, COLOR_PAIR(bloc_L));
-                wprintw(fenetre," ");
+                wprintw(fenetre,"  ");
                 wattroff(fenetre, COLOR_PAIR(bloc_L));
             } else if(grille[x][y] == bloc_J){
                 wattron(fenetre, COLOR_PAIR(bloc_J));
-                wprintw(fenetre," ");
+                wprintw(fenetre,"  ");
                 wattroff(fenetre, COLOR_PAIR(bloc_J));
             } else if(grille[x][y] == bloc_T){
                 wattron(fenetre, COLOR_PAIR(bloc_T));
-                wprintw(fenetre," ");
+                wprintw(fenetre,"  ");
                 wattroff(fenetre, COLOR_PAIR(bloc_T));
             }
         }
