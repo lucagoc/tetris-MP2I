@@ -11,12 +11,9 @@
 
 int main(){
 
-    /*Ecrit un fichier de debug si le debug mode est activé voir regles.c*/
-    if(debug){
-        FILE *fp;
-        fp  = fopen("./logfile.log", "w");
-        debug_start(fp);
-    }
+    /*Ecrit un fichier de debug si le debug mode est activé, voir regles.c*/
+
+    FILE *fp = debug_start();
 
     int grille[nblignes][nbcolonnes];
     int movinggrid[nblignes][nbcolonnes];
@@ -27,15 +24,16 @@ int main(){
     WINDOW *fenetre = newwin(nblignes+2,nbcolonnes+2,0,0); //création de la fenêtre de jeu
 
     generation_tetrimino(movinggrid, 3);
-    grille[3][9] = 2;
-    grille[4][9] = 2;
-    grille[5][9] = 2;
-    grille[6][9] = 2;
 
-    grille[3][5] = 6;
-    grille[4][5] = 6;
-    grille[5][5] = 6;
-    grille[5][4] = 6;
+    grille[16][9] = 2;
+    grille[17][9] = 2;
+    grille[18][9] = 2;
+    grille[19][9] = 2;
+
+    grille[8][5] = 6;
+    grille[9][5] = 6;
+    grille[10][5] = 6;
+    grille[10][4] = 6;
 
     draw_interface(grille, movinggrid, fenetre);
 
@@ -50,12 +48,15 @@ int main(){
         switch(key){
             case 66: //Touche flèche bas
                 deplacement_bas(movinggrid, grille);
+                debug_write_deplacement(fp, 'D');
                 break;
             case 67: //Touche flèche droite
-                //translation(movinggrid, grille, r);
+                deplacement_droite(movinggrid, grille);
+                debug_write_deplacement(fp, 'R');
                 break;
             case 68: //Touche flèche gauche
-                //translation(movinggrid, grille, l);
+                deplacement_gauche(movinggrid, grille);
+                debug_write_deplacement(fp, 'L');
                 break;
             case 'q': //Touche Q pour quitter la boucle.
                 ingame = false;

@@ -20,9 +20,11 @@ void init_grille(int grille[nblignes][nbcolonnes]);
 
 void generation_tetrimino(int movinggrid[nblignes][nbcolonnes],int id_bloc);
 
-void deplacer(char dir[],int movinggrid[nblignes][nbcolonnes]);
-
 void deplacement_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]);
+
+void deplacement_gauche(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]);
+
+void deplacement_droite(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]);
 
 void delai(int nb_secondes);
 

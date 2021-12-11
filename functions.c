@@ -77,26 +77,6 @@ void generation_tetrimino(int movinggrid[nblignes][nbcolonnes],int id_bloc){
     }
 }
 
-/*Cette fonction permet de déplacer le bloc actuel dans la grille mouvante sans tenir compte des tests nécessaires avant*/
-void deplacer(char dir, int movinggrid[nblignes][nbcolonnes]){
-    for(int i = nblignes; i < 0; i++){ /*Cette boucle balaye toutes les lignes*/
-        for(int j = nbcolonnes; j < 0; j++){ /*Et celle-ci toutes les colonnes. Pour éviter de descendre plusieurs fois un seul bloc, le scan de 'movinggrid' se fait du bas vers le haut*/
-            if(movinggrid[i][j] != 0){ /*Si on repère un bloc non vide*/
-                if(dir == 'd'){
-                    movinggrid[i][j]=0;
-                    movinggrid[i-1][j]=1;
-                } else if(dir == 'l'){
-                    movinggrid[i][j]=0;
-                    movinggrid[i][j-1]=1;
-                } else if(dir == 'r'){
-                    movinggrid[i][j]=0;
-                    movinggrid[i][j+1]=1;
-                }
-            }
-        }
-    }
-}
-
 void placer(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]){
     for (int i = 0; i < nblignes; i++){
         for (int j = 0; j < nbcolonnes; j++){
@@ -109,19 +89,72 @@ void placer(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonne
 
 /*Cette fonction permet de descendre un bloc vers le bas lorsque c'est possible*/
 void deplacement_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]){
-    for(int i=0; i > -nblignes ; i--){ /*Cette boucle balaye toutes les lignes*/
-        for(int j = 0; j > -nbcolonnes; j--){ /*Et celle-ci toutes les colonnes*/
-            if (movinggrid[i][j]!=0){
-                if(grille[i-1][j]!=0){/*Si le carré dans 'grille' juste au-dessous de celui qu'on vient de détecter dans 'movinggrid' n'est pas vide, on ne peut pas descendre*/
+    for(int i = nblignes-1; i > 0 ; i--){ /*Cette boucle balaye toutes les lignes*/
+        for(int j = nbcolonnes-1; j >= 0; j--){ /*Et celle-ci toutes les colonnes*/
+            if (movinggrid[i][j] != bloc_VIDE){
+                if(grille[i+1][j] != bloc_VIDE){/*Si le carré dans 'grille' juste au-dessous de celui qu'on vient de détecter dans 'movinggrid' n'est pas vide, on ne peut pas descendre*/
                     placer(movinggrid,grille); /*Donc on place le bloc dans la grille*/
-                } else if (i == -nblignes){
+                    return;
+                } else if (i == nblignes-1){
                     placer(movinggrid,grille); /*Et si on a atteint la ligne du bas, le bloc ne peut plus descendre, donc on le place dans 'grille'*/
+                    return;
                 }
             }
         }
     }
-    deplacer('d',movinggrid);/*Dans ce cas-là, on déplace le bloc vers le bas*/
+    for(int i = nblignes-1; i > 0; i--){ /*Cette boucle balaye toutes les lignes*/
+        for(int j = nbcolonnes; j >= 0; j--){ /*Et celle-ci toutes les colonnes. Pour éviter de descendre plusieurs fois un seul bloc, le scan de 'movinggrid' se fait du bas vers le haut*/
+            movinggrid[i][j] = movinggrid[i-1][j];
+        }
+    }
+    for (int k = 0; k < nbcolonnes; k++){ // Remplis la ligne du haut de bloc_VIDE
+        movinggrid[0][k] = bloc_VIDE;
+    }
+    return;
 }
+
+void deplacement_gauche(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]){
+    for(int i = 0; i < nblignes ; i++){
+        for(int j = 0; j < nbcolonnes; j++){
+            if (movinggrid[i][j] != bloc_VIDE){
+                if(grille[i][j-1] != bloc_VIDE){ /*vérifie si le bloc à gauche dans grille contient un bloc*/
+                    return; /*Donc on ne fait rien*/
+                } else if (j == 0){
+                    return; /*Et si on a atteint la ligne de gauche, on ne fait rien*/
+                }
+            }
+        }
+    }
+    for(int i = 0; i < nblignes; i++){
+        for(int j = 0; j < nbcolonnes; j++){
+            movinggrid[i][j] = movinggrid[i][j+1];
+        }
+        movinggrid[i][nbcolonnes] = bloc_VIDE; //on remplis de bloc_VIDE sur la dernière colonne
+    }
+    return;
+}
+
+void deplacement_droite(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]){
+    for(int i = 0; i < nblignes ; i++){
+        for(int j = 0; j < nbcolonnes; j++){
+            if (movinggrid[i][j] != bloc_VIDE){
+                if(grille[i][j+1] != bloc_VIDE){ /*vérifie si le bloc à droite dans grille contient un bloc*/
+                    return; /*Donc on ne fait rien*/
+                } else if (j == nbcolonnes-1){
+                    return; /*Et si on a atteint la ligne de droite, on ne fait rien*/
+                }
+            }
+        }
+    }
+    for(int i = 0; i < nblignes; i++){
+        for(int j = nbcolonnes-1; j > 0; j--){
+            movinggrid[i][j] = movinggrid[i][j-1];
+        }
+        movinggrid[i][0] = bloc_VIDE; //on remplis de bloc_VIDE sur la dernière colonne
+    }
+    return;
+}
+
 
 
 void delai(int nb_secondes)
