@@ -5,4 +5,4 @@ extern const int nbcolonnes;
 
 extern const bool debug;
 
-bool endgame(int* grille);
+bool endgame(int grille[nblignes][nbcolonnes]);

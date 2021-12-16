@@ -3,6 +3,7 @@
 #include <ncurses.h>
 #include <time.h>
 #include "regles.h"
+#include "debug.h"
 
 const int bloc_VIDE = 0;
 const int bloc_O = 1; /* correspond au tétromino en forme de carré */
@@ -26,9 +27,9 @@ void init_grille(int grille[nblignes][nbcolonnes]){
     }
 }
 
+
 /*Cette fonction permet de placer un tetrimino directement prêt en haut de la grille secondaire*/
 void generation_tetrimino(int movinggrid[nblignes][nbcolonnes]){
-
     int id_bloc = (rand()%7)+1; // Génération d'un bloc random. La fonction rand() n'ayant pas de max, on utilise un modulo 8. On veut aussi ne pas obtenir la valeur 0.
     /*les différents if correspondent à une disjonction de cas*/
     
@@ -75,24 +76,52 @@ void generation_tetrimino(int movinggrid[nblignes][nbcolonnes]){
         movinggrid[1][4]=id_bloc;
         movinggrid[1][6]=id_bloc;
     }
+        
+
+}
+
+
+void ligne_pleine(int grille[nblignes][nbcolonnes]){
+    bool ligne_pleine=true;
+    for(int i=0;i<nbcolonnes;i++){
+        if (grille[nblignes-1][i]==0){
+            ligne_pleine=false;
+        }
+    }
+    if (ligne_pleine){
+        for(int i=0;i<nbcolonnes;i++){
+            grille[nblignes-1][i]=0;
+        }
+        for(int i=nblignes-1;i>0;i--){
+            for(int j=nbcolonnes; j>0;j--){
+                if (grille[i][j]!=0){
+                    grille[i+1][j]=grille[i][j];
+                }
+            }
+        }
+    }
 }
 
 void placer(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]){
+    int temp[4][2];
+    int x=0;
     for (int i = 0; i < nblignes; i++){
         for (int j = 0; j < nbcolonnes; j++){
             if(movinggrid[i][j] != 0){
-                grille[i][j] = movinggrid[i][j];
+                grille[i][j]=movinggrid[i][j];
             }
         }
     }
     init_grille(movinggrid);
-    generation_tetrimino(movinggrid); //Regénére un tetrimino une fois l'autre placer.
+    endgame(grille);//avant de placer le tetrimino suivant, on vérifie si la première ligne n'est pas occupée par un bloc, si c'est le cas, on termine la partie(et le programme pour l'instant)
+    ligne_pleine(grille);//si la ligne du bas est pleine, on la vide et on fait descendre tous les autres tertiminos d'une ligne
+    generation_tetrimino(movinggrid); //génère un tetrimino une fois l'autre placé.
     return;
 }
 
 /*Cette fonction permet de descendre un bloc vers le bas lorsque c'est possible*/
 void deplacement_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]){
-    for(int i = nblignes-1; i > 0 ; i--){ /*Cette boucle balaye toutes les lignes*/
+    for(int i = nblignes-1; i > 0 ; i--){ /*Cette boucle balaie toutes les lignes*/
         for(int j = nbcolonnes-1; j >= 0; j--){ /*Et celle-ci toutes les colonnes*/
             if (movinggrid[i][j] != bloc_VIDE){
                 if(grille[i+1][j] != bloc_VIDE){/*Si le carré dans 'grille' juste au-dessous de celui qu'on vient de détecter dans 'movinggrid' n'est pas vide, on ne peut pas descendre*/
@@ -105,7 +134,7 @@ void deplacement_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][
             }
         }
     }
-    for(int i = nblignes-1; i > 0; i--){ /*Cette boucle balaye toutes les lignes*/
+    for(int i = nblignes-1; i > 0; i--){ /*Cette boucle balaie toutes les lignes*/
         for(int j = nbcolonnes; j >= 0; j--){ /*Et celle-ci toutes les colonnes. Pour éviter de descendre plusieurs fois un seul bloc, le scan de 'movinggrid' se fait du bas vers le haut*/
             movinggrid[i][j] = movinggrid[i-1][j];
         }
@@ -179,11 +208,26 @@ void teleportation_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes
     return;
 }
 
+void rotation(int movinggrid[nblignes][nbcolonnes],int grille[nblignes][nbcolonnes]){
+    for (int i = 0; i < nblignes; i++){
+        for (int j = 0; j < nbcolonnes; j++){
+            if (movinggrid[i][j]!=0){
+                movinggrid[j][-i]=movinggrid[i][j];
+
+                movinggrid[i][j]=0;
+            }
+        }
+    }
+}
+
 void delai(int nb_secondes)
 {
     clock_t temps = clock();
     while (clock() < temps + 1000*nb_secondes);
 }
+
+
+
 
 /*Ce qui reste à faire : L'étude du cas pour translation (il suffit de s'inspirer de deplacement_bas), 
 la remise en place du main autour, les .h, le make et la définition des variables habituelles.

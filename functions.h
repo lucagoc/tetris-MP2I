@@ -1,3 +1,4 @@
+
 #ifndef FUNCTIONS_H
 
 #define FUNCTIONS_H
@@ -18,6 +19,8 @@ extern const int nbcolonnes;
 
 void init_grille(int grille[nblignes][nbcolonnes]);
 
+void ligne_pleine(int grille[nblignes][nbcolonnes]);
+
 void generation_tetrimino(int movinggrid[nblignes][nbcolonnes]);
 
 void deplacement_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]);
@@ -29,6 +32,13 @@ void deplacement_droite(int movinggrid[nblignes][nbcolonnes], int grille[nbligne
 void teleportation_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]);
 
 void delai(int nb_secondes);
+
+void placer(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]);
+
+void rotation(int movinggrid[nblignes][nbcolonnes],int grille[nblignes][nbcolonnes]);
+
+
+
 
 
 

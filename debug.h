@@ -6,3 +6,4 @@ void debug_head(FILE* fp);
 void debug_write_deplacement(FILE* fp, char dir);
 FILE* debug_start();
 
+

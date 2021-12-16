@@ -12,11 +12,14 @@ const bool debug = true;
 
 
 /*Cette fonction permet de vérifier si le joueur n'a pas perdu, c'est-à-dire si aucun bloc ne touche le haut de l'écran*/
-bool endgame(int* grille){
-    for(int i=0;i<nbcolonnes;i++){ /*Ici, on fait bouger i de 0 à 9 pour étudier toutes les positions du haut de l'écran*/
-        if(i!=0){
-            return true; /*Si l'une des positions est prise, alors le joueur a perdu, on renvoie alors true pour indiquer que le jeu est fini*/
+void endgame(int grille[nblignes][nbcolonnes]){
+    for(int i=0;i<nbcolonnes;i++){
+        if(grille[1][i]!=0){
+            endwin();
+            printf("\nFin de partie\n");
+            exit(0);
+ 
+            //ceci n'est qu'une solution temporaire de fin de partie, on fera mieux une fois que l'on aura les rotations et le temps OK 
         }
     }
-    return false; /*Si l'exécution se poursuit jusqu'à ce stade, cela signifie alors que aucune position n'est prise, on indique alors que tout va bien*/
 }

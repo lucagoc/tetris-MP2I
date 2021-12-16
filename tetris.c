@@ -9,6 +9,7 @@
 #include "debug.h"
 
 
+
 int main(){
 
     /*Ecrit un fichier de debug si le debug mode est activé, voir regles.c*/
@@ -22,7 +23,7 @@ int main(){
     init_grille(movinggrid);    
 
     initialisation_interface();
-    WINDOW *fenetre = newwin(nblignes+2,(nbcolonnes*2)+2,0,0); //création de la fenêtre de jeu, nombre de colonne multiplié par 2 pour faire des carrés.
+    WINDOW *fenetre = newwin(nblignes+2,(nbcolonnes*2)+2,0,0); //création de la fenêtre de jeu, nombre de colonnes multiplié par 2 pour faire des carrés.
     draw_interface(grille, movinggrid, fenetre);
 
     generation_tetrimino(movinggrid);
@@ -30,11 +31,10 @@ int main(){
     /*Commande de controle*/
     int key;
     bool ingame = true;
-    while(ingame == true){ 
+    while(ingame == true){
+
         key = wgetch(fenetre);
-
-        /*timeout(1000);*/ //défini une seconde d'attente pour le getch, retourne ERR si rien n'est pressé.
-
+        
         switch(key){
             case 65:
                 teleportation_bas(movinggrid, grille);
@@ -56,10 +56,14 @@ int main(){
                 ingame = false;
                 endwin();
                 exit(0);
+            case 'd':
+                rotation(movinggrid,grille);
+                break;
         };
-
         draw_interface(grille, movinggrid, fenetre);
+        
     }
+
 
     endwin();
     return 0;
