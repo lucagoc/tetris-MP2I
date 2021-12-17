@@ -40,9 +40,16 @@ FILE* debug_start(){
 	}
 }
 
-void debug_write_deplacement(FILE* fp, char dir){
+void debug_write_keypress(FILE* fp, char dir){
 	if(debug){
 		debug_head(fp);
-		fprintf(fp, "Fonction de déplacement %c exécutée", dir);
+		fprintf(fp, "Touche %c pressée", dir);
+	}
+}
+
+void debug_write_selection(FILE* fp, int imin, int jmin, int imax, int jmax){
+	if(debug){
+		debug_head(fp);
+		fprintf(fp, "imin = %d, jmin = %d, imax = %d, jmax = %d", imin, jmin, imax, jmax);
 	}
 }

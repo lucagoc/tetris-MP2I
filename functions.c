@@ -103,8 +103,6 @@ void ligne_pleine(int grille[nblignes][nbcolonnes]){
 }
 
 void placer(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]){
-    int temp[4][2];
-    int x=0;
     for (int i = 0; i < nblignes; i++){
         for (int j = 0; j < nbcolonnes; j++){
             if(movinggrid[i][j] != 0){
@@ -208,7 +206,7 @@ void teleportation_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes
     return;
 }
 
-void rotation(int movinggrid[nblignes][nbcolonnes],int grille[nblignes][nbcolonnes]){
+void rotation(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]){
     for (int i = 0; i < nblignes; i++){
         for (int j = 0; j < nbcolonnes; j++){
             if (movinggrid[i][j]!=0){
@@ -226,9 +224,47 @@ void delai(int nb_secondes)
     while (clock() < temps + 1000*nb_secondes);
 }
 
+void rotation_horaire(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]){
 
+    //on sélectionne d'abord le tetrino dans un rectangle. Par défaut on sélectionnne la grille entière.
+    int imin = nblignes;
+    int jmin = nbcolonnes;
+    int imax = 0;
+    int jmax = 0;
 
+    //int temp_grille[nblignes][nbcolonnes] // On créé une grille temporaire afin de transposer et vérifier les opérations.
+    //init_grille(temp_grille);
 
-/*Ce qui reste à faire : L'étude du cas pour translation (il suffit de s'inspirer de deplacement_bas), 
-la remise en place du main autour, les .h, le make et la définition des variables habituelles.
- Je reprendrais le reste plus tard, je ferai translation*/
+    for (int i = 0; i < nblignes; i++){
+        for (int j = 0; j < nbcolonnes; j++){
+            if(movinggrid[i][j] != bloc_VIDE){
+                if(i < jmin){
+                    imin = i;
+                } 
+                if(i > imax){
+                    imax = i;
+                }
+                if(j < jmin){
+                    jmin = j;
+                } 
+                if(j > jmax){
+                    jmax = j;
+                }
+            }
+        }
+    }
+
+    movinggrid[imin][jmin] = 3;
+    movinggrid[imax][jmax] = 4;
+
+    /*//Rotation de la matrice carré
+    for (int j = jmin; j < jmax-jmin; j++){
+      for (int i = j; i < jmax-jmin - j; i++){
+           int temp  = movinggrid[i][j];
+           movinggrid[i][j] = movinggrid[jmax-jmin-j][i];
+           movinggrid[jmax-jmin-j][i] = movinggrid[jmax-jmin-i][jmax-jmin-j];
+           movinggrid[jmax-jmin-i][jmax-jmin-j] = movinggrid[j][jmax-jmin-i];
+           movinggrid[j][jmax-jmin-i] = temp;
+       }
+    }*/
+}

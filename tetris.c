@@ -38,26 +38,27 @@ int main(){
         switch(key){
             case 65:
                 teleportation_bas(movinggrid, grille);
-                debug_write_deplacement(fp, 'U');
+                debug_write_keypress(fp, '^');
                 break;
             case 66: //Touche flèche bas
                 deplacement_bas(movinggrid, grille);
-                debug_write_deplacement(fp, 'D');
+                debug_write_keypress(fp, 'B');
                 break;
             case 67: //Touche flèche droite
                 deplacement_droite(movinggrid, grille);
-                debug_write_deplacement(fp, 'R');
+                debug_write_keypress(fp, '>');
                 break;
             case 68: //Touche flèche gauche
                 deplacement_gauche(movinggrid, grille);
-                debug_write_deplacement(fp, 'L');
+                debug_write_keypress(fp, '<');
                 break;
             case 'q': //Touche Q pour quitter la boucle.
                 ingame = false;
                 endwin();
                 exit(0);
             case 'd':
-                rotation(movinggrid,grille);
+                rotation_horaire(movinggrid,grille);
+                debug_write_keypress(fp, 'd');
                 break;
         };
         draw_interface(grille, movinggrid, fenetre);

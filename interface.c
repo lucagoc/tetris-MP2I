@@ -48,7 +48,7 @@ void affiche_grille(int grille[nblignes][nbcolonnes], WINDOW *fenetre){
 
 void draw_interface(int grille[nblignes][nbcolonnes], int movinggrid[nblignes][nbcolonnes], WINDOW *fenetre){
 
-    wclear(fenetre); //efface la frame précédente
+    werase(fenetre); //efface la frame précédente
 
     box(fenetre, 0, 0);
     affiche_grille(grille, fenetre);

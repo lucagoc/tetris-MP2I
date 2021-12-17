@@ -37,6 +37,8 @@ void placer(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonne
 
 void rotation(int movinggrid[nblignes][nbcolonnes],int grille[nblignes][nbcolonnes]);
 
+void rotation_horaire(int movinggrid[nblignes][nbcolonnes],int grille[nblignes][nbcolonnes]);
+
 
 
 

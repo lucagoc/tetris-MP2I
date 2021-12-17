@@ -5,7 +5,7 @@
 #include <stdbool.h>
 
 
-const int nblignes = 20;
+const int nblignes = 20 ;
 const int nbcolonnes = 10;
 
 const bool debug = true;
