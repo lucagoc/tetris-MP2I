@@ -3,6 +3,7 @@
 #include <time.h>
 #include "regles.h"
 
+const int bloc_DEBUG = -1; //Bloc de DEBUG, permet de débugger grâce à son affichage spécial.
 
 void affiche_debug(int movingrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]){
 	if(debug){

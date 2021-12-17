@@ -20,10 +20,10 @@ int main(){
     int movinggrid[nblignes][nbcolonnes];
 
     init_grille(grille);
-    init_grille(movinggrid);    
+    init_grille(movinggrid);
 
     initialisation_interface();
-    WINDOW *fenetre = newwin(nblignes+2,(nbcolonnes*2)+2,0,0); //création de la fenêtre de jeu, nombre de colonnes multiplié par 2 pour faire des carrés.
+    WINDOW *fenetre = newwin(nblignes,(nbcolonnes*2)+2,0,0); //création de la fenêtre de jeu, nombre de colonnes multiplié par 2 pour faire des carrés.
     draw_interface(grille, movinggrid, fenetre);
 
     generation_tetrimino(movinggrid);

@@ -18,10 +18,10 @@ const int bloc_T = 7; /* correspond au tétromino en forme de T */
 /*Ce programme contient l'ensemble des fonctions à utiliser actuellement.*/
 
 
-/*Cette fonction void permet de remplir de 0 la grille passée en entrées. Elle est plus rapide que si l'on remplaçait uniquement les 1 par des zéros, car il faudrait alors comparer*/
+/*Cette fonction void permet de remplir de 0 la grille passée en entrées.*/
 void init_grille(int grille[nblignes][nbcolonnes]){
     for (int x = 0; x < nblignes; x++){
-        for (int y=0; y < nbcolonnes; y++){
+        for (int y = 0; y < nbcolonnes; y++){
             grille[x][y] = 0;
         }
     }
@@ -83,19 +83,19 @@ void generation_tetrimino(int movinggrid[nblignes][nbcolonnes]){
 
 void ligne_pleine(int grille[nblignes][nbcolonnes]){
     bool ligne_pleine=true;
-    for(int i=0;i<nbcolonnes;i++){
-        if (grille[nblignes-1][i]==0){
+    for(int  i = 0; i < nbcolonnes; i++){
+        if (grille[nblignes-1][i] == 0){
             ligne_pleine=false;
         }
     }
     if (ligne_pleine){
-        for(int i=0;i<nbcolonnes;i++){
-            grille[nblignes-1][i]=0;
+        for(int i = 0; i < nbcolonnes; i++){
+            grille[nblignes-1][i] = 0;
         }
-        for(int i=nblignes-1;i>0;i--){
-            for(int j=nbcolonnes; j>0;j--){
-                if (grille[i][j]!=0){
-                    grille[i+1][j]=grille[i][j];
+        for(int i = nblignes-1; i > 0; i--){
+            for(int j = nbcolonnes; j > 0; j--){
+                if (grille[i][j] != 0){
+                    grille[i+1][j] = grille[i][j];
                 }
             }
         }
@@ -209,10 +209,9 @@ void teleportation_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes
 void rotation(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]){
     for (int i = 0; i < nblignes; i++){
         for (int j = 0; j < nbcolonnes; j++){
-            if (movinggrid[i][j]!=0){
-                movinggrid[j][-i]=movinggrid[i][j];
-
-                movinggrid[i][j]=0;
+            if (movinggrid[i][j] != 0){
+                movinggrid[j][-i] = movinggrid[i][j];
+                movinggrid[i][j] = 0;
             }
         }
     }
@@ -238,24 +237,17 @@ void rotation_horaire(int movinggrid[nblignes][nbcolonnes], int grille[nblignes]
     for (int i = 0; i < nblignes; i++){
         for (int j = 0; j < nbcolonnes; j++){
             if(movinggrid[i][j] != bloc_VIDE){
-                if(i < jmin){
-                    imin = i;
-                } 
-                if(i > imax){
-                    imax = i;
-                }
-                if(j < jmin){
-                    jmin = j;
-                } 
-                if(j > jmax){
-                    jmax = j;
-                }
+                if(i < jmin) imin = i;
+                if(i > imax) imax = i;
+                if(j < jmin) jmin = j;
+                if(j > jmax) jmax = j;
+
             }
         }
     }
 
-    movinggrid[imin][jmin] = 3;
-    movinggrid[imax][jmax] = 4;
+    movinggrid[imin][jmin] = bloc_DEBUG;
+    movinggrid[imax][jmax] = bloc_DEBUG;
 
     /*//Rotation de la matrice carré
     for (int j = jmin; j < jmax-jmin; j++){

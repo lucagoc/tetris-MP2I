@@ -7,9 +7,9 @@
 
 /*Permet d'afficher la grille de jeu*/
 void affiche_grille(int grille[nblignes][nbcolonnes], WINDOW *fenetre){
-    for(int x = 0; x < nblignes; x++){
+    for(int x = 2; x < nblignes; x++){
         for (int y = 0; y < nbcolonnes; y++){
-            wmove(fenetre,x+1,(y*2)+1);
+            wmove(fenetre,x-1,(y*2)+1);
 
             /*Implémentation des couleurs selon le type du bloc*/
 
@@ -41,6 +41,8 @@ void affiche_grille(int grille[nblignes][nbcolonnes], WINDOW *fenetre){
                 wattron(fenetre, COLOR_PAIR(bloc_T));
                 wprintw(fenetre,"  ");
                 wattroff(fenetre, COLOR_PAIR(bloc_T));
+            } else if(grille[x][y] == bloc_DEBUG){
+                wprintw(fenetre,"[]");
             }
         }
     }
