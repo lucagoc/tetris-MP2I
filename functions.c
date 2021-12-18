@@ -36,10 +36,18 @@ bool grille_vide(int grille[nblignes][nbcolonnes]){
     return true;
 }
 
+/*Génère un nombre aléatoire en se basant sur rand() et la date*/
+int genRandom(){
+    /*Comme random est dépendant de la machine, on ajoute des données de temps pour augmenter l'effet aléatoire.*/
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    return (tm.tm_year+tm.tm_mon+tm.tm_mday+tm.tm_hour+tm.tm_min+tm.tm_sec+rand())%7+1;
+}
+
 /*Cette fonction permet de placer un tetrimino directement prêt en haut de la grille secondaire*/
 void generation_tetrimino(int movinggrid[nblignes][nbcolonnes]){
 
-    int id_bloc = (rand()%7)+1; // Génération d'un bloc random. La fonction rand() n'ayant pas de max, on utilise un modulo 8. On veut aussi ne pas obtenir la valeur 0.
+    int id_bloc =  genRandom();
 
     /*Les bloc sont généré au milieu de la grille.*/
     int milieuC = nbcolonnes/2;
