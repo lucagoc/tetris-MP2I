@@ -56,9 +56,13 @@ int main(){
                 ingame = false;
                 endwin();
                 exit(0);
-            case 'd':
+            case 'd': //Rotation
                 rotation_horaire(movinggrid,grille);
                 debug_write_keypress(fp, 'd');
+                break;
+            case 'y': //Génére un bloc de debug
+                debug_tetrimino(movinggrid);
+                debug_write_keypress(fp, 'y');
                 break;
         };
         draw_interface(grille, movinggrid, fenetre);
