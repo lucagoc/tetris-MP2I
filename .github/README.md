@@ -3,7 +3,7 @@ tetris-MP2I (Il faut trouver un nom !)
 
 C'est tetris, mais en C et fait par nous !
 
-![Game Preview](https://cdn.discordapp.com/attachments/899202080215027722/921869281438883872/2021-12-18_21-48-05.gif)
+![Game Preview](./.github/demo.gif)
 
 ---
 
