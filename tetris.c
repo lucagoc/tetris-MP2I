@@ -38,6 +38,7 @@ int main(){
         switch(key){
             case 65:
                 teleportation_bas(movinggrid, grille);
+                placer(movinggrid,grille);
                 debug_write_keypress(fp, '^');
                 break;
             case 66: //Touche flèche bas

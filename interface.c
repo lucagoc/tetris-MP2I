@@ -42,10 +42,35 @@ void affiche_grille(int grille[nblignes][nbcolonnes], WINDOW *fenetre){
                 wprintw(fenetre,"  ");
                 wattroff(fenetre, COLOR_PAIR(bloc_T));
             } else if(grille[x][y] == bloc_DEBUG){
+                wprintw(fenetre,"{}");
+            }
+        }
+    }
+}
+
+/*permet de prévisualiser l'emplacement du tetrimino*/
+void ghost_bloc(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes], WINDOW *fenetre){
+
+    /*Copie de la movinggrid*/
+    int temp_grille[nblignes][nbcolonnes];
+    for (int i = 0; i < nblignes; i++){
+        for (int j = 0; j < nbcolonnes; j++){
+            temp_grille[i][j] = movinggrid[i][j];
+        }
+    }
+
+    teleportation_bas(temp_grille, grille);
+    
+    /*Affichage des ghostblocs*/
+    for(int x = 2; x < nblignes; x++){
+        for (int y = 0; y < nbcolonnes; y++){
+            if(temp_grille[x][y] != 0) {
+                wmove(fenetre,x-1,(y*2)+1);
                 wprintw(fenetre,"[]");
             }
         }
     }
+    return;
 }
 
 void draw_interface(int grille[nblignes][nbcolonnes], int movinggrid[nblignes][nbcolonnes], WINDOW *fenetre){
@@ -54,6 +79,7 @@ void draw_interface(int grille[nblignes][nbcolonnes], int movinggrid[nblignes][n
 
     box(fenetre, 0, 0);
     affiche_grille(grille, fenetre);
+    ghost_bloc(movinggrid, grille, fenetre);
     affiche_grille(movinggrid, fenetre);
 
     if (debug){
@@ -92,3 +118,4 @@ void pause(){
     
     return;
 }
+

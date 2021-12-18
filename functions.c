@@ -27,6 +27,14 @@ void init_grille(int grille[nblignes][nbcolonnes]){
     }
 }
 
+bool grille_vide(int grille[nblignes][nbcolonnes]){
+    for (int i = 0; i < nblignes; i++){
+        for (int j = 0; j < nbcolonnes; j++){
+            if (grille[i][j] != bloc_VIDE) return false;
+        }
+    }
+    return true;
+}
 
 /*Cette fonction permet de placer un tetrimino directement prêt en haut de la grille secondaire*/
 void generation_tetrimino(int movinggrid[nblignes][nbcolonnes]){
@@ -82,7 +90,7 @@ void generation_tetrimino(int movinggrid[nblignes][nbcolonnes]){
 
 
 void ligne_pleine(int grille[nblignes][nbcolonnes]){
-    bool ligne_pleine=true;
+    bool ligne_pleine = true;
     for(int  i = 0; i < nbcolonnes; i++){
         if (grille[nblignes-1][i] == 0){
             ligne_pleine=false;
@@ -186,24 +194,23 @@ void deplacement_droite(int movinggrid[nblignes][nbcolonnes], int grille[nbligne
 }
 
 void teleportation_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]){
+
+    if(grille_vide(movinggrid)) return; // Evite une boucle infinie
     bool descend = true;
     while(descend){
         for (int i = 0; i < nblignes; i++){
             for (int j = 0; j < nbcolonnes; j++){
                 if (movinggrid[i][j] != bloc_VIDE){
                     if(grille[i+1][j] != bloc_VIDE){/*Si le carré dans 'grille' juste au-dessous de celui qu'on vient de détecter dans 'movinggrid' n'est pas vide, on ne peut pas descendre*/
-                        placer(movinggrid,grille); /*Donc on place le bloc dans la grille*/
-                        descend = false;
+                        return;
                     } else if (i == nblignes-1){
-                        placer(movinggrid,grille); /*Et si on a atteint la ligne du bas, le bloc ne peut plus descendre, donc on le place dans 'grille'*/
-                        descend = false;
+                        return;
                     }
                 }
             }
         }
         deplacement_bas(movinggrid,grille);
     }
-    return;
 }
 
 void delai(int nb_secondes)

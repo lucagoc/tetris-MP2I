@@ -19,6 +19,8 @@ extern const int nbcolonnes;
 
 void init_grille(int grille[nblignes][nbcolonnes]);
 
+void grille_vide(int grille[nblignes][nbcolonnes]);
+
 void ligne_pleine(int grille[nblignes][nbcolonnes]);
 
 void generation_tetrimino(int movinggrid[nblignes][nbcolonnes]);
