@@ -3,7 +3,7 @@ tetris-MP2I (Il faut trouver un nom !)
 
 C'est tetris, mais en C et fait par nous !
 
-![Game Preview](./.github/demo.gif)
+![Game Preview](./demo.gif)
 
 ---
 
