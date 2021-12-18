@@ -38,51 +38,55 @@ bool grille_vide(int grille[nblignes][nbcolonnes]){
 
 /*Cette fonction permet de placer un tetrimino directement prêt en haut de la grille secondaire*/
 void generation_tetrimino(int movinggrid[nblignes][nbcolonnes]){
+
     int id_bloc = (rand()%7)+1; // Génération d'un bloc random. La fonction rand() n'ayant pas de max, on utilise un modulo 8. On veut aussi ne pas obtenir la valeur 0.
+
+    /*Les bloc sont généré au milieu de la grille.*/
+    int milieuC = nbcolonnes/2;
+
     /*les différents if correspondent à une disjonction de cas*/
-    
     if(id_bloc == bloc_O){
         /* correspond au tétromino en forme de carré */
-        movinggrid[0][5]=id_bloc;
-        movinggrid[0][6]=id_bloc;
-        movinggrid[1][5]=id_bloc;
-        movinggrid[1][6]=id_bloc;
+        movinggrid[0][milieuC]=id_bloc;
+        movinggrid[0][milieuC+1]=id_bloc;
+        movinggrid[1][milieuC]=id_bloc;
+        movinggrid[1][milieuC+1]=id_bloc;
     } else if(id_bloc == bloc_I){
         /* correspond au tétromino en forme de baton */
-        movinggrid[0][5]=id_bloc;
-        movinggrid[1][5]=id_bloc;
-        movinggrid[2][5]=id_bloc;
-        movinggrid[3][5]=id_bloc;
+        movinggrid[1][milieuC-2]=id_bloc;
+        movinggrid[1][milieuC-1]=id_bloc;
+        movinggrid[1][milieuC]=id_bloc;
+        movinggrid[1][milieuC+1]=id_bloc;
     } else if (id_bloc == bloc_S){
         /* correspond au tétromino en forme de biais inversé */
-        movinggrid[0][5]=id_bloc;
-        movinggrid[1][5]=id_bloc;
-        movinggrid[1][6]=id_bloc;
-        movinggrid[2][6]=id_bloc;
+        movinggrid[0][milieuC+1]=id_bloc;
+        movinggrid[0][milieuC]=id_bloc;
+        movinggrid[1][milieuC]=id_bloc;
+        movinggrid[1][milieuC-1]=id_bloc;
     } else if (id_bloc == bloc_Z){
         /* correspond au tétromino en forme de biais */
-        movinggrid[0][5]=id_bloc;
-        movinggrid[1][5]=id_bloc;
-        movinggrid[1][4]=id_bloc;
-        movinggrid[2][4]=id_bloc;
+        movinggrid[0][milieuC-1]=id_bloc;
+        movinggrid[0][milieuC]=id_bloc;
+        movinggrid[1][milieuC]=id_bloc;
+        movinggrid[1][milieuC+1]=id_bloc;
     } else if (id_bloc == bloc_L){
         /* correspond au tétromino en forme de L */
-        movinggrid[0][5]=id_bloc;
-        movinggrid[1][5]=id_bloc;
-        movinggrid[2][5]=id_bloc;
-        movinggrid[2][6]=id_bloc;
+        movinggrid[0][milieuC+1]=id_bloc;
+        movinggrid[1][milieuC+1]=id_bloc;
+        movinggrid[1][milieuC]=id_bloc;
+        movinggrid[1][milieuC-1]=id_bloc;
     } else if (id_bloc == bloc_J){
         /* correspond au tétromino en forme de L inversé */
-        movinggrid[0][5]=id_bloc;
-        movinggrid[1][5]=id_bloc;
-        movinggrid[2][5]=id_bloc;
-        movinggrid[2][4]=id_bloc;
+        movinggrid[0][milieuC-1]=id_bloc;
+        movinggrid[1][milieuC-1]=id_bloc;
+        movinggrid[1][milieuC]=id_bloc;
+        movinggrid[1][milieuC+1]=id_bloc;
     } else if(id_bloc == bloc_T){
         /* correspond au tétromino en forme de T */
-        movinggrid[0][5]=id_bloc;
-        movinggrid[1][5]=id_bloc;
-        movinggrid[1][4]=id_bloc;
-        movinggrid[1][6]=id_bloc;
+        movinggrid[0][milieuC]=id_bloc;
+        movinggrid[1][milieuC]=id_bloc;
+        movinggrid[1][milieuC+1]=id_bloc;
+        movinggrid[1][milieuC-1]=id_bloc;
     }
         
 
