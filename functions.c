@@ -206,24 +206,13 @@ void teleportation_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes
     return;
 }
 
-void rotation(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]){
-    for (int i = 0; i < nblignes; i++){
-        for (int j = 0; j < nbcolonnes; j++){
-            if (movinggrid[i][j] != 0){
-                movinggrid[j][-i] = movinggrid[i][j];
-                movinggrid[i][j] = 0;
-            }
-        }
-    }
-}
-
 void delai(int nb_secondes)
 {
     clock_t temps = clock();
     while (clock() < temps + 1000*nb_secondes);
 }
 
-void rotation_horaire(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]){
+void rotation(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]){
 
     /*Encadrement du tetrimino dans la grille*/
     int imin = nblignes;
@@ -242,30 +231,60 @@ void rotation_horaire(int movinggrid[nblignes][nbcolonnes], int grille[nblignes]
         }
     }
 
-    //Extension de la matrice obtenu en matrice carré.
+    /*Calcul du milieu de la matrice pour se baser sur l'orientation*/
+    int imilieu = (imax+imin)/2+1;
+    int jmilieu = (jmax+jmin)/2+1;
+
+    /*Extension de la matrice obtenu en matrice carré. Cherche la solution la plus proche du centre.
+     *Agrandie en fonction de la taille disponible dans la grille et éviter un dépassement de tableau.
+     */
     while(imax-imin != jmax-jmin){
         if(imax-imin > jmax-jmin){
-            jmax++;
+            if(jmax-jmilieu > jmilieu-jmin){
+                if(jmax < nbcolonnes-1) jmax++;
+                else jmin--;
+            }
+            else {
+                if(jmin > 0) jmin--;
+                else jmax++;
+            }
         } else
         if(imax-imin < jmax-jmin){
-            imax++;
+            if(imax-imilieu < imilieu-imin){
+                if(imax < nblignes-1) imax++;
+                else imin--;
+            }
+            else {
+                if (imin > 0) imin--;
+                else imax++;
+            }
         }
     }
 
-    /*
-    //Rotation de la matrice carré
-    for (int i = 0; i < imax-imin; i++){
-        for (int j = i; j < jmax-jmin-i; j++){
+    /*Vérification de la disponibilité dans la grille des emplacements utilisés.*/
+    for (int i = imin; i <= imax; i++){
+        for (int j = jmin; j <= jmax; j++){
+            if(grille[i][j] != bloc_VIDE) return;
+        }
+    }
+
+    //Inversement par la diagonale de la matrice
+    for (int i = 0; i < imax-imin+1; i++){
+        for (int j = i; j < imax-imin+1; j++){
             int temp = movinggrid[imin+i][jmin+j];
-            movinggrid[imin+i][jmin+j] = movinggrid[jmax-j][imin+i];
-            movinggrid[jmax-j][imin+i] = movinggrid[imax-i][jmax-j];
-            movinggrid[imax-i][jmax-j] = movinggrid[jmin+j][imax-i];
-            movinggrid[jmin+j][imax-i] = temp;
+            movinggrid[imin+i][jmin+j] = movinggrid[imin+j][jmin+i];
+            movinggrid[imin+j][jmin+i] = temp;
         }
     }
-    */
 
-    int imilieu = (imax-imin)/2;
-    int jmilieu = (jmax-jmin)/2;
+    //Inversement par la verticale de la matrice
+    for (int i = 0; i < imax-imin+1; i++){
+        for (int j = 0; j < (imax-imin+1)/2; j++){
+            int temp = movinggrid[imin+i][jmin+j];
+            movinggrid[imin+i][jmin+j] = movinggrid[imin+i][jmax-j];
+            movinggrid[imin+i][jmax-j] = temp;
+        }
+    }
 
+    return;
 }

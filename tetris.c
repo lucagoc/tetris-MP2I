@@ -57,7 +57,7 @@ int main(){
                 endwin();
                 exit(0);
             case 'd': //Rotation
-                rotation_horaire(movinggrid,grille);
+                rotation(movinggrid,grille);
                 debug_write_keypress(fp, 'd');
                 break;
             case 'y': //Génére un bloc de debug
