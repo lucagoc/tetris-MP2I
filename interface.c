@@ -83,3 +83,12 @@ void initialisation_interface(){
     noecho();  // Cache les touches pressées
     refresh();
 }
+
+void pause(){
+    
+    
+    getch();
+    
+    
+    return;
+}

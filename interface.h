@@ -9,3 +9,4 @@ void draw_interface(int grille[nblignes][nbcolonnes], int movinggrid[nblignes][n
 
 void initialisation_interface();
 
+void pause();

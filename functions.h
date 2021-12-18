@@ -37,7 +37,7 @@ void placer(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonne
 
 void rotation(int movinggrid[nblignes][nbcolonnes],int grille[nblignes][nbcolonnes]);
 
-
+void inventaire(int movinggrid[nblignes][nbcolonnes]);
 
 
 

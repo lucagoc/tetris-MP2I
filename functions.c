@@ -288,3 +288,7 @@ void rotation(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolon
 
     return;
 }
+
+void inventaire(int movinggrid[nblignes][nbcolonnes]){
+    return;
+}

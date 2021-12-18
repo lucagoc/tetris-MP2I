@@ -64,13 +64,18 @@ int main(){
                 debug_tetrimino(movinggrid);
                 debug_write_keypress(fp, 'y');
                 break;
+            case 's':
+                inventaire(movinggrid);
+                debug_write_keypress(fp, 's');
+            case 'p':
+                pause();
+                debug_write_keypress(fp, 'p');
+                break;
         };
-        draw_interface(grille, movinggrid, fenetre);
-        
-    }
 
+        draw_interface(grille, movinggrid, fenetre);
+    }
 
     endwin();
     return 0;
-
 }
