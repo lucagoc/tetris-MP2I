@@ -37,17 +37,19 @@ bool grille_vide(int grille[nblignes][nbcolonnes]){
 }
 
 /*Génère un nombre aléatoire en se basant sur rand() et la date*/
-int genRandom(){
+int genRandom(int id_bloc){
     /*Comme random est dépendant de la machine, on ajoute des données de temps pour augmenter l'effet aléatoire.*/
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-    return (tm.tm_year+tm.tm_mon+tm.tm_mday+tm.tm_hour+tm.tm_min+tm.tm_sec+rand())%7+1;
+    int resultat = (tm.tm_year+tm.tm_mon+tm.tm_mday+tm.tm_hour+tm.tm_min+tm.tm_sec+rand())%7+1;
+    while(resultat == id_bloc){
+        resultat = (rand())%7+1;
+    }
+    return resultat;
 }
 
 /*Cette fonction permet de placer un tetrimino directement prêt en haut de la grille secondaire*/
-void generation_tetrimino(int movinggrid[nblignes][nbcolonnes]){
-
-    int id_bloc =  genRandom();
+int generation_tetrimino(int movinggrid[nblignes][nbcolonnes], int id_bloc){
 
     /*Les bloc sont généré au milieu de la grille.*/
     int milieuC = nbcolonnes/2;
@@ -96,8 +98,9 @@ void generation_tetrimino(int movinggrid[nblignes][nbcolonnes]){
         movinggrid[1][milieuC+1]=id_bloc;
         movinggrid[1][milieuC-1]=id_bloc;
     }
-        
-
+    
+    /*permet de stocker le nombre pour la réserve*/
+    return id_bloc;
 }
 
 
@@ -105,7 +108,7 @@ void ligne_pleine(int grille[nblignes][nbcolonnes]){
     bool ligne_pleine = true;
     for(int  i = 0; i < nbcolonnes; i++){
         if (grille[nblignes-1][i] == 0){
-            ligne_pleine=false;
+            ligne_pleine = false;
         }
     }
     if (ligne_pleine){
@@ -122,7 +125,7 @@ void ligne_pleine(int grille[nblignes][nbcolonnes]){
     }
 }
 
-void placer(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]){
+int placer(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes], int id_bloc){
     for (int i = 0; i < nblignes; i++){
         for (int j = 0; j < nbcolonnes; j++){
             if(movinggrid[i][j] != 0){
@@ -133,21 +136,18 @@ void placer(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonne
     init_grille(movinggrid);
     endgame(grille);//avant de placer le tetrimino suivant, on vérifie si la première ligne n'est pas occupée par un bloc, si c'est le cas, on termine la partie(et le programme pour l'instant)
     ligne_pleine(grille);//si la ligne du bas est pleine, on la vide et on fait descendre tous les autres tertiminos d'une ligne
-    generation_tetrimino(movinggrid); //génère un tetrimino une fois l'autre placé.
-    return;
+    return generation_tetrimino(movinggrid, genRandom(id_bloc)); //génère un tetrimino une fois l'autre placé.
 }
 
 /*Cette fonction permet de descendre un bloc vers le bas lorsque c'est possible*/
-void deplacement_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]){
+int deplacement_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes], int id_bloc){
     for(int i = nblignes-1; i > 0 ; i--){ /*Cette boucle balaie toutes les lignes*/
         for(int j = nbcolonnes-1; j >= 0; j--){ /*Et celle-ci toutes les colonnes*/
             if (movinggrid[i][j] != bloc_VIDE){
                 if(grille[i+1][j] != bloc_VIDE){/*Si le carré dans 'grille' juste au-dessous de celui qu'on vient de détecter dans 'movinggrid' n'est pas vide, on ne peut pas descendre*/
-                    placer(movinggrid,grille); /*Donc on place le bloc dans la grille*/
-                    return;
+                    return placer(movinggrid, grille, id_bloc); /*Donc on place le bloc dans la grille*/
                 } else if (i == nblignes-1){
-                    placer(movinggrid,grille); /*Et si on a atteint la ligne du bas, le bloc ne peut plus descendre, donc on le place dans 'grille'*/
-                    return;
+                    return placer(movinggrid, grille, id_bloc); /*Et si on a atteint la ligne du bas, le bloc ne peut plus descendre, donc on le place dans 'grille'*/
                 }
             }
         }
@@ -160,7 +160,7 @@ void deplacement_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][
     for (int k = 0; k < nbcolonnes; k++){ // Remplis la ligne du haut de bloc_VIDE
         movinggrid[0][k] = bloc_VIDE;
     }
-    return;
+    return id_bloc;
 }
 
 void deplacement_gauche(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]){
@@ -221,7 +221,7 @@ void teleportation_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes
                 }
             }
         }
-        deplacement_bas(movinggrid,grille);
+        deplacement_bas(movinggrid,grille,0);
     }
 }
 

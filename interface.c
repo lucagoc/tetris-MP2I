@@ -73,7 +73,7 @@ void ghost_bloc(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcol
     return;
 }
 
-void draw_interface(int grille[nblignes][nbcolonnes], int movinggrid[nblignes][nbcolonnes], WINDOW *fenetre){
+void draw_interface(int grille[nblignes][nbcolonnes], int movinggrid[nblignes][nbcolonnes], int inventaire, WINDOW *fenetre){
 
     werase(fenetre); //efface la frame précédente
 
@@ -81,6 +81,10 @@ void draw_interface(int grille[nblignes][nbcolonnes], int movinggrid[nblignes][n
     affiche_grille(grille, fenetre);
     ghost_bloc(movinggrid, grille, fenetre);
     affiche_grille(movinggrid, fenetre);
+
+    /*Affichage de celui qui est stocké*/
+    move(nblignes+2,2);
+    printw("%d", inventaire);
 
     if (debug){
         affiche_debug(movinggrid, grille);

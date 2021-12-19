@@ -18,15 +18,18 @@ int main(){
 
     int grille[nblignes][nbcolonnes];
     int movinggrid[nblignes][nbcolonnes];
+    int inventaire = 0; //inventaire vide
+    bool inv_used = false; // Permet de savoir si l'inventaire a été utilisé.
 
     init_grille(grille);
     init_grille(movinggrid);
 
     initialisation_interface();
     WINDOW *fenetre = newwin(nblignes,(nbcolonnes*2)+2,0,0); //création de la fenêtre de jeu, nombre de colonnes multiplié par 2 pour faire des carrés.
-    draw_interface(grille, movinggrid, fenetre);
+    draw_interface(grille, movinggrid, inventaire, fenetre);
 
-    generation_tetrimino(movinggrid);
+    int id_bloc = generation_tetrimino(movinggrid, genRandom(0));
+    int id_blocA = id_bloc; //Utile pour les comparaisons.
 
     /*Commande de controle*/
     int key;
@@ -34,15 +37,18 @@ int main(){
     while(ingame == true){
 
         key = wgetch(fenetre);
+
+        //Réactive l'accès à l'inventaire si le bloc a changé
+        if(id_bloc != id_blocA) inv_used = false;
         
         switch(key){
-            case 65:
+            case 65: //flèche haut
                 teleportation_bas(movinggrid, grille);
-                placer(movinggrid,grille);
+                id_bloc = placer(movinggrid, grille, id_bloc);
                 debug_write_keypress(fp, '^');
                 break;
             case 66: //Touche flèche bas
-                deplacement_bas(movinggrid, grille);
+                id_bloc = deplacement_bas(movinggrid, grille, id_bloc);
                 debug_write_keypress(fp, 'B');
                 break;
             case 67: //Touche flèche droite
@@ -64,17 +70,33 @@ int main(){
             case 'y': //Génére un bloc de debug
                 debug_tetrimino(movinggrid);
                 debug_write_keypress(fp, 'y');
+                id_bloc = bloc_DEBUG;
                 break;
-            case 's':
-                inventaire(movinggrid);
+            case 's': //Réserve
+                if(inv_used == false){
+                    if(inventaire == 0){ // Cas où il n'y a pas encore de bloc dans l'inventaire.
+                        init_grille(movinggrid);
+                        inventaire = id_bloc;
+                        id_bloc = generation_tetrimino(movinggrid, genRandom(id_bloc));
+                        id_blocA = id_bloc;
+                    } else { // Cas normal
+                        int temp = id_bloc;
+                        init_grille(movinggrid);
+                        id_bloc = generation_tetrimino(movinggrid, inventaire);
+                        id_blocA = id_bloc;
+                        inventaire = temp;
+                    }
+                    inv_used = true;
+                }
                 debug_write_keypress(fp, 's');
-            case 'p':
+                break;
+            case 'p': //Pause
                 pause();
                 debug_write_keypress(fp, 'p');
                 break;
         };
 
-        draw_interface(grille, movinggrid, fenetre);
+        draw_interface(grille, movinggrid, inventaire, fenetre);
     }
 
     endwin();

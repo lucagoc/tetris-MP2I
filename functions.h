@@ -21,11 +21,13 @@ void init_grille(int grille[nblignes][nbcolonnes]);
 
 void grille_vide(int grille[nblignes][nbcolonnes]);
 
+int genRandom(int id_bloc);
+
 void ligne_pleine(int grille[nblignes][nbcolonnes]);
 
-void generation_tetrimino(int movinggrid[nblignes][nbcolonnes]);
+int generation_tetrimino(int movinggrid[nblignes][nbcolonnes], int id_bloc);
 
-void deplacement_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]);
+int deplacement_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes], int id_bloc);
 
 void deplacement_gauche(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]);
 
@@ -35,7 +37,7 @@ void teleportation_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes
 
 void delai(int nb_secondes);
 
-void placer(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]);
+int placer(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes], int id_bloc);
 
 void rotation(int movinggrid[nblignes][nbcolonnes],int grille[nblignes][nbcolonnes]);
 
