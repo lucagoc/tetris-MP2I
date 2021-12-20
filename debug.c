@@ -5,6 +5,9 @@
 #include "regles.h"
 #include "functions.h"
 
+/*Ce fichier sert uniquement à l'exécution du module "debug", qui sert essentiellement à 
+garder une trace au fil du temps d'une partie de tetris*/
+
 /*Bloc de DEBUG, a un affichage particulier pour être différencié des blocs classiques.*/
 const int BLOCK_DEBUG = -1;
 
@@ -29,7 +32,7 @@ void drawDebug(int mobileGrid[NBLINES][NBCOLUMNS], int mainGrid[NBLINES][NBCOLUM
 	}
 }
 
-/*Ecrit la date au début de chaque ligne du logfile*/
+/*Ecrit la date dans le logfile avant chaque ligne ajoutée*/
 void printLogdate(FILE* fp){
 	time_t t = time(NULL);
   	struct tm tm = *localtime(&t);
@@ -52,7 +55,7 @@ void genDebugtetrimino(int mobileGrid[NBLINES][NBCOLUMNS]){
 	}
 }
 
-/*Initialise le logfile*/
+/*Créer le logfile et affiche l'heure à laquelle le programme a démarré*/
 FILE* initLogfile(){
 	if(DEBUG_MODE){
 		FILE *fp;
