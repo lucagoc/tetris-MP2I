@@ -1,8 +1,8 @@
 #define REGLES_H
 
-extern const int nblignes;
-extern const int nbcolonnes;
+extern const int NBLINES;
+extern const int NBCOLUMNS;
 
-extern const bool debug;
+extern const bool DEBUG_MODE;
 
-bool endgame(int grille[nblignes][nbcolonnes]);
+bool isEndgame(int mainGrid[NBLINES][NBCOLUMNS]);

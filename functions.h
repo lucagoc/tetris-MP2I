@@ -4,44 +4,42 @@
 #define FUNCTIONS_H
 
 
-extern const int bloc_VIDE;
-extern const int bloc_O; 
-extern const int bloc_I; 
-extern const int bloc_S; 
-extern const int bloc_Z; 
-extern const int bloc_L; 
-extern const int bloc_J; 
-extern const int bloc_T; 
+extern const int BLOCK_VIDE;
+extern const int BLOCK_O; 
+extern const int BLOCK_I; 
+extern const int BLOCK_S; 
+extern const int BLOCK_Z; 
+extern const int BLOCK_L; 
+extern const int BLOCK_J; 
+extern const int BLOCK_T; 
 
-extern const int nblignes;
-extern const int nbcolonnes;
+extern const int NBLINES;
+extern const int NBCOLUMNS;
 
 
-void init_grille(int grille[nblignes][nbcolonnes]);
+void initGrid(int grid[NBLINES][NBCOLUMNS]);
 
-void grille_vide(int grille[nblignes][nbcolonnes]);
+void isGridempty(int grid[NBLINES][NBCOLUMNS]);
 
-int genRandom(int id_bloc);
+int setRandom(int tetriminoID);
 
-void ligne_pleine(int grille[nblignes][nbcolonnes]);
+void isLinefull(int mainGrid[NBLINES][NBCOLUMNS]);
 
-int generation_tetrimino(int movinggrid[nblignes][nbcolonnes], int id_bloc);
+int genTetrimino(int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID);
 
-int deplacement_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes], int id_bloc);
+int goDown(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID);
 
-void deplacement_gauche(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]);
+void goLeft(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]);
 
-void deplacement_droite(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]);
+void goRight(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]);
 
-void teleportation_bas(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes]);
+void goBottom(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]);
 
 void delai(int nb_secondes);
 
-int placer(int movinggrid[nblignes][nbcolonnes], int grille[nblignes][nbcolonnes], int id_bloc);
+int putTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID);
 
-void rotation(int movinggrid[nblignes][nbcolonnes],int grille[nblignes][nbcolonnes]);
-
-void inventaire(int movinggrid[nblignes][nbcolonnes]);
+void turnTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]);
 
 
 
