@@ -25,8 +25,8 @@ int main(){
     initGrid(mobileGrid);
 
     initUI();
-    WINDOW *fenetre = newwin(NBLINES,(NBCOLUMNS*2)+2,0,0); //création de la fenêtre de jeu, nombre de colonnes multiplié par 2 pour faire des carrés.
-    drawUI(mainGrid, mobileGrid, inventory, fenetre);
+    WINDOW *gridWindow = newwin(NBLINES,(NBCOLUMNS*2)+2,0,0); //création de la fenêtre de jeu, nombre de colonnes multiplié par 2 pour faire des carrés.
+    drawUI(mainGrid, mobileGrid, inventory, gridWindow);
 
     int tetriminoID = genTetrimino(mobileGrid, setRandom(0));
     int priorID = tetriminoID; //Utile pour les comparaisons.
@@ -36,7 +36,7 @@ int main(){
     bool inGame = true;
     while(inGame == true){
 
-        key = wgetch(fenetre);
+        key = wgetch(gridWindow);
 
         //Réactive l'accès à l'inventaire si le bloc a changé
         if(tetriminoID != priorID) invUsed = false;
@@ -95,7 +95,7 @@ int main(){
                 printLogkey(fp, 'p');
                 break;
         };
-        drawUI(mainGrid, mobileGrid, inventory, fenetre);
+        drawUI(mainGrid, mobileGrid, inventory, gridWindow);
     }
 
     endwin();

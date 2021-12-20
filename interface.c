@@ -6,50 +6,50 @@
 
 
 /*Permet d'afficher la grille de jeu*/
-void drawGrid(int grid[NBLINES][NBCOLUMNS], WINDOW *fenetre){
+void drawGrid(int grid[NBLINES][NBCOLUMNS], WINDOW *gridWindow){
     for(int x = 2; x < NBLINES; x++){
         for (int y = 0; y < NBCOLUMNS; y++){
-            wmove(fenetre,x-1,(y*2)+1);
+            wmove(gridWindow,x-1,(y*2)+1);
 
             /*Implémentation des couleurs selon le type du bloc*/
 
             if(grid[x][y] == BLOCK_O){
-                wattron(fenetre, COLOR_PAIR(BLOCK_O));
-                wprintw(fenetre,"  ");
-                wattroff(fenetre, COLOR_PAIR(BLOCK_O));
+                wattron(gridWindow, COLOR_PAIR(BLOCK_O));
+                wprintw(gridWindow,"  ");
+                wattroff(gridWindow, COLOR_PAIR(BLOCK_O));
             } else if(grid[x][y] == BLOCK_I){
-                wattron(fenetre, COLOR_PAIR(BLOCK_I));
-                wprintw(fenetre,"  ");
-                wattroff(fenetre, COLOR_PAIR(BLOCK_I));
+                wattron(gridWindow, COLOR_PAIR(BLOCK_I));
+                wprintw(gridWindow,"  ");
+                wattroff(gridWindow, COLOR_PAIR(BLOCK_I));
             } else if(grid[x][y] == BLOCK_S){
-                wattron(fenetre, COLOR_PAIR(BLOCK_S));
-                wprintw(fenetre,"  ");
-                wattroff(fenetre, COLOR_PAIR(BLOCK_S));
+                wattron(gridWindow, COLOR_PAIR(BLOCK_S));
+                wprintw(gridWindow,"  ");
+                wattroff(gridWindow, COLOR_PAIR(BLOCK_S));
             } else if(grid[x][y] == BLOCK_Z){
-                wattron(fenetre, COLOR_PAIR(BLOCK_Z));
-                wprintw(fenetre,"  ");
-                wattroff(fenetre, COLOR_PAIR(BLOCK_Z));
+                wattron(gridWindow, COLOR_PAIR(BLOCK_Z));
+                wprintw(gridWindow,"  ");
+                wattroff(gridWindow, COLOR_PAIR(BLOCK_Z));
             } else if(grid[x][y] == BLOCK_L){
-                wattron(fenetre, COLOR_PAIR(BLOCK_L));
-                wprintw(fenetre,"  ");
-                wattroff(fenetre, COLOR_PAIR(BLOCK_L));
+                wattron(gridWindow, COLOR_PAIR(BLOCK_L));
+                wprintw(gridWindow,"  ");
+                wattroff(gridWindow, COLOR_PAIR(BLOCK_L));
             } else if(grid[x][y] == BLOCK_J){
-                wattron(fenetre, COLOR_PAIR(BLOCK_J));
-                wprintw(fenetre,"  ");
-                wattroff(fenetre, COLOR_PAIR(BLOCK_J));
+                wattron(gridWindow, COLOR_PAIR(BLOCK_J));
+                wprintw(gridWindow,"  ");
+                wattroff(gridWindow, COLOR_PAIR(BLOCK_J));
             } else if(grid[x][y] == BLOCK_T){
-                wattron(fenetre, COLOR_PAIR(BLOCK_T));
-                wprintw(fenetre,"  ");
-                wattroff(fenetre, COLOR_PAIR(BLOCK_T));
+                wattron(gridWindow, COLOR_PAIR(BLOCK_T));
+                wprintw(gridWindow,"  ");
+                wattroff(gridWindow, COLOR_PAIR(BLOCK_T));
             } else if(grid[x][y] == BLOCK_DEBUG){
-                wprintw(fenetre,"{}");
+                wprintw(gridWindow,"{}");
             }
         }
     }
 }
 
 /*permet de prévisualiser l'emplacement du tetrimino*/
-void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], WINDOW *fenetre){
+void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], WINDOW *gridWindow){
 
     /*Copie de la mobileGrid*/
     int tempGrid[NBLINES][NBCOLUMNS];
@@ -65,22 +65,22 @@ void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][N
     for(int x = 2; x < NBLINES; x++){
         for (int y = 0; y < NBCOLUMNS; y++){
             if(tempGrid[x][y] != 0) {
-                wmove(fenetre,x-1,(y*2)+1);
-                wprintw(fenetre,"[]");
+                wmove(gridWindow,x-1,(y*2)+1);
+                wprintw(gridWindow,"[]");
             }
         }
     }
     return;
 }
 
-void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int inventaire, WINDOW *fenetre){
+void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int inventaire, WINDOW *gridWindow){
 
-    werase(fenetre); //efface la frame précédente
+    werase(gridWindow); //efface la frame précédente
 
-    box(fenetre, 0, 0);
-    drawGrid(mainGrid, fenetre);
-    drawGhostblocks(mainGrid, mobileGrid, fenetre);
-    drawGrid(mobileGrid, fenetre);
+    box(gridWindow, 0, 0);
+    drawGrid(mainGrid, gridWindow);
+    drawGhostblocks(mainGrid, mobileGrid, gridWindow);
+    drawGrid(mobileGrid, gridWindow);
 
     /*Affichage de celui qui est stocké*/
     move(NBLINES+2,2);
@@ -90,7 +90,7 @@ void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]
         drawDebug(mobileGrid, mainGrid);
     }
 
-    wrefresh(fenetre);
+    wrefresh(gridWindow);
     refresh();
 }
 

@@ -2,11 +2,11 @@
 
 #define INTERFACE_H
 
-void drawGrid(int grid[NBLINES][NBCOLUMNS], WINDOW *fenetre);
+void drawGrid(int grid[NBLINES][NBCOLUMNS], WINDOW *gridWindow);
 
-void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int inventory, WINDOW *fenetre);
+void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int inventory, WINDOW *gridWindow);
 
-void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], WINDOW *fenetre);
+void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], WINDOW *gridWindow);
 
 void initUI();
 
