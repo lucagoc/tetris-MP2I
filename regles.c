@@ -22,3 +22,19 @@ void isEndgame(int mainGrid[NBLINES][NBCOLUMNS]){
         }
     }
 }
+
+int setDifficulty(int difficulty){
+    int time_cycle = 0; /*Cas limite, la partie prendra alors instantanément fin*/
+    if (difficulty==1){
+        time_cycle=900;
+    }else if (difficulty==1){
+        time_cycle=600;
+    }else if (difficulty==1){
+        time_cycle=300;
+    }else if(difficulty==1){
+        time_cycle=150;
+    } else {
+        printf("Erreur de difficulté") /*Cas limite indiqué*/
+    }
+    return time_cycle;
+}

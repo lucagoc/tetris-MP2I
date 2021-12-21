@@ -305,22 +305,3 @@ void turnTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBC
 
     return;
 }
-int set_difficulty(int difficulty){
-    int time_cycle;
-    switch(difficulty){
-        case 1:
-            time_cycle=900;
-            break;
-        case 2:
-            time_cycle=600;
-            break;
-        case 3:
-            time_cycle=300;
-            break;
-        case 4:
-            time_cycle=150;
-            break;
-
-    };
-    return time_cycle;
-}
