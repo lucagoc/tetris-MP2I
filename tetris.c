@@ -11,8 +11,23 @@
 
 
 int main(){
+    int res;
+    int time;
+    int timeCycle;
+    printf("Veuillez choisir un niveau de difficulté en entrant une valeur comprise entre 1 et 4 : ");
+    scanf("%d",&res);
+    if(res==1 || res==2 || res==3 || res==4){
+        time = 0;
+        timeCycle = set_difficulty(res);
+    }
+    else{
+        printf("Saisie incorrecte, merci d'entrer une valeur comprise entre 1 et 4.\n");
+        exit(0);
+    }
+
 
     /*Ecrit un fichier de debug si le debug mode est activé, voir regles.c*/
+    
 
     FILE *fp = initLogfile();
 
@@ -30,9 +45,6 @@ int main(){
 
     int tetriminoID = genTetrimino(mobileGrid, setRandom(0));
     int priorID = tetriminoID; //Utile pour les comparaisons.
-
-    int time = 0;
-    int timeCycle = 300;
 
     /*Commande de controle*/
     int key;

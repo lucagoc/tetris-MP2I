@@ -83,14 +83,36 @@ void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]
     drawGrid(mobileGrid, gridWindow);
 
     /*Affichage de celui qui est stocké*/
-    move(NBLINES+2,2);
-    printw("%d", inventaire);
+    /*move(NBLINES+2,2);
+    printw("%d", inventaire);*/
 
     if (DEBUG_MODE){
         drawDebug(mobileGrid, mainGrid);
     }
 
     wrefresh(gridWindow);
+    refresh();
+}
+
+void draw_commands(){
+    move(1,25);
+    printw("Descente instantanée : Flèche du haut");
+    move(3,25);
+    printw("Gauche : Flèche de gauche");
+    move(5,25);
+    printw("Droite : Flèche du droite");
+    move(7,25);
+    printw("Bas : Flèche du bas");
+    move(9,25);
+    printw("Rotation : D");
+    move(11,25);
+    printw("Pause : P");
+    move(13,25);
+    printw("Quitter le jeu : Q");
+    move(15,25);
+    printw("Touche Réserve : S");
+    move(17,25);
+    printw("Réserve : ");
     refresh();
 }
 
@@ -108,6 +130,8 @@ void initUI(){
     init_pair(BLOCK_L, COLOR_WHITE, COLOR_WHITE);
     init_pair(BLOCK_J, COLOR_WHITE, COLOR_BLUE);
     init_pair(BLOCK_T, COLOR_WHITE, COLOR_MAGENTA);
+
+    draw_commands();
 
     curs_set(0);  // Cache le curseur
     noecho();  // Cache les touches pressées

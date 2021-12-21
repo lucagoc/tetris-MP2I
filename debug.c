@@ -18,14 +18,14 @@ void drawDebug(int mobileGrid[NBLINES][NBCOLUMNS], int mainGrid[NBLINES][NBCOLUM
 	    {
 	    	for (int j = 0; j < NBCOLUMNS; j++)
 	        {
-	            move(i,30+j);
+	            move(i,70+j);
 	            printw("%d", mainGrid[i][j]);
-	            move(i,60+j);
+	            move(i,100+j);
 	            printw("%d", mobileGrid[i][j]);
-	            move(0,90+j);
+	            move(0,130+j);
 	            printw("%d", j);
 	        }
-	        move(i,90);
+	        move(i,130);
 	        printw("%d", i);
 	    }
 		refresh();
