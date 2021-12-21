@@ -104,33 +104,28 @@ int genTetrimino(int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID){
     return tetriminoID;
 }
 
-void gridDown(int mainGrid[NBLINES][NBCOLUMNS],int i){
-    int temp;
-    for(int j = NBCOLUMNS; j > 0; j--){
-        for(int x = i-1 ; x > 0; x--){
-            if (mainGrid[x][j] != 0){
-                temp = mainGrid[x][j];
-                mainGrid[x][j] = 0;
-                mainGrid[x+1][j] = temp;
-            }
+/*Descend une grille à partir d'une ligne donnée*/
+void downGridfromline(int mainGrid[NBLINES][NBCOLUMNS], int i){
+    for (i = i; i > 0; i--){
+        for (int j = 0; j < NBCOLUMNS; j++)
+        {
+            mainGrid[i][j] = mainGrid[i-1][j];
         }
     }
 }
 
-void isLinefull(int mainGrid[NBLINES][NBCOLUMNS]){
-    bool lineFull = true;
-    int i = NBLINES-1;
-    while(i > 0){
-        for(int  j = 0; j < NBCOLUMNS; j++){
-            if (mainGrid[i][j] == 0){
-                lineFull = false;
+void checkLinefull(int mainGrid[NBLINES][NBCOLUMNS]){
+    for (int i = 0; i < NBLINES; ++i){
+        int temp = 0;
+        for (int j = 0; j < NBCOLUMNS; ++j)
+        {
+            if(mainGrid[i][j] != BLOCK_VIDE){
+                temp++;
             }
         }
-        if (lineFull){
-            gridDown(mainGrid,i);
+        if(temp == NBCOLUMNS){
+            downGridfromline(mainGrid, i);
         }
-        i = i-1;
-        lineFull=true;
     }
 }
 
@@ -143,10 +138,8 @@ int putTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOL
         }
     }
     initGrid(mobileGrid);
+    checkLinefull(mainGrid);
     isEndgame(mainGrid); // avant de placer le tetrimino suivant, on vérifie si la première ligne n'est pas occupée par un bloc, si c'est le cas, on termine la partie (et le programme pour l'instant)
-    for (int i = 0; i < NBLINES; i++){
-        isLinefull(mainGrid);//si la ligne du bas est pleine, on la vide et on fait descendre tous les autres tertiminos d'une ligne
-    } 
     return genTetrimino(mobileGrid, setRandom(tetriminoID)); //génère un tetrimino une fois l'autre placé.
 }
 

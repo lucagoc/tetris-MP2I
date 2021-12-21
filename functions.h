@@ -23,9 +23,9 @@ void isGridempty(int grid[NBLINES][NBCOLUMNS]);
 
 int setRandom(int tetriminoID);
 
-void gridDown(int mainGrid[NBLINES][NBCOLUMNS],int i);
+void downGridfromline(int mainGrid[NBLINES][NBCOLUMNS],int i);
 
-void isLinefull(int mainGrid[NBLINES][NBCOLUMNS]);
+void checkLinefull(int mainGrid[NBLINES][NBCOLUMNS]);
 
 int genTetrimino(int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID);
 
