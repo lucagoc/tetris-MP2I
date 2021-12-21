@@ -62,7 +62,7 @@ int main(){
                 case 66: //Touche flèche bas
                     tetriminoID = goDown(mainGrid, mobileGrid, tetriminoID);
                     printLogkey(fp, 'B');
-                    time--; //Evite une accélération trop rapide du tétrimino lors de sa chute.
+                    time--; // Evite une accélération trop rapide du tétrimino lors de sa chute.
                     break;
                 case 67: //Touche flèche droite
                     goRight(mainGrid, mobileGrid);
@@ -78,6 +78,7 @@ int main(){
                 case 'd': //Rotation
                     turnTetrimino(mainGrid, mobileGrid);
                     printLogkey(fp, 'd');
+                    time--;
                     break;
                 case 'y': //Génére un bloc de debug
                     genDebugtetrimino(mobileGrid);

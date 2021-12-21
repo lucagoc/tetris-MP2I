@@ -83,8 +83,8 @@ void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]
     drawGrid(mobileGrid, gridWindow);
 
     /*Affichage de celui qui est stocké*/
-    /*move(NBLINES+2,2);
-    printw("%d", inventaire);*/
+    move(17,36);
+    printw("%d", inventaire);
 
     if (DEBUG_MODE){
         drawDebug(mobileGrid, mainGrid);
@@ -140,9 +140,13 @@ void initUI(){
 
 void pause(){
     
-    
-    getch();
-    
+    bool inPause = true;
+    while(inPause){
+        int key = getch();
+        if(key != ERR){
+            inPause = false;
+        }
+    }
     
     return;
 }

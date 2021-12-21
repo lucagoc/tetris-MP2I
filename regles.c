@@ -8,7 +8,7 @@
 const int NBLINES = 22;
 const int NBCOLUMNS = 10;
 
-const bool DEBUG_MODE = false;
+const bool DEBUG_MODE = true;
 
 
 /*Cette fonction permet de vérifier si le joueur n'a pas perdu, c'est-à-dire si aucun bloc ne touche la ligne au dessus de la grille une fois placé.*/
