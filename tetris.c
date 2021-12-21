@@ -18,7 +18,7 @@ int main(){
     scanf("%d",&res);
     if(res==1 || res==2 || res==3 || res==4){
         time = 0;
-        timeCycle = set_difficulty(res);
+        timeCycle = setDifficulty(res);
     }
     else{
         printf("Saisie incorrecte, merci d'entrer une valeur comprise entre 1 et 4.\n");

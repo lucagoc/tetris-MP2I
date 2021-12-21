@@ -305,4 +305,3 @@ void turnTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBC
 
     return;
 }
-
