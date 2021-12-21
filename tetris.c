@@ -31,71 +31,80 @@ int main(){
     int tetriminoID = genTetrimino(mobileGrid, setRandom(0));
     int priorID = tetriminoID; //Utile pour les comparaisons.
 
+    int time = 0;
+    int timeCycle = 300;
+
     /*Commande de controle*/
     int key;
     bool inGame = true;
     while(inGame == true){
-
-        key = wgetch(gridWindow);
-
-        //Réactive l'accès à l'inventaire si le bloc a changé
-        if(tetriminoID != priorID) invUsed = false;
-        
-        switch(key){
-            case 65: //flèche haut
-                goBottom(mainGrid, mobileGrid);
-                tetriminoID = putTetrimino(mainGrid, mobileGrid, tetriminoID);
-                printLogkey(fp, '^');
-                break;
-            case 66: //Touche flèche bas
-                tetriminoID = goDown(mainGrid, mobileGrid, tetriminoID);
-                printLogkey(fp, 'B');
-                break;
-            case 67: //Touche flèche droite
-                goRight(mainGrid, mobileGrid);
-                printLogkey(fp, '>');
-                break;
-            case 68: //Touche flèche gauche
-                goLeft(mainGrid, mobileGrid);
-                printLogkey(fp, '<');
-                break;
-            case 'q': //Touche Q pour quitter la boucle.
-                inGame = false;
-                endwin();
-                exit(0);
-            case 'd': //Rotation
-                turnTetrimino(mainGrid, mobileGrid);
-                printLogkey(fp, 'd');
-                break;
-            case 'y': //Génére un bloc de debug
-                genDebugtetrimino(mobileGrid);
-                printLogkey(fp, 'y');
-                tetriminoID = BLOCK_DEBUG;
-                break;
-            case 's': //Réserve
-                if(invUsed == false){
-                    if(inventory == 0){ // Cas où il n'y a pas encore de bloc dans l'inventaire.
-                        initGrid(mobileGrid);
-                        inventory = tetriminoID;
-                        tetriminoID = genTetrimino(mobileGrid, setRandom(tetriminoID));
-                        priorID = tetriminoID;
-                    } else { // Cas normal
-                        int temp = tetriminoID;
-                        initGrid(mobileGrid);
-                        tetriminoID = genTetrimino(mobileGrid, inventory);
-                        priorID = tetriminoID;
-                        inventory = temp;
+        while(time < timeCycle){
+            timeout(1);
+            key = getch();
+            switch(key){
+                case 65: //flèche haut
+                    goBottom(mainGrid, mobileGrid);
+                    tetriminoID = putTetrimino(mainGrid, mobileGrid, tetriminoID);
+                    printLogkey(fp, '^');
+                    break;
+                case 66: //Touche flèche bas
+                    tetriminoID = goDown(mainGrid, mobileGrid, tetriminoID);
+                    printLogkey(fp, 'B');
+                    time--; //Evite une accélération trop rapide du tétrimino lors de sa chute.
+                    break;
+                case 67: //Touche flèche droite
+                    goRight(mainGrid, mobileGrid);
+                    printLogkey(fp, '>');
+                    break;
+                case 68: //Touche flèche gauche
+                    goLeft(mainGrid, mobileGrid);
+                    printLogkey(fp, '<');
+                    break;
+                case 'q': //Touche Q pour quitter la boucle.
+                    inGame = false;
+                    break;
+                case 'd': //Rotation
+                    turnTetrimino(mainGrid, mobileGrid);
+                    printLogkey(fp, 'd');
+                    break;
+                case 'y': //Génére un bloc de debug
+                    genDebugtetrimino(mobileGrid);
+                    printLogkey(fp, 'y');
+                    tetriminoID = BLOCK_DEBUG;
+                    break;
+                case 's': //Réserve
+                    if(invUsed == false){
+                        if(inventory == 0){ // Cas où il n'y a pas encore de bloc dans l'inventaire.
+                            initGrid(mobileGrid);
+                            inventory = tetriminoID;
+                            tetriminoID = genTetrimino(mobileGrid, setRandom(tetriminoID));
+                            priorID = tetriminoID;
+                        } else { // Cas normal
+                            int temp = tetriminoID;
+                            initGrid(mobileGrid);
+                            tetriminoID = genTetrimino(mobileGrid, inventory);
+                            priorID = tetriminoID;
+                            inventory = temp;
+                        }
+                        invUsed = true;
                     }
-                    invUsed = true;
-                }
-                printLogkey(fp, 's');
-                break;
-            case 'p': //Pause
-                pause();
-                printLogkey(fp, 'p');
-                break;
-        };
-        drawUI(mainGrid, mobileGrid, inventory, gridWindow);
+                    printLogkey(fp, 's');
+                    break;
+                case 'p': //Pause
+                    pause();
+                    printLogkey(fp, 'p');
+                    break;
+            };
+
+            //Réactive l'accès à l'inventaire si le tetrimino a changé
+            if(tetriminoID != priorID) invUsed = false;
+
+            drawUI(mainGrid, mobileGrid, inventory, gridWindow);
+            time++;
+        }
+
+        tetriminoID = goDown(mainGrid, mobileGrid, tetriminoID);
+        time = 0;
     }
 
     endwin();

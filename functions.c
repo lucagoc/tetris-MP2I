@@ -229,12 +229,6 @@ void goBottom(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMN
     }
 }
 
-void delai(int nb_secondes)
-{
-    clock_t temps = clock();
-    while (clock() < temps + 1000*nb_secondes);
-}
-
 void turnTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]){
 
     /*Encadrement du tetrimino dans la grille*/
