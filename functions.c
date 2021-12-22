@@ -240,7 +240,17 @@ void goBottom(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMN
     }
 }
 
+
 void turnTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]){
+
+    /*Création d'une grille de simulation*/
+    int tempGrid[NBLINES][NBCOLUMNS];
+    for (int i = 0; i < NBLINES; ++i){
+        for (int j = 0; j < NBCOLUMNS; ++j)
+        {
+            tempGrid[i][j] = mobileGrid[i][j];
+        }
+    }
 
     /*Encadrement du tetrimino dans la grille*/
     int iMin = NBLINES;
@@ -250,7 +260,7 @@ void turnTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBC
 
     for (int i = 0; i < NBLINES; i++){
         for (int j = 0; j < NBCOLUMNS; j++){
-            if(mobileGrid[i][j] != BLOCK_VIDE){
+            if(tempGrid[i][j] != BLOCK_VIDE){
                 if(i < iMin) iMin = i;
                 if(i > iMax) iMax = i;
                 if(j < jMin) jMin = j;
@@ -289,28 +299,39 @@ void turnTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBC
         }
     }
 
-    /*Vérification de la disponibilité dans la grille des emplacements utilisés.*/
-    for (int i = iMin; i <= iMax; i++){
-        for (int j = jMin; j <= jMax; j++){
-            if(mainGrid[i][j] != BLOCK_VIDE) return;
-        }
-    }
-
     //Inversement par la diagonale de la matrice
     for (int i = 0; i < iMax-iMin+1; i++){
         for (int j = i; j < iMax-iMin+1; j++){
-            int temp = mobileGrid[iMin+i][jMin+j];
-            mobileGrid[iMin+i][jMin+j] = mobileGrid[iMin+j][jMin+i];
-            mobileGrid[iMin+j][jMin+i] = temp;
+            int temp = tempGrid[iMin+i][jMin+j];
+            tempGrid[iMin+i][jMin+j] = tempGrid[iMin+j][jMin+i];
+            tempGrid[iMin+j][jMin+i] = temp;
         }
     }
 
     //Inversement par la verticale de la matrice
     for (int i = 0; i < iMax-iMin+1; i++){
         for (int j = 0; j < (iMax-iMin+1)/2; j++){
-            int temp = mobileGrid[iMin+i][jMin+j];
-            mobileGrid[iMin+i][jMin+j] = mobileGrid[iMin+i][jMax-j];
-            mobileGrid[iMin+i][jMax-j] = temp;
+            int temp = tempGrid[iMin+i][jMin+j];
+            tempGrid[iMin+i][jMin+j] = tempGrid[iMin+i][jMax-j];
+            tempGrid[iMin+i][jMax-j] = temp;
+        }
+    }
+
+    /*Vérification dans la grille de jeu*/
+    for (int i = 0; i < NBLINES; i++){
+        for (int j = 0; j < NBCOLUMNS; j++)
+        {
+            if(tempGrid[i][j] != BLOCK_VIDE){
+                if(mainGrid[i][j] != BLOCK_VIDE) return;
+            }
+        }
+    }
+
+    /*Applique la rotation simulée*/
+    for (int i = 0; i < NBLINES; ++i){
+        for (int j = 0; j < NBCOLUMNS; ++j)
+        {
+            mobileGrid[i][j] = tempGrid[i][j];
         }
     }
 
