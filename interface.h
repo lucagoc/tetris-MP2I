@@ -13,3 +13,5 @@ void draw_commands();
 void initUI();
 
 void pause();
+
+void blinkLine(int line);

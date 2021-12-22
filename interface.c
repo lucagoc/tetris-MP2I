@@ -156,3 +156,26 @@ void pause(){
     return;
 }
 
+void blinkLine(int line){
+    for(int n = 0; n < 5; n++){
+
+        attron(COLOR_PAIR(BLOCK_L));
+        for (int j = 0; j < NBCOLUMNS; j++){
+            move(line-1, (j*2)+1);
+            printw("  ");
+        }
+        refresh();
+        attroff(COLOR_PAIR(BLOCK_O));
+
+        delay(40000);
+
+        for (int j = 0; j < NBCOLUMNS; j++){
+            move(line-1, (j*2)+1);
+            printw("  ");
+        }
+        refresh();
+        attroff(COLOR_PAIR(BLOCK_VIDE));
+
+        delay(40000);
+    }
+}

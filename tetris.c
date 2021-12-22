@@ -55,6 +55,7 @@ int main(){
             switch(key){
                 case 65: //flèche haut
                     goBottom(mainGrid, mobileGrid);
+                    drawUI(mainGrid, mobileGrid, inventory, gridWindow); //refresh pour l'animation.
                     tetriminoID = putTetrimino(mainGrid, mobileGrid, tetriminoID, 0);
                     printLogkey(fp, '^');
                     break;

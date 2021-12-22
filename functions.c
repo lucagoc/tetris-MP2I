@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <ncurses.h>
 #include <time.h>
+
 #include "regles.h"
 #include "debug.h"
+#include "interface.h"
 
 const int BLOCK_VIDE = 0;
 const int BLOCK_O = 1; /* correspond au tétromino en forme de carré */
@@ -107,6 +109,7 @@ int genTetrimino(int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID){
 /*Descend une grille à partir d'une ligne donnée*/
 void downGridfromline(int mainGrid[NBLINES][NBCOLUMNS], int i){
     for (i = i; i > 0; i--){
+
         for (int j = 0; j < NBCOLUMNS; j++)
         {
             mainGrid[i][j] = mainGrid[i-1][j];
@@ -124,9 +127,11 @@ void checkLinefull(int mainGrid[NBLINES][NBCOLUMNS]){
             }
         }
         if(temp == NBCOLUMNS){
+            blinkLine(i);
             downGridfromline(mainGrid, i);
         }
     }
+    return;
 }
 
 int putTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID, int timeOut){
@@ -336,4 +341,10 @@ void turnTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBC
     }
 
     return;
+}
+
+void delay(int ms)
+{
+    clock_t time = clock();
+    while (clock() < time + ms);
 }
