@@ -141,6 +141,11 @@ void initUI(){
 void pause(){
     
     bool inPause = true;
+    WINDOW *pauseWindow = newwin(3,10,6,6);
+    box(pauseWindow, 0, 0);
+    wmove(pauseWindow,1,1);
+    wprintw(pauseWindow, "En pause");
+    wrefresh(pauseWindow);
     while(inPause){
         int key = getch();
         if(key != ERR){

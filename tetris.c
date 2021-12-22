@@ -27,8 +27,6 @@ int main(){
 
 
     /*Ecrit un fichier de debug si le debug mode est activé, voir regles.c*/
-    
-
     FILE *fp = initLogfile();
 
     int mainGrid[NBLINES][NBCOLUMNS];
