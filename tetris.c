@@ -14,6 +14,7 @@ int main(){
     int res;
     int time;
     int timeCycle;
+    int timeOut = 500;
     printf("Veuillez choisir un niveau de difficulté en entrant une valeur comprise entre 1 et 4 : ");
     scanf("%d",&res);
     if(res==1 || res==2 || res==3 || res==4){
@@ -54,11 +55,11 @@ int main(){
             switch(key){
                 case 65: //flèche haut
                     goBottom(mainGrid, mobileGrid);
-                    tetriminoID = putTetrimino(mainGrid, mobileGrid, tetriminoID);
+                    tetriminoID = putTetrimino(mainGrid, mobileGrid, tetriminoID, 0);
                     printLogkey(fp, '^');
                     break;
                 case 66: //Touche flèche bas
-                    tetriminoID = goDown(mainGrid, mobileGrid, tetriminoID);
+                    tetriminoID = goDown(mainGrid, mobileGrid, tetriminoID, timeOut);
                     printLogkey(fp, 'B');
                     time--; // Evite une accélération trop rapide du tétrimino lors de sa chute.
                     break;
@@ -114,7 +115,7 @@ int main(){
             time++;
         }
 
-        tetriminoID = goDown(mainGrid, mobileGrid, tetriminoID);
+        tetriminoID = goDown(mainGrid, mobileGrid, tetriminoID, timeOut);
         time = 0;
     }
 

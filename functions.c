@@ -129,7 +129,18 @@ void checkLinefull(int mainGrid[NBLINES][NBCOLUMNS]){
     }
 }
 
-int putTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID){
+int putTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID, int timeOut){
+
+    /*Ne place pas le tetrimino si le joueur fait une action en moins de 500ms, permet une souplesse au gameplay*/
+    int key;
+    int time = 0;
+    while(time < timeOut){
+        key = getch();
+        if(key != ERR) return tetriminoID;
+        time++;
+    }
+
+    /*Place le tetrimino dans la grille*/
     for (int i = 0; i < NBLINES; i++){
         for (int j = 0; j < NBCOLUMNS; j++){
             if(mobileGrid[i][j] != 0){
@@ -144,14 +155,14 @@ int putTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOL
 }
 
 /*Cette fonction permet de descendre un bloc vers le bas lorsque c'est possible*/
-int goDown(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID){
+int goDown(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID, int timeOut){
     for(int i = NBLINES-1; i > 0 ; i--){ /*Cette boucle balaie toutes les lignes*/
         for(int j = NBCOLUMNS-1; j >= 0; j--){ /*Et celle-ci toutes les colonnes*/
             if (mobileGrid[i][j] != BLOCK_VIDE){
                 if(mainGrid[i+1][j] != BLOCK_VIDE){/*Si le carré dans 'grille' juste au-dessous de celui qu'on vient de détecter dans 'mobileGrid' n'est pas vide, on ne peut pas descendre*/
-                    return putTetrimino(mainGrid, mobileGrid, tetriminoID); /*Donc on place le bloc dans la grille*/
+                    return putTetrimino(mainGrid, mobileGrid, tetriminoID, timeOut); /*Donc on place le bloc dans la grille*/
                 } else if (i == NBLINES-1){
-                    return putTetrimino(mainGrid, mobileGrid, tetriminoID); /*Et si on a atteint la ligne du bas, le bloc ne peut plus descendre, donc on le place dans 'grille'*/
+                    return putTetrimino(mainGrid, mobileGrid, tetriminoID, timeOut); /*Et si on a atteint la ligne du bas, le bloc ne peut plus descendre, donc on le place dans 'grille'*/
                 }
             }
         }
@@ -225,7 +236,7 @@ void goBottom(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMN
                 }
             }
         }
-        goDown(mainGrid, mobileGrid, 0);
+        goDown(mainGrid, mobileGrid, 0, 0);
     }
 }
 
