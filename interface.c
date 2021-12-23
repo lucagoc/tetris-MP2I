@@ -49,7 +49,7 @@ void drawGrid(int grid[NBLINES][NBCOLUMNS], WINDOW *gridWindow){
 }
 
 /*permet de prévisualiser l'emplacement du tetrimino*/
-void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], WINDOW *gridWindow){
+void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], WINDOW *gridWindow, int score_counter){
 
     /*Copie de la mobileGrid*/
     int tempGrid[NBLINES][NBCOLUMNS];
@@ -59,7 +59,7 @@ void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][N
         }
     }
 
-    goBottom(mainGrid, tempGrid);
+    goBottom(mainGrid, tempGrid, score_counter);
     
     /*Affichage des ghostblocs*/
     for(int x = 2; x < NBLINES; x++){
@@ -73,14 +73,22 @@ void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][N
     return;
 }
 
-void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int inventaire, WINDOW *gridWindow){
+void draw_score(int score_counter, int points_per_line){
+    int score=score_counter*points_per_line;
+    move(19,25);
+    printw("Score : %d\n",score);
+
+}
+
+void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int inventaire, WINDOW *gridWindow, int score_counter, int points_per_line){
 
     werase(gridWindow); //efface la frame précédente
 
     box(gridWindow, 0, 0);
     drawGrid(mainGrid, gridWindow);
-    drawGhostblocks(mainGrid, mobileGrid, gridWindow);
+    drawGhostblocks(mainGrid, mobileGrid, gridWindow, score_counter);
     drawGrid(mobileGrid, gridWindow);
+    draw_score(score_counter,points_per_line);
 
     /*Affichage de celui qui est stocké*/
     move(17,36);

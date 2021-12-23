@@ -14,12 +14,16 @@ int main(){
     int res;
     int time;
     int timeCycle;
-    int timeOut = 500;
+    int timeOut;
+    int score_counter=0;
+    int points_per_line;
     printf("Veuillez choisir un niveau de difficulté en entrant une valeur comprise entre 1 et 4 : ");
     scanf("%d",&res);
     if(res==1 || res==2 || res==3 || res==4){
         time = 0;
         timeCycle = set_difficulty(res);
+        timeOut = set_delay(res);
+        points_per_line=set_points_per_line(res);
     }
     else{
         printf("Saisie incorrecte, merci d'entrer une valeur comprise entre 1 et 4.\n");
@@ -40,7 +44,7 @@ int main(){
 
     initUI();
     WINDOW *gridWindow = newwin(NBLINES,(NBCOLUMNS*2)+2,0,0); //création de la fenêtre de jeu, nombre de colonnes multiplié par 2 pour faire des carrés.
-    drawUI(mainGrid, mobileGrid, inventory, gridWindow);
+    drawUI(mainGrid, mobileGrid, inventory, gridWindow, score_counter,points_per_line);
 
     int tetriminoID = genTetrimino(mobileGrid, setRandom(0));
     int priorID = tetriminoID; //Utile pour les comparaisons.
@@ -54,13 +58,13 @@ int main(){
             key = getch();
             switch(key){
                 case 65: //flèche haut
-                    goBottom(mainGrid, mobileGrid);
-                    drawUI(mainGrid, mobileGrid, inventory, gridWindow); //refresh pour l'animation.
-                    tetriminoID = putTetrimino(mainGrid, mobileGrid, tetriminoID, 0);
+                    goBottom(mainGrid, mobileGrid, score_counter);
+                    drawUI(mainGrid, mobileGrid, inventory, gridWindow, score_counter,points_per_line); //refresh pour l'animation.
+                    tetriminoID = putTetrimino(mainGrid, mobileGrid, tetriminoID, 0, score_counter);
                     printLogkey(fp, '^');
                     break;
                 case 66: //Touche flèche bas
-                    tetriminoID = goDown(mainGrid, mobileGrid, tetriminoID, timeOut);
+                    tetriminoID = goDown(mainGrid, mobileGrid, tetriminoID, timeOut, score_counter);
                     printLogkey(fp, 'B');
                     time--; // Evite une accélération trop rapide du tétrimino lors de sa chute.
                     break;
@@ -81,9 +85,11 @@ int main(){
                     time--;
                     break;
                 case 'y': //Génére un bloc de debug
-                    genDebugtetrimino(mobileGrid);
-                    printLogkey(fp, 'y');
-                    tetriminoID = BLOCK_DEBUG;
+                    if (DEBUG_MODE==true){
+                        genDebugtetrimino(mobileGrid);
+                        printLogkey(fp, 'y');
+                        tetriminoID = BLOCK_DEBUG;
+                    }
                     break;
                 case 's': //Réserve
                     if(invUsed == false){
@@ -111,12 +117,11 @@ int main(){
 
             //Réactive l'accès à l'inventaire si le tetrimino a changé
             if(tetriminoID != priorID) invUsed = false;
-
-            drawUI(mainGrid, mobileGrid, inventory, gridWindow);
+            drawUI(mainGrid, mobileGrid, inventory, gridWindow,  score_counter, points_per_line);
             time++;
         }
 
-        tetriminoID = goDown(mainGrid, mobileGrid, tetriminoID, timeOut);
+        tetriminoID = goDown(mainGrid, mobileGrid, tetriminoID, timeOut,  score_counter);
         time = 0;
     }
 
