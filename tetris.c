@@ -86,7 +86,6 @@ int main(){
                 }
                 else if(key=='q' || key=='Q'){
                     inGame=false;
-                    gameOn=false;
                 }
                 else if(key=='d' || key=='D'){
                     turnTetrimino(mainGrid, mobileGrid);

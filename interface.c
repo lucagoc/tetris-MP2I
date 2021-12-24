@@ -204,7 +204,6 @@ void draw_difficulty(int difficulty){
             printw("Difficulté : Difficile");
             break;
     };
-
 }
 
 
