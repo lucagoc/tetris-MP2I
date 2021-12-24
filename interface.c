@@ -149,9 +149,9 @@ void initUI(){
 void pause(){
     
     bool inPause = true;
-    WINDOW *pauseWindow = newwin(3,10,6,6);
+    WINDOW *pauseWindow = newwin(NBLINES,(NBCOLUMNS*2)+2,0,0);
     box(pauseWindow, 0, 0);
-    wmove(pauseWindow,1,1);
+    wmove(pauseWindow,10,7);
     wprintw(pauseWindow, "En pause");
     wrefresh(pauseWindow);
     while(inPause){
