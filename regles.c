@@ -12,27 +12,14 @@ const bool DEBUG_MODE = false;
 
 
 /*Cette fonction permet de vérifier si le joueur n'a pas perdu, c'est-à-dire si aucun bloc ne touche la ligne au dessus de la grille une fois placé.*/
-void isEndgame(int mainGrid[NBLINES][NBCOLUMNS]){
+void isEndgame(int mainGrid[NBLINES][NBCOLUMNS],bool* inGame){
     for(int i = 0; i < NBCOLUMNS ; i++){
         if(mainGrid[1][i] != 0){
-            endwin();
-            printf("Fin de partie\n");
-            int res;
-            printf("Voulez-vous rejouer ? Entrez 1 pour rejouer, sinon entrez 0.\n");
-            scanf("%d",&res);
-            if(res==1){
-                break;
-                exit(0); // faut gérer le cas où on rejoue
-            }
-            else if(res==0){
-                exit(0);
-            }else{
-                printf("Saisie incorrecte, merci de saisir 1 ou 0 uniquement.\n");
-                exit(0);
-            }
+            *inGame=false;
         }
     }
 }
+            
 
 int set_difficulty(int difficulty){
     int time_cycle;

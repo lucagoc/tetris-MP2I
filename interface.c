@@ -49,7 +49,7 @@ void drawGrid(int grid[NBLINES][NBCOLUMNS], WINDOW *gridWindow){
 }
 
 /*permet de prévisualiser l'emplacement du tetrimino*/
-void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], WINDOW *gridWindow){
+void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], WINDOW *gridWindow, bool* inGame){
 
     /*Copie de la mobileGrid*/
     int tempGrid[NBLINES][NBCOLUMNS];
@@ -59,7 +59,7 @@ void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][N
         }
     }
 
-    goBottom(mainGrid, tempGrid);
+    goBottom(mainGrid, tempGrid,inGame);
     
     /*Affichage des ghostblocs*/
     for(int x = 2; x < NBLINES; x++){
@@ -80,13 +80,13 @@ void draw_score(int score_counter, int points_per_line){
 
 }
 
-void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int inventaire, WINDOW *gridWindow){
+void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int inventaire, WINDOW *gridWindow,bool* inGame){
 
     werase(gridWindow); //efface la frame précédente
 
     box(gridWindow, 0, 0);
     drawGrid(mainGrid, gridWindow);
-    drawGhostblocks(mainGrid, mobileGrid, gridWindow);
+    drawGhostblocks(mainGrid, mobileGrid, gridWindow,inGame);
     drawGrid(mobileGrid, gridWindow);
     /*draw_score(score_counter,points_per_line);*/
 
@@ -229,3 +229,15 @@ void menu_ui(int difficulty){
     }
     endwin();
 }
+
+void drawTitle(){
+    printf("\n");
+    printf(" _________  _______  _________  ________  ___  ________\n");
+    printf("|\\___   ___\\\\  ___ \\|\\___   ___\\\\   __  \\|\\  \\|\\   ____\\\n");
+    printf("\\|___ \\  \\_\\ \\   __/\\|___ \\  \\_\\ \\  \\|\\  \\ \\  \\ \\  \\___|_\n");
+    printf("     \\ \\  \\ \\ \\  \\_|/__  \\ \\  \\ \\ \\   _  _\\ \\  \\ \\_____  \\\n");
+    printf("      \\ \\  \\ \\ \\  \\_|\\ \\  \\ \\  \\ \\ \\  \\\\  \\\\ \\  \\|____|\\  \\\n");
+    printf("       \\ \\__\\ \\ \\_______\\  \\ \\__\\ \\ \\__\\\\ _\\\\ \\__\\____\\_\\  \\\n");
+    printf("        \\|__|  \\|_______|   \\|__|  \\|__|\\|__|\\|__|\\_________\\\n");
+    printf("                                                 \\|_________|\n\n");
+} 

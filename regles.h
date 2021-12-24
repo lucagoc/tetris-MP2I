@@ -5,7 +5,7 @@ extern const int NBCOLUMNS;
 
 extern const bool DEBUG_MODE;
 
-bool isEndgame(int mainGrid[NBLINES][NBCOLUMNS]);
+bool isEndgame(int mainGrid[NBLINES][NBCOLUMNS],bool* inGame);
 
 int set_difficulty(int difficulty);
 

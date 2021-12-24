@@ -4,9 +4,9 @@
 
 void drawGrid(int grid[NBLINES][NBCOLUMNS], WINDOW *gridWindow);
 
-void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int inventaire, WINDOW *gridWindow);
+void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int inventaire, WINDOW *gridWindow,bool* inGame);
 
-void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], WINDOW *gridWindow);
+void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], WINDOW *gridWindow,bool* inGame);
 
 void draw_commands();
 
@@ -20,3 +20,4 @@ void draw_score(int score_counter, int points_per_line);
 
 void menu_ui();
 
+void drawTitle();
