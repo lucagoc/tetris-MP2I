@@ -17,6 +17,7 @@ int main(){
     int timeOut;
     int score_counter=0;
     int points_per_line;
+    drawTitle();
     printf("Veuillez choisir un niveau de difficulté en entrant une valeur comprise entre 1 et 4 : ");
     scanf("%d",&res);
     if(res==1 || res==2 || res==3 || res==4){
