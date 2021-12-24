@@ -20,3 +20,4 @@ void draw_score(int score_counter, int points_per_line);
 
 void menu_ui();
 
+void drawTitle();
