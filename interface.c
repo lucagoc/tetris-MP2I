@@ -1,5 +1,5 @@
 #include <ncurses.h>
-
+#include <stdlib.h>
 #include "regles.h"
 #include "debug.h"
 #include "functions.h"
@@ -49,7 +49,7 @@ void drawGrid(int grid[NBLINES][NBCOLUMNS], WINDOW *gridWindow){
 }
 
 /*permet de prévisualiser l'emplacement du tetrimino*/
-void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], WINDOW *gridWindow, int score_counter){
+void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], WINDOW *gridWindow){
 
     /*Copie de la mobileGrid*/
     int tempGrid[NBLINES][NBCOLUMNS];
@@ -59,7 +59,7 @@ void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][N
         }
     }
 
-    goBottom(mainGrid, tempGrid, score_counter);
+    goBottom(mainGrid, tempGrid);
     
     /*Affichage des ghostblocs*/
     for(int x = 2; x < NBLINES; x++){
@@ -80,15 +80,15 @@ void draw_score(int score_counter, int points_per_line){
 
 }
 
-void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int inventaire, WINDOW *gridWindow, int score_counter, int points_per_line){
+void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int inventaire, WINDOW *gridWindow){
 
     werase(gridWindow); //efface la frame précédente
 
     box(gridWindow, 0, 0);
     drawGrid(mainGrid, gridWindow);
-    drawGhostblocks(mainGrid, mobileGrid, gridWindow, score_counter);
+    drawGhostblocks(mainGrid, mobileGrid, gridWindow);
     drawGrid(mobileGrid, gridWindow);
-    draw_score(score_counter,points_per_line);
+    /*draw_score(score_counter,points_per_line);*/
 
     /*Affichage de celui qui est stocké*/
     move(17,36);
@@ -186,4 +186,46 @@ void blinkLine(int line){
 
         delay(40000);
     }
+}
+
+void draw_difficulty(int difficulty){
+    move(1,70);
+    switch(difficulty){
+        case 1:
+            printw("Difficulté : Très Facile");
+            break;
+        case 2:
+            printw("Difficulté : Facile");
+            break;
+        case 3:
+            printw("Difficulté : Normale");
+            break;
+        case 4:
+            printw("Difficulté : Difficile");
+            break;
+    };
+
+}
+
+
+void menu_ui(int difficulty){
+    int key;
+    initUI();
+    move(19,25);
+    printw("Jouer : J");
+    draw_difficulty(difficulty);
+    WINDOW *menuWindow = newwin(NBLINES,(NBCOLUMNS*2)+2,0,0);
+    box(menuWindow, 0, 0);
+    wmove(menuWindow,10,6);
+    wprintw(menuWindow,"TETRIMINOZ");
+    wrefresh(menuWindow);
+    while(key!='j' && key!='J'){
+        timeout(0.1); //on évite d'appeler trop souvent getch
+        if (key=='q' || key=='Q'){
+            endwin();
+            exit(0);
+        }
+        key=getch();
+    }
+    endwin();
 }

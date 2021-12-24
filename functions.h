@@ -25,19 +25,19 @@ int setRandom(int tetriminoID);
 
 void downGridfromline(int mainGrid[NBLINES][NBCOLUMNS],int i);
 
-void checkLinefull(int mainGrid[NBLINES][NBCOLUMNS], int score_counter);
+void checkLinefull(int mainGrid[NBLINES][NBCOLUMNS]);
 
 int genTetrimino(int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID);
 
-int goDown(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID, int timeOut, int score_counter);
+int goDown(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID, int timeOut);
 
 void goLeft(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]);
 
 void goRight(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]);
 
-void goBottom(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int score_counter);
+void goBottom(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]);
 
-int putTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID, int timeOut , int score_counter);
+int putTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID, int timeOut);
 
 void turnTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]);
 
