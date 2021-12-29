@@ -25,19 +25,19 @@ int setRandom(int tetriminoID);
 
 void downGridfromline(int mainGrid[NBLINES][NBCOLUMNS],int i);
 
-void checkLinefull(int mainGrid[NBLINES][NBCOLUMNS]);
+void checkLinefull(int mainGrid[NBLINES][NBCOLUMNS],int* score_counter);
 
 int genTetrimino(int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID);
 
-int goDown(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID, int timeOut,bool* inGame);
+int goDown(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID, int timeOut,bool* inGame,int* score_counter);
 
 void goLeft(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]);
 
 void goRight(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]);
 
-void goBottom(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS],bool* inGame);
+void goBottom(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS],bool* inGame, int* score_counter);
 
-int putTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID, int timeOut, bool* inGame);
+int putTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID, int timeOut, bool* inGame, int* score_counter);
 
 void turnTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]);
 

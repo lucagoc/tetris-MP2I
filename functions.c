@@ -118,25 +118,35 @@ void downGridfromline(int mainGrid[NBLINES][NBCOLUMNS], int i){
 }
 
 
-void checkLinefull(int mainGrid[NBLINES][NBCOLUMNS]){
+void checkLinefull(int mainGrid[NBLINES][NBCOLUMNS],int *score_counter){
+    int nb_lines_empty=0;
     for (int i = 0; i < NBLINES; ++i){
         int temp = 0;
+        bool line_empty=true;
+
         for (int j = 0; j < NBCOLUMNS; ++j)
         {
             if(mainGrid[i][j] != BLOCK_VIDE){
                 temp++;
+            }else{
+                line_empty=false;
             }
+        }
+        if (line_empty==true){
+            nb_lines_empty++;
         }
         if(temp == NBCOLUMNS){
             blinkLine(i);
             downGridfromline(mainGrid, i);
         }
+        *score_counter=nb_lines_empty;
     }
+    
     return;
 }
 
 
-int putTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID, int timeOut, bool* inGame){
+int putTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID, int timeOut, bool* inGame, int* score_counter){
 
     /*Ne place pas le tetrimino si le joueur fait une action en moins de 500ms, permet une souplesse au gameplay*/
     int key;
@@ -156,20 +166,20 @@ int putTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOL
         }
     }
     initGrid(mobileGrid);
-    checkLinefull(mainGrid);
+    checkLinefull(mainGrid, score_counter);
     isEndgame(mainGrid, inGame); // avant de placer le tetrimino suivant, on vérifie si la première ligne n'est pas occupée par un bloc, si c'est le cas, on termine la partie
     return genTetrimino(mobileGrid, setRandom(tetriminoID)); //génère un tetrimino une fois l'autre placé.
 }
 
 /*Cette fonction permet de descendre un bloc vers le bas lorsque c'est possible*/
-int goDown(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID, int timeOut, bool* inGame){
+int goDown(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID, int timeOut, bool* inGame, int* score_counter){
     for(int i = NBLINES-1; i > 0 ; i--){ /*Cette boucle balaie toutes les lignes*/
         for(int j = NBCOLUMNS-1; j >= 0; j--){ /*Et celle-ci toutes les colonnes*/
             if (mobileGrid[i][j] != BLOCK_VIDE){
                 if(mainGrid[i+1][j] != BLOCK_VIDE){/*Si le carré dans 'grille' juste au-dessous de celui qu'on vient de détecter dans 'mobileGrid' n'est pas vide, on ne peut pas descendre*/
-                    return putTetrimino(mainGrid, mobileGrid, tetriminoID, timeOut, inGame); /*Donc on place le bloc dans la grille*/
+                    return putTetrimino(mainGrid, mobileGrid, tetriminoID, timeOut, inGame, score_counter); /*Donc on place le bloc dans la grille*/
                 } else if (i == NBLINES-1){
-                    return putTetrimino(mainGrid, mobileGrid, tetriminoID, timeOut, inGame); /*Et si on a atteint la ligne du bas, le bloc ne peut plus descendre, donc on le place dans 'grille'*/
+                    return putTetrimino(mainGrid, mobileGrid, tetriminoID, timeOut, inGame, score_counter); /*Et si on a atteint la ligne du bas, le bloc ne peut plus descendre, donc on le place dans 'grille'*/
                 }
             }
         }
@@ -227,7 +237,7 @@ void goRight(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS
     return;
 }
 
-void goBottom(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], bool* inGame){
+void goBottom(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], bool* inGame, int* score_counter){
 
     if(isGridempty(mobileGrid)) return; // Evite une boucle infinie
     bool descend = true;
@@ -243,7 +253,7 @@ void goBottom(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMN
                 }
             }
         }
-        goDown(mainGrid, mobileGrid, 0, 0,inGame);
+        goDown(mainGrid, mobileGrid, 0, 0,inGame,score_counter);
     }
 }
 
