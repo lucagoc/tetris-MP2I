@@ -57,13 +57,13 @@ void genDebugtetrimino(int mobileGrid[NBLINES][NBCOLUMNS]){
 
 /*Créer le logfile et affiche l'heure à laquelle le programme a démarré*/
 FILE* initLogfile(){
+	FILE *fp;
 	if(DEBUG_MODE){
-		FILE *fp;
         fp  = fopen("./logfile.log", "w");
         printLogdate(fp);
 		fprintf(fp, "Programme démarré");
-        return fp;
 	}
+	return fp;
 }
 
 /*Ecrit les touches pressés par le joueur dans le logfile*/
