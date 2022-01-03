@@ -17,10 +17,9 @@ const int BLOCK_J = 6; /* correspond au tétromino en forme de L inversé */
 const int BLOCK_T = 7; /* correspond au tétromino en forme de T */
 
 
-/*Ce programme contient l'ensemble des fonctions à utiliser actuellement.*/
 
 
-/*Cette fonction void permet de remplir de 0 la grille passée en entrées.*/
+/*Cette fonction void remplit de 0 la grille passée en entrée.*/
 void initGrid(int grid[NBLINES][NBCOLUMNS]){
     for (int x = 0; x < NBLINES; x++){
         for (int y = 0; y < NBCOLUMNS; y++){
@@ -29,6 +28,7 @@ void initGrid(int grid[NBLINES][NBCOLUMNS]){
     }
 }
 
+/*Fonction qui retourne vrai si la grille estvide, faux sinon*/
 bool isGridempty(int grid[NBLINES][NBCOLUMNS]){
     for (int i = 0; i < NBLINES; i++){
         for (int j = 0; j < NBCOLUMNS; j++){
@@ -38,9 +38,9 @@ bool isGridempty(int grid[NBLINES][NBCOLUMNS]){
     return true;
 }
 
-/*Génère un nombre aléatoire entre 1 et 8 en se basant sur rand() et la date*/
+/*Fonction qui génère un nombre aléatoire entre 1 et 8 en se basant sur rand() et la date*/
 int setRandom(int tetriminoID){
-    /*Comme random est dépendant de la machine, on ajoute des données de temps pour augmenter l'effet aléatoire.*/
+    /*Comme random est dépendant de la machine, on ajoute des données de temps pour se rapprocher d'une génération vraiment aléatoire.*/
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
     int result = (tm.tm_year+tm.tm_mon+tm.tm_mday+tm.tm_hour+tm.tm_min+tm.tm_sec+rand())%7+1;
@@ -54,7 +54,7 @@ int setRandom(int tetriminoID){
 /*Cette fonction permet de placer un tetrimino directement prêt en haut de la grille secondaire*/
 int genTetrimino(int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID){
 
-    /*Les bloc sont généré au milieu de la grille.*/
+    /*Les blocs sont générés au milieu de la grille.*/
     int middle = NBCOLUMNS/2;
 
     /*les différents if correspondent à une disjonction de cas*/
@@ -106,7 +106,7 @@ int genTetrimino(int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID){
     return tetriminoID;
 }
 
-/*Descend une grille à partir d'une ligne donnée*/
+/*Cette fonction fait descendre d'une ligne l'ensemble des tetriminos et des blocs (à partir d'une ligne donnée en argument)*/
 void downGridfromline(int mainGrid[NBLINES][NBCOLUMNS], int i){
     for (i = i; i > 0; i--){
 
@@ -117,7 +117,7 @@ void downGridfromline(int mainGrid[NBLINES][NBCOLUMNS], int i){
     }
 }
 
-
+/* Cette fonction vérifie si une ligne de la grille est pleine; la fonction downgridfromline sera appelée en conséquence*/
 void checkLinefull(int mainGrid[NBLINES][NBCOLUMNS],int *score_counter){
     int nb_lines_empty=0;
     for (int i = 0; i < NBLINES; ++i){
@@ -145,7 +145,8 @@ void checkLinefull(int mainGrid[NBLINES][NBCOLUMNS],int *score_counter){
     return;
 }
 
-
+/*Cette fonction place le tetrimino dans la grille principale, réintialise la grille mobile, appelle checkLine full pour supprimer les lignes pleines et isEndgame pour terminer la partie si le joueur a perdu
+elle retourne tetrimino suivant en appelant gentetrimino avec pour argument la grille principale et un nombre aléatoire à l'aide de setRandom*/
 int putTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID, int timeOut, bool* inGame, int* score_counter){
 
     /*Ne place pas le tetrimino si le joueur fait une action en moins de 500ms, permet une souplesse au gameplay*/
@@ -171,7 +172,7 @@ int putTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOL
     return genTetrimino(mobileGrid, setRandom(tetriminoID)); //génère un tetrimino une fois l'autre placé.
 }
 
-/*Cette fonction permet de descendre un bloc vers le bas lorsque c'est possible*/
+/*Cette fonction permet de descendre un bloc vers le bas dans la grille lorsque c'est possible, si le bloc ne peut plus descendre, la fonction put tetrimino est appelée*/
 int goDown(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID, int timeOut, bool* inGame, int* score_counter){
     for(int i = NBLINES-1; i > 0 ; i--){ /*Cette boucle balaie toutes les lignes*/
         for(int j = NBCOLUMNS-1; j >= 0; j--){ /*Et celle-ci toutes les colonnes*/
@@ -195,6 +196,7 @@ int goDown(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS],
     return tetriminoID;
 }
 
+/*Cette fonction permet de descendre un bloc vers la gauche dans la grille lorsque c'est possible*/
 void goLeft(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]){
     for(int i = 0; i < NBLINES ; i++){
         for(int j = 0; j < NBCOLUMNS; j++){
@@ -216,6 +218,7 @@ void goLeft(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]
     return;
 }
 
+/*Cette fonction permet de descendre un bloc vers la droite dans la grille lorsque c'est possible*/
 void goRight(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]){
     for(int i = 0; i < NBLINES ; i++){
         for(int j = 0; j < NBCOLUMNS; j++){
@@ -237,6 +240,7 @@ void goRight(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS
     return;
 }
 
+/*Cette fonction permet de descendre un bloc vers le bas tant que c'est possible*/
 void goBottom(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], bool* inGame, int* score_counter){
 
     if(isGridempty(mobileGrid)) return; // Evite une boucle infinie
@@ -257,7 +261,7 @@ void goBottom(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMN
     }
 }
 
-
+/*Cette fonction permet d'effectuer la rotation d'un tetrimino dans le sens horaire losque c'est possible*/
 void turnTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]){
 
     /*Création d'une grille de simulation*/
@@ -354,7 +358,7 @@ void turnTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBC
 
     return;
 }
-
+/* Cette fonction permet d'attendre pendant une durée en ms avant de continuer à exécuter les instructions du programme*/
 void delay(int ms)
 {
     clock_t time = clock();

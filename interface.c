@@ -5,7 +5,7 @@
 #include "functions.h"
 
 
-/*Permet d'afficher la grille de jeu*/
+/*Cette fonction affiche la grille de jeu */
 void drawGrid(int grid[NBLINES][NBCOLUMNS], WINDOW *gridWindow){
     for(int x = 2; x < NBLINES; x++){
         for (int y = 0; y < NBCOLUMNS; y++){
@@ -48,7 +48,7 @@ void drawGrid(int grid[NBLINES][NBCOLUMNS], WINDOW *gridWindow){
     }
 }
 
-/*permet de prévisualiser l'emplacement du tetrimino*/
+/*Cette fonction permet de prévisualiser l'emplacement du tetrimino*/
 void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], WINDOW *gridWindow, bool* inGame,int* score_counter){
 
     /*Copie de la mobileGrid*/
@@ -73,13 +73,15 @@ void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][N
     return;
 }
 
+/* Cette fonction  ajoute au score actuel le nombre de points gagnés par le joueur en fonction de la difficulté et du nombre de lignes pleines puis affiche le total
+on l'appelle séparément de drawui car il n'est pas nécessaire de rafraichir le score à chaque déplacement du tetrimino*/
 void draw_score(int* score, int score_counter, int points_per_line){
     *score=*score+score_counter*points_per_line;
     move(19,25);
     printw("Score : %d\n",*score);
 
 }
-
+/*Cette fonction affiche la grille de jeu*/
 void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int inventaire, WINDOW *gridWindow,bool* inGame,int* score_counter){
 
     werase(gridWindow); //efface la frame précédente
@@ -100,7 +102,7 @@ void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]
     wrefresh(gridWindow);
     refresh();
 }
-
+/* Cette focntion affiche les touches pouvant être utilisées par le joueur pour effectuer une action donnée pendant l'exécution du programme*/
 void draw_commands(){
     move(1,25);
     printw("Descente instantanée : Flèche du haut");
@@ -123,7 +125,7 @@ void draw_commands(){
     refresh();
 }
 
-/*Fonction qui définie les propriétés de l'affichage lors de son démarrage*/
+/*Fonction qui définit les propriétés de l'affichage avec nscurses lors de son démarrage*/
 void initUI(){
 	
 	initscr();  // Initialise l'affichage
@@ -144,7 +146,7 @@ void initUI(){
     noecho();  // Cache les touches pressées
     refresh();
 }
-
+/* Cette focntion met le jeu en pause et affcihe une fenêtre de pause pour marquer ce changement d'état mais également pour empêcher le joueur de tricher*/
 void pause(){
     
     bool inPause = true;
@@ -162,7 +164,7 @@ void pause(){
     
     return;
 }
-
+/*Cette fonction affiche une animation lors de la supression d'une ligne pleine */
 void blinkLine(int line){
     for(int n = 0; n < 5; n++){
 
@@ -186,7 +188,7 @@ void blinkLine(int line){
         delay(40000);
     }
 }
-
+/*Cette focntion affiche le niveau de difficulté sélectionné par le joueur*/
 void draw_difficulty(int difficulty){
     move(1,70);
     switch(difficulty){
@@ -205,7 +207,7 @@ void draw_difficulty(int difficulty){
     };
 }
 
-
+/* Cette focntion affcihe le menu du jeu*/
 void menu_ui(int difficulty){
     int key;
     initUI();
@@ -227,7 +229,7 @@ void menu_ui(int difficulty){
     }
     endwin();
 }
-
+/* Cette fonction affiche le titre du jeu lors du lancement de celui-ci et à chaque nouvelle partie*/
 void drawTitle(){
     printf("\n");
     printf( "      _____                    _____                _____                    _____                   _______                   _____          \n"

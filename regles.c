@@ -20,7 +20,8 @@ void isEndgame(int mainGrid[NBLINES][NBCOLUMNS],bool* inGame){
     }
 }
             
-
+/*Cette prend en argument la difficulté sélectionnée par le joueur et renvoie une durée en ms.
+Celle si sera un délai entre la descente du tetrimino à un instant t et la descente à un instant t+time_cycle (voir variable retournée)*/
 int set_difficulty(int difficulty){
     int time_cycle;
     switch(difficulty){
@@ -40,7 +41,8 @@ int set_difficulty(int difficulty){
     };
     return time_cycle;
 }
-
+/*Cette prend en argument la difficulté sélectionnée par le joueur et renvoie une durée en ms.
+Celle si sera un délai entre le placement du tetrimino actuel et la génération ainsi que le placement du tétrimino suivant*/
 int set_delay(int difficulty){
     int delay;
     switch(difficulty){
@@ -60,7 +62,7 @@ int set_delay(int difficulty){
     };
     return delay;
 }
-
+/*Cette prend en argument la difficulté sélectionnée par le joueur et renvoie un nombre de points à attribuer à chaque ligne remplie.*/
 int set_points_per_line(int difficulty){
     int points_per_line;
     switch(difficulty){

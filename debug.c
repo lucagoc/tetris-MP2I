@@ -11,7 +11,7 @@ garder une trace au fil du temps d'une partie de tetris*/
 /*Bloc de DEBUG, a un affichage particulier pour être différencié des blocs classiques.*/
 const int BLOCK_DEBUG = -1;
 
-/*Affiche les valeurs internes au matrice utilisé par le jeu*/
+/*Fonction qui affiche les valeurs internes au matrice utilisé par le jeu*/
 void drawDebug(int mobileGrid[NBLINES][NBCOLUMNS], int mainGrid[NBLINES][NBCOLUMNS]){
 	if(DEBUG_MODE){
 		for (int i = 0; i < NBLINES; i++)
@@ -32,7 +32,7 @@ void drawDebug(int mobileGrid[NBLINES][NBCOLUMNS], int mainGrid[NBLINES][NBCOLUM
 	}
 }
 
-/*Ecrit la date dans le logfile avant chaque ligne ajoutée*/
+/*Fonction qui écrit la date dans le logfile avant chaque ligne ajoutée*/
 void printLogdate(FILE* fp){
 	time_t t = time(NULL);
   	struct tm tm = *localtime(&t);
@@ -55,7 +55,7 @@ void genDebugtetrimino(int mobileGrid[NBLINES][NBCOLUMNS]){
 	}
 }
 
-/*Créer le logfile et affiche l'heure à laquelle le programme a démarré*/
+/*Fonction qui crée le logfile et y écrit l'heure à laquelle le programme a démarré*/
 FILE* initLogfile(){
 	FILE *fp;
 	if(DEBUG_MODE){
@@ -66,7 +66,7 @@ FILE* initLogfile(){
 	return fp;
 }
 
-/*Ecrit les touches pressés par le joueur dans le logfile*/
+/*Fonction qui écrit les touches pressés par le joueur dans le logfile*/
 void printLogkey(FILE* fp, char dir){
 	if(DEBUG_MODE){
 		printLogdate(fp);
