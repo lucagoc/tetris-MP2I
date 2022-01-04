@@ -5,13 +5,14 @@
 #include "regles.h"
 #include "functions.h"
 
-/*Ce fichier sert uniquement à l'exécution du module "debug", qui sert essentiellement à 
-garder une trace au fil du temps d'une partie de tetris*/
+/*	Ce fichier sert uniquement à l'exécution du module "debug", qui sert essentiellement à 
+ * 	garder une trace au fil du temps d'une partie de tetris
+ */
 
-/*Bloc de DEBUG, a un affichage particulier pour être différencié des blocs classiques.*/
+/*Bloc à l'affichage particulier pour être différencié des blocs classiques.*/
 const int BLOCK_DEBUG = -1;
 
-/*Fonction qui affiche les valeurs internes au matrice utilisé par le jeu*/
+/*Affiche les valeurs des matrices utilisées par le jeu*/
 void drawDebug(int mobileGrid[NBLINES][NBCOLUMNS], int mainGrid[NBLINES][NBCOLUMNS]){
 	if(DEBUG_MODE){
 		for (int i = 0; i < NBLINES; i++)
@@ -32,14 +33,14 @@ void drawDebug(int mobileGrid[NBLINES][NBCOLUMNS], int mainGrid[NBLINES][NBCOLUM
 	}
 }
 
-/*Fonction qui écrit la date dans le logfile avant chaque ligne ajoutée*/
+/*Ecrit la date dans le logfile*/
 void printLogdate(FILE* fp){
 	time_t t = time(NULL);
   	struct tm tm = *localtime(&t);
   	fprintf(fp, "\n[%d-%02d-%02d %02d:%02d:%02d] ", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 }
 
-/*Génère un bloc avec 9 valeurs différentes. La fonction n'effectue pas de vérification*/
+/*Génère un bloc avec 9 valeurs différentes.*/
 void genDebugtetrimino(int mobileGrid[NBLINES][NBCOLUMNS]){
 	if(DEBUG_MODE){
 		initGrid(mobileGrid);
@@ -55,7 +56,7 @@ void genDebugtetrimino(int mobileGrid[NBLINES][NBCOLUMNS]){
 	}
 }
 
-/*Fonction qui crée le logfile et y écrit l'heure à laquelle le programme a démarré*/
+/*Crée le logfile*/
 FILE* initLogfile(){
 	FILE *fp;
 	if(DEBUG_MODE){

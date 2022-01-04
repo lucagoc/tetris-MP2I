@@ -1,5 +1,3 @@
-//#ifndef INTERFACE_H
-
 #define INTERFACE_H
 
 void drawGrid(int grid[NBLINES][NBCOLUMNS], WINDOW *gridWindow);

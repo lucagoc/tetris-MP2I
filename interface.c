@@ -1,18 +1,18 @@
 #include <ncurses.h>
 #include <stdlib.h>
+
 #include "regles.h"
 #include "debug.h"
 #include "functions.h"
 
 
-/*Cette fonction affiche la grille de jeu */
+/*Affiche la grille de jeu */
 void drawGrid(int grid[NBLINES][NBCOLUMNS], WINDOW *gridWindow){
     for(int x = 2; x < NBLINES; x++){
         for (int y = 0; y < NBCOLUMNS; y++){
             wmove(gridWindow,x-1,(y*2)+1);
 
             /*Implémentation des couleurs selon le type du bloc*/
-
             if(grid[x][y] == BLOCK_O){
                 wattron(gridWindow, COLOR_PAIR(BLOCK_O));
                 wprintw(gridWindow,"  ");
@@ -46,9 +46,11 @@ void drawGrid(int grid[NBLINES][NBCOLUMNS], WINDOW *gridWindow){
             }
         }
     }
+
+    return;
 }
 
-/*Cette fonction permet de prévisualiser l'emplacement du tetrimino*/
+/*Affiche la prévisualisation de l'emplacement des tetrimino*/
 void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], WINDOW *gridWindow, bool* inGame,int* score_counter){
 
     /*Copie de la mobileGrid*/
@@ -81,7 +83,8 @@ void draw_score(int* score, int score_counter, int points_per_line){
     printw("Score : %d\n",*score);
 
 }
-/*Cette fonction affiche la grille de jeu*/
+
+/*Affiche le l'interface du jeu.*/
 void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int inventaire, WINDOW *gridWindow,bool* inGame,int* score_counter){
 
     werase(gridWindow); //efface la frame précédente
@@ -102,8 +105,10 @@ void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]
     wrefresh(gridWindow);
     refresh();
 }
-/* Cette focntion affiche les touches pouvant être utilisées par le joueur pour effectuer une action donnée pendant l'exécution du programme*/
+
+/*Affiche les touches pour jouer*/
 void draw_commands(){
+
     move(1,25);
     printw("Descente instantanée : Flèche du haut");
     move(3,25);
@@ -123,15 +128,17 @@ void draw_commands(){
     move(17,25);
     printw("Réserve : ");
     refresh();
+
+    return;
 }
 
-/*Fonction qui définit les propriétés de l'affichage avec nscurses lors de son démarrage*/
+/*Applique les propriétés de l'affichage de nscurses*/
 void initUI(){
-	
-	initscr();  // Initialise l'affichage
-    start_color();  // Initialise la palette de couleur
 
-    // Définition des couleurs
+	initscr();  // Initialise l'affichage ncurses
+    start_color();  // Active la palette de couleur
+
+    /*Création des palettes de couleurs*/
     init_pair(BLOCK_O, COLOR_WHITE, COLOR_YELLOW);
     init_pair(BLOCK_I, COLOR_WHITE, COLOR_CYAN);
     init_pair(BLOCK_S, COLOR_WHITE, COLOR_GREEN);
@@ -145,7 +152,10 @@ void initUI(){
     curs_set(0);  // Cache le curseur
     noecho();  // Cache les touches pressées
     refresh();
+
+    return;
 }
+
 /* Cette focntion met le jeu en pause et affcihe une fenêtre de pause pour marquer ce changement d'état mais également pour empêcher le joueur de tricher*/
 void pause(){
     
@@ -164,7 +174,8 @@ void pause(){
     
     return;
 }
-/*Cette fonction affiche une animation lors de la supression d'une ligne pleine */
+
+/*Affiche une animation lors de la supression d'une ligne pleine */
 void blinkLine(int line){
     for(int n = 0; n < 5; n++){
 
@@ -187,8 +198,11 @@ void blinkLine(int line){
 
         delay(40000);
     }
+
+    return;
 }
-/*Cette focntion affiche le niveau de difficulté sélectionné par le joueur*/
+
+/*Affiche le niveau de difficulté sélectionné par le joueur*/
 void draw_difficulty(int difficulty){
     move(1,70);
     switch(difficulty){
@@ -205,9 +219,11 @@ void draw_difficulty(int difficulty){
             printw("Difficulté : Difficile");
             break;
     };
+
+    return;
 }
 
-/* Cette focntion affcihe le menu du jeu*/
+/*Affiche le menu du jeu*/
 void menu_ui(int difficulty){
     int key;
     initUI();
@@ -219,17 +235,20 @@ void menu_ui(int difficulty){
     wmove(menuWindow,10,8);
     wprintw(menuWindow,"TETROS");
     wrefresh(menuWindow);
-    while(key!='j' && key!='J'){
+    while(key != 'j' && key != 'J'){
         timeout(0.1); //on évite d'appeler trop souvent getch
-        if (key=='q' || key=='Q'){
+        if (key == 'q' || key == 'Q'){
             endwin();
             exit(0);
         }
         key=getch();
     }
     endwin();
+
+    return;
 }
-/* Cette fonction affiche le titre du jeu lors du lancement de celui-ci et à chaque nouvelle partie*/
+
+/*Affiche le titre du jeu*/
 void drawTitle(){
     printf("\n");
     printf( "      _____                    _____                _____                    _____                   _______                   _____          \n"

@@ -1,8 +1,5 @@
-
 #ifndef FUNCTIONS_H
-
 #define FUNCTIONS_H
-
 
 extern const int BLOCK_VIDE;
 extern const int BLOCK_O; 

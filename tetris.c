@@ -3,11 +3,11 @@
 #include <time.h>
 #include <stdlib.h>
 #include <ctype.h>
+
 #include "functions.h"
 #include "interface.h"
 #include "regles.h"
 #include "debug.h"
-
 
 
 int main(){
@@ -18,9 +18,9 @@ int main(){
         int timeCycle;
         int timeOut;
         int points_per_line;
-        int score=0;
-        int score_counter=0;
-        int score_counter_before=0;
+        int score = 0;
+        int score_counter = 0;
+        int score_counter_before = 0;
  
         drawTitle();
         printf("Veuillez choisir un niveau de difficulté en entrant une valeur comprise entre 1 et 4 : ");
@@ -64,7 +64,6 @@ int main(){
         draw_score(&score,score_counter,points_per_line);
 
         /*Commande de controle*/
-        
         int key;
         while(inGame){
             while(time < timeCycle){
@@ -98,7 +97,7 @@ int main(){
                     printLogkey(fp, 'd');
                     time--;
                 }
-                else if(key=='y' || key=='Y'){
+                else if(key =='y' || key=='Y'){
                     if (DEBUG_MODE==true){
                         genDebugtetrimino(mobileGrid);
                         printLogkey(fp, 'y');
@@ -147,19 +146,18 @@ int main(){
     int res2;
     printf("Voulez-vous rejouer ? Entrez 1 pour rejouer, sinon entrez 0.\n");
     scanf("%d",&res2);
-    if(res2==1){
-        inGame=true;
+    if(res2 == 1){
+        inGame = true;
 
     }
-    else if(res2==0){
-        gameOn=false;
+    else if(res2 == 0){
+        gameOn = false;
     }else{
         printf("Saisie incorrecte, merci de saisir 1 ou 0 uniquement.\n");
-        gameOn=false;
+        gameOn = false;
     }
 
     }
 
-    endwin();
     return 0;
 }
