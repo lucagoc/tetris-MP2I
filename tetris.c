@@ -14,6 +14,7 @@ int main(){
     bool gameOn=true;
     while (gameOn){
         int res;
+        int res2;
         int time;
         int timeCycle;
         int timeOut;
@@ -39,72 +40,70 @@ int main(){
         menu_ui();
         curs_set(2);
 
-
-
-        /*Ecrit un fichier de debug si le debug mode est activé, voir regles.c*/
-        FILE *fp = initLogfile();
+        FILE *fp = initLogfile(); //
 
         int mainGrid[NBLINES][NBCOLUMNS];
         int mobileGrid[NBLINES][NBCOLUMNS];
-        int inventory = 0; //inventaire vide
-        bool invUsed = false; // Permet de savoir si l'inventaire a été utilisé.
+        int inventory = 0;
+        bool invUsed = false;
 
         initGrid(mainGrid);
         initGrid(mobileGrid);
 
-
         initUI();
-        WINDOW *gridWindow = newwin(NBLINES,(NBCOLUMNS*2)+2,0,0); //création de la fenêtre de jeu, nombre de colonnes multiplié par 2 pour faire des carrés.
+        WINDOW *gridWindow = newwin(NBLINES,(NBCOLUMNS*2)+2,0,0);  // Création de la fenêtre de jeu
         bool inGame=true;
         drawUI(mainGrid, mobileGrid, inventory, gridWindow,&inGame,&score_counter);
 
         int tetriminoID = genTetrimino(mobileGrid, setRandom(0));
-        int priorID = tetriminoID; //Utile pour les comparaisons.
+        int priorID = tetriminoID;  // Correspond à l'ID du tetrimino précédent.
 
-        draw_score(&score,score_counter,points_per_line);
+        draw_score(&score, score_counter, points_per_line);
 
-        /*Commande de controle*/
+        /*Commandes de contrôle*/
         int key;
         while(inGame){
             while(time < timeCycle){
                 timeout(1);
-                key = getch();
 
-                if(key==65){
+                key = getch();
+                if(key == 65){  // Flèche haut
+                    printLogkey(fp, '^');
                     goBottom(mainGrid, mobileGrid,&inGame,&score_counter);
                     drawUI(mainGrid, mobileGrid, inventory, gridWindow,&inGame,&score_counter); //refresh pour l'animation.
                     tetriminoID = putTetrimino(mainGrid, mobileGrid, tetriminoID, 0,&inGame,&score_counter);
-                    printLogkey(fp, '^');
                 }
-                else if(key==66){
-                    tetriminoID = goDown(mainGrid, mobileGrid, tetriminoID, timeOut,&inGame,&score_counter);
+                else if(key == 66){  // Flèche bas
                     printLogkey(fp, 'B');
-                    time--; // Evite une accélération trop rapide du tétrimino lors de sa chute.
+                    tetriminoID = goDown(mainGrid, mobileGrid, tetriminoID, timeOut,&inGame,&score_counter);
+                    time--;  // Evite une accélération trop rapide du tétrimino lors de sa chute.
                 }
-                else if(key==67){
-                    goRight(mainGrid, mobileGrid);
+                else if(key == 67){  // Flèche droite
                     printLogkey(fp, '>');
+                    goRight(mainGrid, mobileGrid);
                 }
-                else if(key==68){
-                    goLeft(mainGrid, mobileGrid);
+                else if(key == 68){  // Flèche gauche
                     printLogkey(fp, '<');
+                    goLeft(mainGrid, mobileGrid);
                 }
-                else if(key=='q' || key=='Q'){
-                    inGame=false;
+                else if(key == 'q' || key == 'Q'){
+                    printLogkey(fp, 'q');
+                    inGame = false;
                 }
-                else if(key=='d' || key=='D'){
-                    turnTetrimino(mainGrid, mobileGrid);
+                else if(key == 'd' || key == 'D'){
                     printLogkey(fp, 'd');
+                    turnTetrimino(mainGrid, mobileGrid);
                     time--;
                 }
-                else if(key =='y' || key=='Y'){
+                else if(key =='y' || key == 'Y'){
+                    printLogkey(fp, 'y');
                     if (DEBUG_MODE==true){
                         genDebugtetrimino(mobileGrid);
-                        printLogkey(fp, 'y');
                         tetriminoID = BLOCK_DEBUG;
                     }
                 }
-                else if(key=='s' || key=='S'){
+                else if(key == 's' || key == 'S'){
+                    printLogkey(fp, 's');
                     if(invUsed == false){
                         if(inventory == 0){ // Cas où il n'y a pas encore de bloc dans l'inventaire.
                             initGrid(mobileGrid);
@@ -120,43 +119,40 @@ int main(){
                         }
                         invUsed = true;
                     }
-                    printLogkey(fp, 's');
                 }
-                else if(key=='p' || key=='P'){
-                    pause();
+                else if(key == 'p' || key == 'P'){
                     printLogkey(fp, 'p');
+                    pause();
                 }
 
-                //Réactive l'accès à l'inventaire si le tetrimino a changé
-                if(tetriminoID != priorID) invUsed = false;
-                drawUI(mainGrid, mobileGrid, inventory, gridWindow,&inGame,&score_counter);
-                if (score_counter!=score_counter_before){
-                    draw_score(&score,score_counter,points_per_line);
-                    score_counter_before=score_counter;
+                if(tetriminoID != priorID) invUsed = false;  // Redonne l'accès à l'inventaire si le tetrimino a changé
+
+                drawUI(mainGrid, mobileGrid, inventory, gridWindow, &inGame, &score_counter);
+
+                if (score_counter != score_counter_before){
+                    draw_score(&score, score_counter, points_per_line);
+                    score_counter_before = score_counter;
                 }
+
                 time++;
-                
             }
             
             tetriminoID = goDown(mainGrid, mobileGrid, tetriminoID, timeOut,&inGame,&score_counter);
             time = 0;
         }
-    endwin();
-    printf("Fin de partie\n");
-    int res2;
-    printf("Voulez-vous rejouer ? Entrez 1 pour rejouer, sinon entrez 0.\n");
-    scanf("%d",&res2);
-    if(res2 == 1){
-        inGame = true;
 
-    }
-    else if(res2 == 0){
-        gameOn = false;
-    }else{
-        printf("Saisie incorrecte, merci de saisir 1 ou 0 uniquement.\n");
-        gameOn = false;
-    }
-
+        endwin();
+        printf("Fin de partie\n");
+        printf("Voulez-vous rejouer ? Entrez 1 pour rejouer, sinon entrez 0.\n");
+        scanf("%d",&res2);
+        if(res2 == 1){
+            inGame = true;
+        } else if(res2 == 0){
+            gameOn = false;
+        } else{
+            printf("Saisie incorrecte, merci de saisir 1 ou 0 uniquement.\n");
+            gameOn = false;
+        }
     }
 
     return 0;
