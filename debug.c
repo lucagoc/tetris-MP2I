@@ -5,8 +5,9 @@
 #include "regles.h"
 #include "functions.h"
 
-/*	Ce fichier sert uniquement à l'exécution du module "debug", qui sert essentiellement à 
- * 	garder une trace au fil du temps d'une partie de tetris
+/*	Ce fichier sert uniquement à l'exécution du module "debug",
+ *	qui sert essentiellement à garder une trace au fil du temps
+ *  d'une partie de tetris.
  */
 
 /*Bloc à l'affichage particulier pour être différencié des blocs classiques.*/

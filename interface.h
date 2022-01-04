@@ -1,5 +1,6 @@
 #define INTERFACE_H
 
+
 void drawGrid(int grid[NBLINES][NBCOLUMNS], WINDOW *gridWindow);
 
 void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int inventaire, WINDOW *gridWindow,bool* inGame,int* score_counter);

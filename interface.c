@@ -72,16 +72,17 @@ void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][N
             }
         }
     }
+
     return;
 }
 
-/* Cette fonction  ajoute au score actuel le nombre de points gagnés par le joueur en fonction de la difficulté et du nombre de lignes pleines puis affiche le total
-on l'appelle séparément de drawui car il n'est pas nécessaire de rafraichir le score à chaque déplacement du tetrimino*/
+/* Affiche le score. */
 void draw_score(int* score, int score_counter, int points_per_line){
-    *score=*score+score_counter*points_per_line;
+    *score += score_counter * points_per_line;
     move(19,25);
     printw("Score : %d\n",*score);
 
+    return;
 }
 
 /*Affiche le l'interface du jeu.*/
