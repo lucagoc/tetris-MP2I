@@ -176,13 +176,13 @@ void initUI(){
     start_color();  // Active la palette de couleur
 
     /*Création des palettes de couleurs*/
-    init_pair(BLOCK_O, COLOR_WHITE, COLOR_YELLOW);
-    init_pair(BLOCK_I, COLOR_WHITE, COLOR_CYAN);
-    init_pair(BLOCK_S, COLOR_WHITE, COLOR_GREEN);
-    init_pair(BLOCK_Z, COLOR_WHITE, COLOR_RED);
-    init_pair(BLOCK_L, COLOR_WHITE, COLOR_WHITE);
-    init_pair(BLOCK_J, COLOR_WHITE, COLOR_BLUE);
-    init_pair(BLOCK_T, COLOR_WHITE, COLOR_MAGENTA);
+    init_pair(BLOCK_O, COLOR_BLACK, COLOR_YELLOW);
+    init_pair(BLOCK_I, COLOR_BLACK, COLOR_CYAN);
+    init_pair(BLOCK_S, COLOR_BLACK, COLOR_GREEN);
+    init_pair(BLOCK_Z, COLOR_BLACK, COLOR_RED);
+    init_pair(BLOCK_L, COLOR_BLACK, COLOR_WHITE);
+    init_pair(BLOCK_J, COLOR_BLACK, COLOR_BLUE);
+    init_pair(BLOCK_T, COLOR_BLACK, COLOR_MAGENTA);
 
     draw_commands();
 
