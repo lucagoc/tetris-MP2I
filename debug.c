@@ -3,7 +3,7 @@
 #include <time.h>
 
 #include "regles.h"
-#include "functions.h"
+#include "tetrimino.h"
 
 /*	Ce fichier sert uniquement à l'exécution du module "debug",
  *	qui sert essentiellement à garder une trace au fil du temps

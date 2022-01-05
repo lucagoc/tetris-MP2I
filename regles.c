@@ -21,19 +21,19 @@ void isEndgame(int mainGrid[NBLINES][NBCOLUMNS],bool* inGame){
 }
 
 /* Définit le délai de descente en fonction de la difficulté. */
-int set_difficulty(int difficulty){
+int set_difficulty(char* difficulty){
     int time_cycle;
-    switch(difficulty){
-        case 1:
+    switch(*difficulty){
+        case 't':
             time_cycle=900;
             break;
-        case 2:
+        case 'f':
             time_cycle=600;
             break;
-        case 3:
+        case 'n':
             time_cycle=300;
             break;
-        case 4:
+        case 'd':
             time_cycle=150;
             break;
 
@@ -42,19 +42,19 @@ int set_difficulty(int difficulty){
 }
 
 /* Définit le délai de placement en fonction de la difficulté. */
-int set_delay(int difficulty){
+int set_delay(char* difficulty){
     int delay;
-    switch(difficulty){
-        case 1:
+    switch(*difficulty){
+        case 't':
             delay=700;
             break;
-        case 2:
+        case 'f':
             delay=500;
             break;
-        case 3:
+        case 'n':
             delay=300;
             break;
-        case 4:
+        case 'd':
             delay=100;
             break;
 
@@ -63,19 +63,19 @@ int set_delay(int difficulty){
 }
 
 /* Renvoie le nombre de points à chaque ligne remplie en fct.*/
-int set_points_per_line(int difficulty){
+int set_points_per_line(char* difficulty){
     int points_per_line;
-    switch(difficulty){
-        case 1:
+    switch(*difficulty){
+        case 't':
             points_per_line=4 ;
             break;
-        case 2:
+        case 'f':
             points_per_line=10;
             break;
-        case 3:
+        case 'n':
             points_per_line=40;
             break;
-        case 4:
+        case 'd':
             points_per_line=100;
             break;
 

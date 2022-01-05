@@ -1,9 +1,9 @@
 #include <ncurses.h>
 #include <stdlib.h>
-
+#include <ctype.h>
 #include "regles.h"
 #include "debug.h"
-#include "functions.h"
+#include "tetrimino.h"
 
 
 /*Affiche la grille de jeu */
@@ -148,7 +148,6 @@ void initUI(){
     init_pair(BLOCK_J, COLOR_WHITE, COLOR_BLUE);
     init_pair(BLOCK_T, COLOR_WHITE, COLOR_MAGENTA);
 
-    draw_commands();
 
     curs_set(0);  // Cache le curseur
     noecho();  // Cache les touches pressées
@@ -204,19 +203,20 @@ void blinkLine(int line){
 }
 
 /* Affiche le niveau de difficulté sélectionné par le joueur */
-void draw_difficulty(int difficulty){
+void draw_difficulty(char difficulty){
+    tolower(difficulty);
     move(1,NBCOLUMNS+60);
     switch(difficulty){
-        case 1:
+        case 't':
             printw("Difficulté : Très Facile");
             break;
-        case 2:
+        case 'f':
             printw("Difficulté : Facile");
             break;
-        case 3:
+        case 'n':
             printw("Difficulté : Normale");
             break;
-        case 4:
+        case 'd':
             printw("Difficulté : Difficile");
             break;
     };
@@ -225,10 +225,10 @@ void draw_difficulty(int difficulty){
 }
 
 /*Affiche le menu du jeu*/
-void menu_ui(int difficulty){
+void menu_ui(char difficulty){
     erase();
     int key;
-    initUI();
+    draw_commands();
     move(19, NBCOLUMNS+15);
     printw("Jouer : J");
     draw_difficulty(difficulty);
@@ -248,6 +248,46 @@ void menu_ui(int difficulty){
     endwin();
 
     return;
+}
+
+void select_difficulty_ui(char* res){
+    char key;
+    initUI();
+    WINDOW *select_difficulty_Window = newwin(NBLINES,(NBCOLUMNS*2)+2,0,0);
+    wprintw(select_difficulty_Window,"Difficulté : \n\n Très Facile -> T\n\n Facile -> F\n\n Normale -> N\n\n Difficile -> D");
+    wrefresh(select_difficulty_Window);
+    while(key!='t' && key!='f' && key!='n' && key!='d' && key!='T' && key!='F' && key!='N' && key!='D' ){
+        if (key == 'q' || key == 'Q'){
+            endwin();
+            exit(0);
+        }
+        key=getchar();
+    }
+    endwin();
+    *res=key;
+    return;
+
+}
+
+void end_ui(bool* gameOn,bool* inGame){
+    erase();
+    char key;
+    initUI();
+    WINDOW *end_Window = newwin(NBLINES,(NBCOLUMNS*2)+2,0,0);
+    wprintw(end_Window,"La partie est finie !\n\nRejouer : J\n\nQuitter : Q");
+    wrefresh(end_Window);
+    while(key!='j' && key!='J' && key!='q' && key!='Q'){
+        key=getchar();
+    }
+    if (key=='q' || key=='Q'){
+        *gameOn=false;
+    }
+    else if(key=='j' || key=='J'){
+        *inGame=true;
+    }
+    endwin();
+    return;
+
 }
 
 /* Affiche le titre du jeu. Outil utilisé : textkool.com */
