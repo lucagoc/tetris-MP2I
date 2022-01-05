@@ -18,7 +18,7 @@ const int BLOCK_J = 6;  // Correspond au tétromino en forme de L inversé
 const int BLOCK_T = 7;  // Correspond au tétromino en forme de T
 
 
-/* Cette fonction void remplit de 0 la grille passée en entrée. */
+/* Initialise la grille entrée */
 void initGrid(int grid[NBLINES][NBCOLUMNS]){
     for (int x = 0; x < NBLINES; x++){
         for (int y = 0; y < NBCOLUMNS; y++){
@@ -34,10 +34,11 @@ bool isGridempty(int grid[NBLINES][NBCOLUMNS]){
             if (grid[i][j] != BLOCK_VIDE) return false;
         }
     }
+
     return true;
 }
 
-/* Fonction qui génère un nombre aléatoire entre 1 et 8 en se basant sur rand() et la date */
+/* Génère un nombre aléatoire entre 1 et 8 en se basant sur rand() et la date */
 int setRandom(int tetriminoID){
 
     /* Comme random est dépendant de la machine, on ajoute des données de temps pour se rapprocher d'une génération vraiment aléatoire. */
@@ -120,10 +121,10 @@ void downGridfromline(int mainGrid[NBLINES][NBCOLUMNS], int i){
 
 /* Vérifie si une ligne de la grille est pleine */
 void checkLinefull(int mainGrid[NBLINES][NBCOLUMNS],int *score_counter){
-    int nb_lines_empty=0;
+    int nb_lines_empty = 0;
     for (int i = 0; i < NBLINES; ++i){
         int temp = 0;
-        bool line_empty=true;
+        bool line_empty = true;
 
         for (int j = 0; j < NBCOLUMNS; ++j)
         {
@@ -133,7 +134,7 @@ void checkLinefull(int mainGrid[NBLINES][NBCOLUMNS],int *score_counter){
                 line_empty = false;
             }
         }
-        if (line_empty == true){
+        if (line_empty){
             nb_lines_empty++;
         }
         if(temp == NBCOLUMNS){
@@ -146,8 +147,7 @@ void checkLinefull(int mainGrid[NBLINES][NBCOLUMNS],int *score_counter){
     return;
 }
 
-/*Cette fonction place le tetrimino dans la grille principale, réintialise la grille mobile, appelle checkLine full pour supprimer les lignes pleines et isEndgame pour terminer la partie si le joueur a perdu
-elle retourne tetrimino suivant en appelant gentetrimino avec pour argument la grille principale et un nombre aléatoire à l'aide de setRandom*/
+/* Place le tetrimino de mobileGrid dans mainGrid et renvoie un nouveau tetrimino. */
 int putTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID, int timeOut, bool* inGame, int* score_counter){
 
     /*Interrompt le placement si le joueur appuie sur une touche, donne une souplesse au gameplay*/
@@ -167,6 +167,8 @@ int putTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOL
             }
         }
     }
+
+    /* Prépare le tetrimino suivant et supprime les lignes pleines. */
     initGrid(mobileGrid);
     checkLinefull(mainGrid, score_counter);
     isEndgame(mainGrid, inGame);
@@ -192,7 +194,7 @@ int goDown(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS],
         }
     }
 
-    /*Remplis la ligne du haut de bloc_VIDE*/
+    /* Remplis la ligne du haut de bloc_VIDE */
     for (int k = 0; k < NBCOLUMNS; k++){
         mobileGrid[0][k] = BLOCK_VIDE;
     }
@@ -213,11 +215,13 @@ void goLeft(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]
             }
         }
     }
+
+    /* Remplis la colonne de droite de bloc_VIDE */
     for(int i = 0; i < NBLINES; i++){
         for(int j = 0; j < NBCOLUMNS; j++){
             mobileGrid[i][j] = mobileGrid[i][j+1];
         }
-        mobileGrid[i][NBCOLUMNS] = BLOCK_VIDE; //on remplis de bloc_VIDE sur la dernière colonne
+        mobileGrid[i][NBCOLUMNS] = BLOCK_VIDE;
     }
 
     return;
@@ -236,11 +240,13 @@ void goRight(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS
             }
         }
     }
+
+    /* Remplis la colonne de gauche de bloc_VIDE */
     for(int i = 0; i < NBLINES; i++){
         for(int j = NBCOLUMNS-1; j > 0; j--){
             mobileGrid[i][j] = mobileGrid[i][j-1];
         }
-        mobileGrid[i][0] = BLOCK_VIDE; // Remplit de bloc_VIDE sur la dernière colonne
+        mobileGrid[i][0] = BLOCK_VIDE;
     }
 
     return;
@@ -249,7 +255,7 @@ void goRight(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS
 /* Descend un tétrimino le plus bas possible */
 void goBottom(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], bool* inGame, int* score_counter){
 
-    if(isGridempty(mobileGrid)) return;  // Prévent d'une boucle infinie
+    if(isGridempty(mobileGrid)) return;  // Evite d'une boucle infinie
     bool descend = true;
     while(descend){
         for (int i = 0; i < NBLINES; i++){

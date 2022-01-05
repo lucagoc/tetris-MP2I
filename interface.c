@@ -85,19 +85,55 @@ void draw_score(int* score, int score_counter, int points_per_line){
     return;
 }
 
-/*Affiche le l'interface du jeu.*/
-void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int inventaire, WINDOW *gridWindow,bool* inGame,int* score_counter){
+void drawInventory(int tetriminoID){
+    /*Implémentation des couleurs selon le type du bloc*/
+    if(tetriminoID == BLOCK_O){
+        attron( COLOR_PAIR(BLOCK_O));
+        printw("O");
+        attroff( COLOR_PAIR(BLOCK_O));
+    } else if(tetriminoID == BLOCK_I){
+        attron( COLOR_PAIR(BLOCK_I));
+        printw("I");
+        attroff( COLOR_PAIR(BLOCK_I));
+    } else if(tetriminoID == BLOCK_S){
+        attron( COLOR_PAIR(BLOCK_S));
+        printw("S");
+        attroff( COLOR_PAIR(BLOCK_S));
+    } else if(tetriminoID == BLOCK_Z){
+        attron( COLOR_PAIR(BLOCK_Z));
+        printw("Z");
+        attroff( COLOR_PAIR(BLOCK_Z));
+    } else if(tetriminoID == BLOCK_L){
+        attron( COLOR_PAIR(BLOCK_L));
+        printw("L");
+        attroff( COLOR_PAIR(BLOCK_L));
+    } else if(tetriminoID == BLOCK_J){
+        attron( COLOR_PAIR(BLOCK_J));
+        printw("J");
+        attroff( COLOR_PAIR(BLOCK_J));
+    } else if(tetriminoID == BLOCK_T){
+        attron( COLOR_PAIR(BLOCK_T));
+        printw("T");
+        attroff( COLOR_PAIR(BLOCK_T));
+    } else if(tetriminoID == BLOCK_DEBUG){
+        printw("{}");
+    }
+}
 
-    werase(gridWindow); //efface la frame précédente
+/*Affiche l'interface du jeu.*/
+void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int inventory, WINDOW *gridWindow,bool* inGame,int* score_counter){
 
+    werase(gridWindow);  // Efface l'image précédente
+
+    /* Affichage de la grille */
     box(gridWindow, 0, 0);
     drawGrid(mainGrid, gridWindow);
     drawGhostblocks(mainGrid, mobileGrid, gridWindow,inGame,score_counter);
     drawGrid(mobileGrid, gridWindow);
 
-    /*Affichage de celui qui est stocké*/
+    /* Affichage du tetrino dans l'inventaire */
     move(17, NBCOLUMNS+26);
-    printw("%d", inventaire);
+    drawInventory(inventory);
 
     if (DEBUG_MODE){
         drawDebug(mobileGrid, mainGrid);
