@@ -226,6 +226,7 @@ void draw_difficulty(int difficulty){
 
 /*Affiche le menu du jeu*/
 void menu_ui(int difficulty){
+    erase();
     int key;
     initUI();
     move(19, NBCOLUMNS+15);
