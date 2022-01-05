@@ -76,10 +76,10 @@ void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][N
     return;
 }
 
-/* Affiche le score. */
+/* Affiche le score */
 void draw_score(int* score, int score_counter, int points_per_line){
     *score += score_counter * points_per_line;
-    move(19,25);
+    move(19,NBCOLUMNS+15);
     printw("Score : %d\n",*score);
 
     return;
@@ -96,7 +96,7 @@ void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]
     drawGrid(mobileGrid, gridWindow);
 
     /*Affichage de celui qui est stocké*/
-    move(17,36);
+    move(17, NBCOLUMNS+26);
     printw("%d", inventaire);
 
     if (DEBUG_MODE){
@@ -110,23 +110,23 @@ void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]
 /*Affiche les touches pour jouer*/
 void draw_commands(){
 
-    move(1,25);
+    move(1,NBCOLUMNS+15);
     printw("Descente instantanée : Flèche du haut");
-    move(3,25);
+    move(3,NBCOLUMNS+15);
     printw("Gauche : Flèche de gauche");
-    move(5,25);
+    move(5,NBCOLUMNS+15);
     printw("Droite : Flèche du droite");
-    move(7,25);
+    move(7,NBCOLUMNS+15);
     printw("Bas : Flèche du bas");
-    move(9,25);
+    move(9,NBCOLUMNS+15);
     printw("Rotation : D");
-    move(11,25);
+    move(11,NBCOLUMNS+15);
     printw("Pause : P");
-    move(13,25);
+    move(13,NBCOLUMNS+15);
     printw("Quitter le jeu : Q");
-    move(15,25);
+    move(15,NBCOLUMNS+15);
     printw("Touche Réserve : S");
-    move(17,25);
+    move(17,NBCOLUMNS+15);
     printw("Réserve : ");
     refresh();
 
@@ -157,13 +157,13 @@ void initUI(){
     return;
 }
 
-/* Cette focntion met le jeu en pause et affcihe une fenêtre de pause pour marquer ce changement d'état mais également pour empêcher le joueur de tricher*/
+/* Mets le jeu en pause en cachant l'affichage */
 void pause(){
     
     bool inPause = true;
-    WINDOW *pauseWindow = newwin(NBLINES,(NBCOLUMNS*2)+2,0,0);
+    WINDOW *pauseWindow = newwin(NBLINES,(NBCOLUMNS*2)+2, 0, 0);
     box(pauseWindow, 0, 0);
-    wmove(pauseWindow,10,7);
+    wmove(pauseWindow, 10, 7);
     wprintw(pauseWindow, "En pause");
     wrefresh(pauseWindow);
     while(inPause){
@@ -176,7 +176,7 @@ void pause(){
     return;
 }
 
-/*Affiche une animation lors de la supression d'une ligne pleine */
+/* Affiche un clignotement sur une ligne donnée */
 void blinkLine(int line){
     for(int n = 0; n < 5; n++){
 
@@ -203,9 +203,9 @@ void blinkLine(int line){
     return;
 }
 
-/*Affiche le niveau de difficulté sélectionné par le joueur*/
+/* Affiche le niveau de difficulté sélectionné par le joueur */
 void draw_difficulty(int difficulty){
-    move(1,70);
+    move(1,NBCOLUMNS+60);
     switch(difficulty){
         case 1:
             printw("Difficulté : Très Facile");
@@ -228,7 +228,7 @@ void draw_difficulty(int difficulty){
 void menu_ui(int difficulty){
     int key;
     initUI();
-    move(19,25);
+    move(19, NBCOLUMNS+15);
     printw("Jouer : J");
     draw_difficulty(difficulty);
     WINDOW *menuWindow = newwin(NBLINES,(NBCOLUMNS*2)+2,0,0);
@@ -236,20 +236,20 @@ void menu_ui(int difficulty){
     wmove(menuWindow,10,8);
     wprintw(menuWindow,"TETROS");
     wrefresh(menuWindow);
+    timeout(0.1);  // Temporisation du getch
     while(key != 'j' && key != 'J'){
-        timeout(0.1); //on évite d'appeler trop souvent getch
         if (key == 'q' || key == 'Q'){
             endwin();
             exit(0);
         }
-        key=getch();
+        key = getch();
     }
     endwin();
 
     return;
 }
 
-/*Affiche le titre du jeu*/
+/* Affiche le titre du jeu. Outil utilisé : textkool.com */
 void drawTitle(){
     printf("\n");
     printf( "      _____                    _____                _____                    _____                   _______                   _____          \n"
