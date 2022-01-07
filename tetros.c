@@ -11,11 +11,11 @@
 
 
 int main(){
-    int temp;
+    char temp;
     drawTitle();
-    printf("Bienvenue sur TETROS! Si vous souhaitez jouer, entrez 0, sinon entrez 1 : ");
-    scanf("%d",&temp);
-    if(temp!=0){
+    printf("Bienvenue sur TETROS! Si vous souhaitez jouer, entrez J, sinon entrez une autre touche : ");
+    scanf("%c",&temp);
+    if(temp!='j' && temp!='J'){
         exit(0);
     }
     else{
