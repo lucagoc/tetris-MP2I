@@ -7,9 +7,9 @@ void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]
 
 void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], WINDOW *gridWindow,bool* inGame,int score_counter);
 
-void draw_commands();
+void drawCommands();
 
-void draw_difficulty(char difficulty);
+void drawDifficulty(char difficulty);
 
 void initUI();
 
@@ -17,12 +17,12 @@ void pause();
 
 void blinkLine(int line);
 
-void draw_score(int* score, int score_counter, int points_per_line);
+void drawScore(int* score, int score_counter, int points_per_line);
 
-void menu_ui(char difficulty);
+void menuUI(char difficulty);
 
 void drawTitle();
 
-void select_difficulty_ui(char* res);
+void selectDifficultyUI(char* res);
 
-void end_ui(bool* gameOn,bool*inGame);
+void endUI(bool* gameOn,bool*inGame);

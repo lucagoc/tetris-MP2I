@@ -7,8 +7,8 @@ extern const bool DEBUG_MODE;
 
 bool isEndgame(int mainGrid[NBLINES][NBCOLUMNS],bool* inGame);
 
-int set_difficulty(char* difficulty);
+int setDifficulty(char* difficulty);
 
-int set_delay(char* difficulty);
+int setDelay(char* difficulty);
 
-int set_points_per_line(char* difficulty);
+int setPointsperLine(char* difficulty);

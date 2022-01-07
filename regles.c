@@ -11,7 +11,7 @@ const int NBCOLUMNS = 10;
 const bool DEBUG_MODE = false;
 
 
-/*Cette fonction permet de vérifier si le joueur n'a pas perdu, c'est-à-dire si aucun bloc ne touche la ligne au dessus de la grille une fois placé.*/
+/*Vérifie si le joueur n'a pas perdu, c'est-à-dire si aucun bloc ne touche la ligne au dessus de la grille une fois placé.*/
 void isEndgame(int mainGrid[NBLINES][NBCOLUMNS],bool* inGame){
     for(int i = 0; i < NBCOLUMNS ; i++){
         if(mainGrid[1][i] != 0){
@@ -21,7 +21,7 @@ void isEndgame(int mainGrid[NBLINES][NBCOLUMNS],bool* inGame){
 }
 
 /* Définit le délai de descente en fonction de la difficulté. */
-int set_difficulty(char* difficulty){
+int setDifficulty(char* difficulty){
     int time_cycle;
     switch(*difficulty){
         case 't':
@@ -42,7 +42,7 @@ int set_difficulty(char* difficulty){
 }
 
 /* Définit le délai de placement en fonction de la difficulté. */
-int set_delay(char* difficulty){
+int setDelay(char* difficulty){
     int delay;
     switch(*difficulty){
         case 't':
@@ -63,7 +63,7 @@ int set_delay(char* difficulty){
 }
 
 /* Renvoie le nombre de points à chaque ligne remplie en fct.*/
-int set_points_per_line(char* difficulty){
+int setPointsperLine(char* difficulty){
     int points_per_line;
     switch(*difficulty){
         case 't':

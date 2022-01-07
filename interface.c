@@ -6,7 +6,7 @@
 #include "tetrimino.h"
 
 
-/*Affiche la grille de jeu */
+/*Affiche la grille de jeu dans l'interface ncurses*/
 void drawGrid(int grid[NBLINES][NBCOLUMNS], WINDOW *gridWindow){
     for(int x = 2; x < NBLINES; x++){
         for (int y = 0; y < NBCOLUMNS; y++){
@@ -50,7 +50,7 @@ void drawGrid(int grid[NBLINES][NBCOLUMNS], WINDOW *gridWindow){
     return;
 }
 
-/*Affiche la prévisualisation de l'emplacement des tetrimino*/
+/*Affiche la prévisualisation de l'emplacement des tetrimino. Voir documentation pour plus de détails*/
 void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], WINDOW *gridWindow, bool* inGame,int* score_counter){
 
     /*Copie de la mobileGrid*/
@@ -76,15 +76,15 @@ void drawGhostblocks(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][N
     return;
 }
 
-/* Affiche le score */
-void draw_score(int* score, int score_counter, int points_per_line){
+/* Affiche le score*/
+void drawcore(int* score, int score_counter, int points_per_line){
     *score += score_counter * points_per_line;
-    move(19,NBCOLUMNS+15);
+    move(NBLINES-3,NBCOLUMNS+15);
     printw("Score : %d\n",*score);
-
     return;
 }
 
+/*Affiche le contenu de l'inventaire. Donne la lettre du tetrimino et sa couleur*/
 void drawInventory(int tetriminoID){
     /*Implémentation des couleurs selon le type du bloc*/
     if(tetriminoID == BLOCK_O){
@@ -143,8 +143,8 @@ void drawUI(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]
     refresh();
 }
 
-/*Affiche les touches pour jouer*/
-void draw_commands(){
+/*Affiche les touches pour jouer à gauche*/
+void drawCommands(){
 
     move(1,NBCOLUMNS+15);
     printw("Descente instantanée : Flèche du haut");
@@ -172,8 +172,8 @@ void draw_commands(){
 /*Applique les propriétés de l'affichage de nscurses*/
 void initUI(){
 
-	initscr();  // Initialise l'affichage ncurses
-    start_color();  // Active la palette de couleur
+	initscr();  /*Initialise l'affichage ncurses*/
+    start_color();  /*Active la palette de couleurs*/
 
     /*Création des palettes de couleurs*/
     init_pair(BLOCK_O, COLOR_BLACK, COLOR_YELLOW);
@@ -185,16 +185,15 @@ void initUI(){
     init_pair(BLOCK_T, COLOR_BLACK, COLOR_MAGENTA);
 
 
-    curs_set(0);  // Cache le curseur
-    noecho();  // Cache les touches pressées
+    curs_set(0);  /*Cache le curseur*/
+    noecho();  /*Cache les touches pressées*/
     refresh();
 
     return;
 }
 
-/* Mets le jeu en pause en cachant l'affichage */
+/*Met le jeu en pause en cachant l'affichage */
 void pause(){
-    
     bool inPause = true;
     WINDOW *pauseWindow = newwin(NBLINES,(NBCOLUMNS*2)+2, 0, 0);
     box(pauseWindow, 0, 0);
@@ -211,7 +210,7 @@ void pause(){
     return;
 }
 
-/* Affiche un clignotement sur une ligne donnée */
+/* Affiche un clignotement sur une ligne donnée lorsqu'elle est complétée*/
 void blinkLine(int line){
     for(int n = 0; n < 5; n++){
 
@@ -239,7 +238,7 @@ void blinkLine(int line){
 }
 
 /* Affiche le niveau de difficulté sélectionné par le joueur */
-void draw_difficulty(char difficulty){
+void drawDifficulty(char difficulty){
     tolower(difficulty);
     move(1,NBCOLUMNS+60);
     switch(difficulty){
@@ -261,19 +260,19 @@ void draw_difficulty(char difficulty){
 }
 
 /*Affiche le menu du jeu*/
-void menu_ui(char difficulty){
+void menuUI(char difficulty){
     erase();
     int key;
-    draw_commands();
+    drawCommands();
     move(19, NBCOLUMNS+15);
     printw("Jouer : J");
-    draw_difficulty(difficulty);
+    drawDifficulty(difficulty);
     WINDOW *menuWindow = newwin(NBLINES,(NBCOLUMNS*2)+2,0,0);
     box(menuWindow, 0, 0);
     wmove(menuWindow,10,8);
     wprintw(menuWindow,"TETROS");
     wrefresh(menuWindow);
-    timeout(0.1);  // Temporisation du getch
+    timeout(0.1);  /*Temporisation du getch*/
     while(key != 'j' && key != 'J'){
         if (key == 'q' || key == 'Q'){
             endwin();
@@ -286,7 +285,8 @@ void menu_ui(char difficulty){
     return;
 }
 
-void select_difficulty_ui(char* res){
+/*Affiche une fenêtre contenant les difficultés. Laisse le joueur choisir*/
+void selectDifficultyUI(char* res){
     char key;
     initUI();
     WINDOW *select_difficulty_Window = newwin(NBLINES,(NBCOLUMNS*2)+2,0,0);
@@ -305,7 +305,8 @@ void select_difficulty_ui(char* res){
 
 }
 
-void end_ui(bool* gameOn,bool* inGame){
+/*Affiche l'écran de fin de partie*/
+void endUI(bool* gameOn,bool* inGame){
     erase();
     char key;
     initUI();

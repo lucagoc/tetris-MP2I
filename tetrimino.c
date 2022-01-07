@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <ncurses.h>
 #include <time.h>
-
+#include <assert.h>
 #include "regles.h"
 #include "debug.h"
 #include "interface.h"
@@ -147,9 +147,10 @@ void checkLinefull(int mainGrid[NBLINES][NBCOLUMNS],int *score_counter){
 }
 
 /*Cette fonction place le tetrimino dans la grille principale, réintialise la grille mobile, appelle checkLine full pour supprimer les lignes pleines et isEndgame pour terminer la partie si le joueur a perdu
-elle retourne tetrimino suivant en appelant gentetrimino avec pour argument la grille principale et un nombre aléatoire à l'aide de setRandom*/
+elle retourne tetrimino suivant en appelant gentetrimino avec pour argument la grille principale et un nombre aléatoire à l'aide de setRandom
+Voir documentation pour plus de détails*/
 int putTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID, int timeOut, bool* inGame, int* score_counter){
-
+    assert (inGame);
     /*Interrompt le placement si le joueur appuie sur une touche, donne une souplesse au gameplay*/
     int key;
     int time = 0;
@@ -167,10 +168,10 @@ int putTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOL
             }
         }
     }
-    initGrid(mobileGrid);
-    checkLinefull(mainGrid, score_counter);
-    isEndgame(mainGrid, inGame);
-    return genTetrimino(mobileGrid, setRandom(tetriminoID));  // Regénère un nouveau tetrimino
+    initGrid(mobileGrid); /*Réinitialise mobileGrid*/
+    checkLinefull(mainGrid, score_counter); /*Vide les lignes pleines de mainGrid*/
+    isEndgame(mainGrid, inGame); /*Vérifie que la partie ne soit pas terminée*/
+    return genTetrimino(mobileGrid, setRandom(tetriminoID));  /* Régénère un nouveau tetrimino*/
 }
 
 /* Descend un bloc dans la grille lorsque c'est possible, si le bloc ne peut plus descendre, le tetrimino est placé */
@@ -246,7 +247,7 @@ void goRight(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS
     return;
 }
 
-/* Descend un tétrimino le plus bas possible */
+/* Descend un tétrimino le plus bas possible. Voir documentation pour plus de détails*/
 void goBottom(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], bool* inGame, int* score_counter){
 
     if(isGridempty(mobileGrid)) return;  // Prévent d'une boucle infinie

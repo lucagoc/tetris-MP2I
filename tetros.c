@@ -33,13 +33,13 @@ int main(){
             curs_set(0);
             refresh();
         
-            select_difficulty_ui(&res);
+            selectDifficultyUI(&res);
             time = 0;
-            timeCycle = set_difficulty(&res);
-            timeOut = set_delay(&res);
-            points_per_line=set_points_per_line(&res);
+            timeCycle = setDifficulty(&res);
+            timeOut = setDelay(&res);
+            points_per_line=setPointsperLine(&res);
 
-            menu_ui(res);
+            menuUI(res);
 
             FILE *fp = initLogfile(); //
 
@@ -59,7 +59,7 @@ int main(){
             int tetriminoID = genTetrimino(mobileGrid, setRandom(0));
             int priorID = tetriminoID;  // Correspond à l'ID du tetrimino précédent.
 
-            draw_score(&score, score_counter, points_per_line);
+            drawScore(&score, score_counter, points_per_line);
             /*Commandes de contrôle*/
             int key;
             while(inGame){
@@ -130,7 +130,7 @@ int main(){
                     drawUI(mainGrid, mobileGrid, inventory, gridWindow, &inGame, &score_counter);
 
                     if (score_counter != score_counter_before){
-                        draw_score(&score, score_counter, points_per_line);
+                        drawScore(&score, score_counter, points_per_line);
                         score_counter_before = score_counter;
                     }
 
@@ -142,7 +142,7 @@ int main(){
             }
 
             endwin();
-            end_ui(&gameOn,&inGame);
+            endUI(&gameOn,&inGame);
             }
         }
     return 0;

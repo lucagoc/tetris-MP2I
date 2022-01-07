@@ -13,7 +13,7 @@
 /*Bloc à l'affichage particulier pour être différencié des blocs classiques.*/
 const int BLOCK_DEBUG = -1;
 
-/*Affiche les valeurs des matrices utilisées par le jeu*/
+/*Affiche les valeurs des matrices utilisées par le jeu à gauche de l'arène de jeu*/
 void drawDebug(int mobileGrid[NBLINES][NBCOLUMNS], int mainGrid[NBLINES][NBCOLUMNS]){
 	if(DEBUG_MODE){
 		for (int i = 0; i < NBLINES; i++)
@@ -34,14 +34,14 @@ void drawDebug(int mobileGrid[NBLINES][NBCOLUMNS], int mainGrid[NBLINES][NBCOLUM
 	}
 }
 
-/*Ecrit la date dans le logfile*/
+/*Écrit la date actuelle dans le logfile*/
 void printLogdate(FILE* fp){
 	time_t t = time(NULL);
   	struct tm tm = *localtime(&t);
   	fprintf(fp, "\n[%d-%02d-%02d %02d:%02d:%02d] ", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
 }
 
-/*Génère un bloc avec 9 valeurs différentes.*/
+/*Génère un bloc de debug avec 9 valeurs différentes.*/
 void genDebugtetrimino(int mobileGrid[NBLINES][NBCOLUMNS]){
 	if(DEBUG_MODE){
 		initGrid(mobileGrid);
@@ -68,7 +68,7 @@ FILE* initLogfile(){
 	return fp;
 }
 
-/*Fonction qui écrit les touches pressés par le joueur dans le logfile*/
+/*Fonction qui écrit les touches pressés par le joueur dans le logfile. Permet de garder une trace.*/
 void printLogkey(FILE* fp, char dir){
 	if(DEBUG_MODE){
 		printLogdate(fp);
