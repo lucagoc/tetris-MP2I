@@ -17,3 +17,5 @@ void drawHelp();
 void drawDiffNotSet(int difficulty, int gameMode);
 
 void drawCredits();
+
+void animatedTitle(int frame);

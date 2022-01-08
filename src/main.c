@@ -3,6 +3,7 @@
 
 #include "header/mainMenu.h"
 #include "header/mainGame.h"
+#include "header/animation.h"
 
 int main(){
 	
@@ -10,8 +11,11 @@ int main(){
 	
 	initNcurses();
 	int difficulty = -1;
+	curs_set(0);  // Cache le curseur
+	startAnimation();
 
 	int key;
+
 	int selection = 0;
 	
 
@@ -32,6 +36,7 @@ int main(){
 
 			case 'q' :	// Touche Q
 			gameOn = false;
+			exitAnimation();
 			break;
 
 			case 65 :	// Flèche Haut
@@ -76,6 +81,7 @@ int main(){
 
 	            case 5 :	//Quitter
 	            gameOn = false;
+	            exitAnimation();
 	            break;
 
 	        }
