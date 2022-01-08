@@ -32,6 +32,7 @@ int main(){
 
 			case 'q' :	// Touche Q
 			gameOn = false;
+			exitAnimation();
 			break;
 
 			case 65 :	// Flèche Haut

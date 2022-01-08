@@ -18,8 +18,6 @@ void initNcurses(){
     init_pair(BLOCK_J, COLOR_BLACK, COLOR_BLUE);
     init_pair(BLOCK_T, COLOR_BLACK, COLOR_MAGENTA);
 
-
-    
     noecho();  // Cache les touches pressées
     refresh();
 
@@ -128,8 +126,6 @@ void drawButton(int selection){
     move(31, 2);
     if(selection == 3) printw("-> ");
     printw("Quitter");
-
-    
 
     return;
 }
