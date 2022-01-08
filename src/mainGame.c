@@ -5,6 +5,7 @@
 #include "header/rules.h"
 #include "header/tetrimino.h"
 #include "header/gameUI.h"
+#include "header/debug.h"
 
 
 void playTetros(int difficulty, int* score, int gameMode){
@@ -12,6 +13,7 @@ void playTetros(int difficulty, int* score, int gameMode){
 	int key;
 	int tetriminoID;
 	bool tetriminoPlaced;
+	int temp_score=0;
 
     /* Timer */
 	int timeCounting = 0;
@@ -37,11 +39,12 @@ void playTetros(int difficulty, int* score, int gameMode){
 	bool inGame = true;
 	while(inGame){
 
-		if((int)timer(timeStarted) >=10 && (int)timer(timeStarted) >= time_gm1+10){
-			if(gameMode == 1 ){
-				speedCycle=speedCycle-100;
-			}
+		if((int)timer(timeStarted) >=10 && (int)timer(timeStarted) >= time_gm1+10 && gameMode == 0 && speedCycle>50){
+			speedCycle=speedCycle-20;
 			time_gm1=timer(timeStarted);
+			if (speedCycle<50){
+				speedCycle=50;
+			}
 		}
 
         /* Fenêtre du jeu */
@@ -56,8 +59,6 @@ void playTetros(int difficulty, int* score, int gameMode){
 		while(tetriminoPlaced == false){
 			while(timeCounting < speedCycle){
 
-				
-                
                 timeout(1);
                 key = getch();
 
@@ -100,7 +101,9 @@ void playTetros(int difficulty, int* score, int gameMode){
                 		break;
 
                 	case 'y':	// Touche Y
-                		// genDebugtetrimino(mobileGrid);
+						if(DEBUG_MODE == true){
+                			genDebugtetrimino(mobileGrid);
+						}
                 		break;
 
                 	case 's':	// Touche S
@@ -132,10 +135,13 @@ void playTetros(int difficulty, int* score, int gameMode){
         int nbLinesfull = countLinesfull(mainGrid);
         scoring(nbLinesfull, difficulty, score);
 
-		if (gameMode == 1){
-		speedCycle=speedCycle-(*score/100);
+		if (gameMode == 1 && *score>temp_score && time && speedCycle>50){
+			speedCycle=speedCycle-( ((*score)-(temp_score)) /10);
+			if (speedCycle<50){
+				speedCycle=50;
+			}
+			temp_score=*score;
 		}
-
 
         /* Fin du jeu */
         if (isGridfull(mainGrid)){

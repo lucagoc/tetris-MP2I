@@ -6,10 +6,7 @@
 #include "header/rules.h"
 #include "header/tetrimino.h"
 
-/*	Ce fichier sert uniquement à l'exécution du module "debug",
- *	qui sert essentiellement à garder une trace au fil du temps
- *  d'une partie de tetris.
- */
+
 
 const bool DEBUG_MODE = false;
 

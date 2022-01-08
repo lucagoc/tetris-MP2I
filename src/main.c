@@ -27,7 +27,7 @@ int main(){
 	// si gameMode est égal à 1, celle-ci sera proportionnelle au nombre de points déjà obtenus par le joueur
 	while(gameOn){
 
-		drawMenu(selection, highScore);
+		drawMenu(selection, highScore); // Affichage du menu du jeu
 		
 		key = getch();
 
@@ -54,7 +54,7 @@ int main(){
 				gameModePicker(&gameMode);
 				break;
 
-				case 1 :
+				case 1 : //Sélection du niveau de difficulté
 				difficultyPicker(&difficulty);
 				break;
 	            
@@ -67,7 +67,7 @@ int main(){
 	            	if (score > highScore) highScore = score;  // Enregistrement du score si meilleur.
 	            }
 				else{
-					drawDiffNotSet(difficulty,gameMode);
+					drawDiffNotSet(difficulty,gameMode); // Affichage d'un menu indiquant au joueur ce qu'il doit choisir avant de pouvoir jouer (difficulté et/ou mode de jeu)
 				}
 	            break;
 
@@ -90,6 +90,6 @@ int main(){
 
 		};
 	}
-	endwin();
+	endwin(); // Fin de l'affichage ncurses
 	return 0;
 }
