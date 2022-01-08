@@ -60,9 +60,10 @@ int main(){
 	            
 	            case 2 :	// Jouer
 	            if (difficulty != -1 && gameMode!=-1){
-	            	clear();
+					clear();
 	            	score = 0;
 	            	playTetros(difficulty, &score, gameMode);
+					clear();
 	            	if (score > highScore) highScore = score;  // Enregistrement du score si meilleur.
 	            }
 				else{
