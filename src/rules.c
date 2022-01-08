@@ -70,8 +70,8 @@ void switchInventory(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][N
 /* Exprime depuis combien de temps le jeu c'est écoulé */
 int timer(int timeStarted){
 
-    clock_t time = clock();
-    int timeElapsed = (time - timeStarted)/100000;
+    time_t timeNow = time(NULL);
+    int timeElapsed = (timeNow - timeStarted);
 
     return timeElapsed;
 }

@@ -14,8 +14,8 @@ void playTetros(int difficulty, int* score){
 	bool tetriminoPlaced;
 
     /* Timer */
-	int time = 0;
-    clock_t timeStarted = clock();
+	int timeCounting = 0;
+    time_t timeStarted = time(NULL);
 
     /* Difficulté */
 	int speedCycle;
@@ -45,7 +45,7 @@ void playTetros(int difficulty, int* score){
         /* Boucle d'un tetrimino */
 		tetriminoPlaced = false;
 		while(tetriminoPlaced == false){
-			while(time < speedCycle){
+			while(timeCounting < speedCycle){
                 
                 timeout(1);
                 key = getch();
@@ -56,36 +56,36 @@ void playTetros(int difficulty, int* score){
                 	case 65:	// Flèche Haut
                 		goBottom(mainGrid, mobileGrid);
                 		tetriminoPlaced = true;
-                		time = speedCycle;
+                		timeCounting = speedCycle;
                 		break;
 
                 	case 66:	// Flèche Bas
                 		if(isDownfree(mainGrid, mobileGrid)) goDown(mainGrid, mobileGrid);
                 		else {
                             tetriminoPlaced = true;
-                            time = speedCycle;
+                            timeCounting = speedCycle;
                         }
                 		break;
 
                 	case 67:	// Flèche Droite
                 		goRight(mainGrid, mobileGrid);
-                        if(isDownfree(mainGrid, mobileGrid) == false) time = 0;
+                        if(isDownfree(mainGrid, mobileGrid) == false) timeCounting = 0;
                 		break;
 
                 	case 68:	// Flèche Gauche
                 		goLeft(mainGrid, mobileGrid);
-                        if(isDownfree(mainGrid, mobileGrid) == false) time = 0;
+                        if(isDownfree(mainGrid, mobileGrid) == false) timeCounting = 0;
                 		break;
 
                 	case 'q':	// Touche Q
-                		time = speedCycle;
+                		timeCounting = speedCycle;
                 		tetriminoPlaced = true;
                 		inGame = false;
                 		break;
 
                 	case 'd':	// Touche D
                 		turnTetrimino(mainGrid, mobileGrid);
-                		time = 0;
+                		timeCounting = 0;
                 		break;
 
                 	case 'y':	// Touche Y
@@ -104,13 +104,13 @@ void playTetros(int difficulty, int* score){
 
                 /* Actualisation de l'écran */
                 drawGame(mainGrid, mobileGrid, inventory, *score, timer(timeStarted), difficulty, gridWindow);
-                time++;
+                timeCounting++;
             }
 
             /* Descente du tetrimino */
             if(isDownfree(mainGrid, mobileGrid)) goDown(mainGrid, mobileGrid);
             else tetriminoPlaced = true;
-            time = 0;
+            timeCounting = 0;
 		}
 
 		/* Placement du tetrimino */
