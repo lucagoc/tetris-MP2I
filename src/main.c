@@ -3,14 +3,18 @@
 
 #include "header/mainMenu.h"
 #include "header/mainGame.h"
+#include "header/animation.h"
 
 int main(){
 	
 	bool gameOn = true;
 	
 	initNcurses();
+	curs_set(0);  // Cache le curseur
+	startAnimation();
 
 	int key;
+
 	int selection = 0;
 	int difficulty = -1;
 
@@ -61,6 +65,7 @@ int main(){
 
 	            case 3 :	//Quitter
 	            gameOn = false;
+	            exitAnimation();
 	            break;
 
 	        }

@@ -9,3 +9,5 @@ void difficultyPicker(int* difficulty);
 void drawHelp();
 
 void drawCredits();
+
+void animatedTitle(int frame);

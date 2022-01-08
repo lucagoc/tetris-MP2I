@@ -1,5 +1,5 @@
-tetros: rules.o gameUI.o tetrimino.o debug.o mainGame.o mainMenu.o main.o
-	gcc rules.o gameUI.o tetrimino.o debug.o mainGame.o mainMenu.o main.o -o tetros -lncurses
+tetros: rules.o gameUI.o tetrimino.o debug.o mainGame.o mainMenu.o animation.o main.o
+	gcc rules.o gameUI.o tetrimino.o debug.o mainGame.o mainMenu.o animation.o main.o -o tetros -lncurses
 
 rules.o: src/rules.c
 	gcc -c src/rules.c
@@ -19,7 +19,10 @@ mainGame.o : src/mainGame.c
 mainMenu.o : src/mainMenu.c
 	gcc -c src/mainMenu.c
 
-main.o: src/main.c src/header/mainGame.h src/header/tetrimino.h src/header/rules.h src/header/debug.h src/header/mainMenu.h src/header/gameUI.h
+animation.o : src/animation.c
+	gcc -c src/animation.c
+
+main.o: src/main.c src/header/mainGame.h src/header/tetrimino.h src/header/rules.h src/header/debug.h src/header/mainMenu.h src/header/gameUI.h src/header/animation.h
 	gcc -c src/main.c
 
 clean:
