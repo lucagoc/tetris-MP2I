@@ -7,7 +7,7 @@
 #include "header/gameUI.h"
 
 
-void playTetros(int difficulty, int* score){
+void playTetros(int difficulty, int* score, int gameMode){
 
 	int key;
 	int tetriminoID;
@@ -16,6 +16,8 @@ void playTetros(int difficulty, int* score){
     /* Timer */
 	int timeCounting = 0;
     time_t timeStarted = time(NULL);
+
+	int time_gm1=0;
 
     /* Difficulté */
 	int speedCycle;
@@ -35,6 +37,13 @@ void playTetros(int difficulty, int* score){
 	bool inGame = true;
 	while(inGame){
 
+		if((int)timer(timeStarted) >=10 && (int)timer(timeStarted) >= time_gm1+10){
+			if(gameMode == 1 ){
+				speedCycle=speedCycle-100;
+			}
+			time_gm1=timer(timeStarted);
+		}
+
         /* Fenêtre du jeu */
         WINDOW *gridWindow = newwin(NBLINES,(NBCOLUMNS*2)+2,1,3);
 
@@ -46,6 +55,8 @@ void playTetros(int difficulty, int* score){
 		tetriminoPlaced = false;
 		while(tetriminoPlaced == false){
 			while(timeCounting < speedCycle){
+
+				
                 
                 timeout(1);
                 key = getch();
@@ -120,6 +131,11 @@ void playTetros(int difficulty, int* score){
         /* Scoring */
         int nbLinesfull = countLinesfull(mainGrid);
         scoring(nbLinesfull, difficulty, score);
+
+		if (gameMode == 1){
+		speedCycle=speedCycle-(*score/100);
+		}
+
 
         /* Fin du jeu */
         if (isGridfull(mainGrid)){

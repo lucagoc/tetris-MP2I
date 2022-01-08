@@ -186,8 +186,8 @@ void drawDifficulty(int difficulty){
 
     move(NBLINES+1, 4);
     if (difficulty == 0) printw("Difficulté : Très Facile");
-    else if (difficulty == 1) printw("Difficulté : Normal");
-    else if (difficulty == 2) printw("Difficulté : Difficile");
+    else if (difficulty == 1) printw("Difficulté : Facile");
+    else if (difficulty == 2) printw("Difficulté : Normal");
     else if (difficulty == 3) printw("Difficulté : Difficile");
     else printw("Difficulté : INCONNUE");
     

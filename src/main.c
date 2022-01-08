@@ -9,21 +9,25 @@ int main(){
 	bool gameOn = true;
 	
 	initNcurses();
+	int difficulty = -1;
 
 	int key;
 	int selection = 0;
-	int difficulty = -1;
+	
 
 	int score = 0;
 	int highScore = 0;
 
+	int gameMode = -1;
+	// si gameMode est égal à 0, l'accélération de la descente des blocs sera proportionnelle au temps passé au cours d'une partie donnée
+	// si gameMode est égal à 1, celle-ci sera proportionnelle au nombre de points déjà obtenus par le joueur
 	while(gameOn){
 
 		drawMenu(selection, highScore);
 		
 		key = getch();
 
-		/* Déplacement du bouton sélectionner dans l'interface. */
+		/* Déplacement du bouton sélectionné dans l'interface. */
 		switch(key){
 
 			case 'q' :	// Touche Q
@@ -35,31 +39,42 @@ int main(){
 			break;
 
 			case 66 :	// Flèche Bas
-			if(selection < 3) selection++;
+			if(selection < 5) selection++;
 			break;
 
 			case 10:	// Touche Entrée
 	        switch(selection){
+
+				case 0 : // Sélection du mode de jeu
+				gameModePicker(&gameMode);
+				break;
+
+				case 1 :
+				difficultyPicker(&difficulty);
+				break;
 	            
-	            case 0 :	// Jouer
-	            difficultyPicker(&difficulty);
-	            if (difficulty != -1) {
+	            case 2 :	// Jouer
+	            if (difficulty != -1 && gameMode!=-1){
 	            	clear();
 	            	score = 0;
-	            	playTetros(difficulty, &score);
+	            	playTetros(difficulty, &score, gameMode);
 	            	if (score > highScore) highScore = score;  // Enregistrement du score si meilleur.
 	            }
+				else{
+					drawDiffNotSet(difficulty,gameMode);
+				}
 	            break;
+
 	            
-	            case 1 :	// Aide
+	            case 3 :	// Aide
 	            drawHelp();
 	            break;
 
-	            case 2 :	// Crédit
+	            case 4 :	// Crédits
 	            drawCredits();
 	            break;
 
-	            case 3 :	//Quitter
+	            case 5 :	//Quitter
 	            gameOn = false;
 	            break;
 

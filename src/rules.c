@@ -12,7 +12,7 @@ const int NBCOLUMNS = 10;
 /* Définit les propriétés du jeu en fonction de la difficulté choisie. */
 void setDifficulty(int difficulty, int* speedCycle){
 
-    assert(difficulty != -1);  // Si la difficulté n'est pas défini.
+    assert(difficulty != -1);  // Si la difficulté n'est pas définie.
 
     if (difficulty == 0) *speedCycle = 900;
     else if (difficulty == 1) *speedCycle = 600;
@@ -67,7 +67,7 @@ void switchInventory(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][N
     return;
 }
 
-/* Exprime depuis combien de temps le jeu c'est écoulé */
+/* Exprime depuis combien de temps le jeu s'est écoulé */
 int timer(int timeStarted){
 
     time_t timeNow = time(NULL);

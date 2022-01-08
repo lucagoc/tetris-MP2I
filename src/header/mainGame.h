@@ -1,3 +1,3 @@
 #define MAINGAME_H
 
-void playTetros(int difficulty, int* score);
+void playTetros(int difficulty, int* score, int gameMode);
