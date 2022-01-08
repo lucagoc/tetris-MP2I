@@ -1,22 +1,27 @@
-tetros: regles.o interface.o tetrimino.o tetros.o debug.o
-	gcc regles.o interface.o tetrimino.o tetros.o debug.o -o tetros -lncurses
+tetros: rules.o gameUI.o tetrimino.o debug.o mainGame.o mainMenu.o main.o
+	gcc rules.o gameUI.o tetrimino.o debug.o mainGame.o mainMenu.o main.o -o tetros -lncurses
 
-regles.o: regles.c
-	gcc -c regles.c
+rules.o: src/rules.c
+	gcc -c src/rules.c
 
-interface.o: interface.c
-	gcc -c interface.c
+gameUI.o: src/gameUI.c
+	gcc -c src/gameUI.c
 
-tetrimino.o: tetrimino.c
-	gcc -c tetrimino.c
+tetrimino.o: src/tetrimino.c
+	gcc -c src/tetrimino.c
 
-debug.o: debug.c
-	gcc -c debug.c
+debug.o: src/debug.c
+	gcc -c src/debug.c
 
-tetros.o: tetros.c tetrimino.h interface.h regles.h debug.h
-	gcc -c tetros.c
+mainGame.o : src/mainGame.c
+	gcc -c src/mainGame.c
+
+mainMenu.o : src/mainMenu.c
+	gcc -c src/mainMenu.c
+
+main.o: src/main.c src/header/mainGame.h src/header/tetrimino.h src/header/rules.h src/header/debug.h src/header/mainMenu.h src/header/gameUI.h
+	gcc -c src/main.c
 
 clean:
 	rm -f *.o
-	rm -f *.log
 	rm -f tetros
