@@ -54,7 +54,7 @@ void setRandom(int* tetriminoID){
 }
 
 /*Génère un tetrimino en haut de la grille secondaire*/
-int genTetrimino(int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID){
+void genTetrimino(int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID){
 
     /*Les blocs sont générés au milieu de la grille.*/
     int middle = NBCOLUMNS/2;
@@ -103,8 +103,7 @@ int genTetrimino(int mobileGrid[NBLINES][NBCOLUMNS], int tetriminoID){
         mobileGrid[1][middle-1]=tetriminoID;
     }
     
-    /* Renvoie l'ID pour la réserve */
-    return tetriminoID;
+    return ;
 }
 
 /* Vérifie si le bas du tetrimino est libre */
@@ -161,9 +160,9 @@ int countLinesfull(int mainGrid[NBLINES][NBCOLUMNS]){
     return nbLinesfull;
 }
 
+/*Place le tetrimino d'une grille donnée à une autre. */
 void putTetrimino(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]){
 
-    /*Place le tetrimino dans la grille*/
     for (int i = 0; i < NBLINES; i++){
         for (int j = 0; j < NBCOLUMNS; j++){
             if(mobileGrid[i][j] != 0){
