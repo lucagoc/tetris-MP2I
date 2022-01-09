@@ -132,37 +132,37 @@ void drawInventory(int tetriminoID, WINDOW *inventoryWindow){
         wattroff(inventoryWindow, COLOR_PAIR(BLOCK_I));
     } else if(tetriminoID == BLOCK_S){
         wattron(inventoryWindow, COLOR_PAIR(BLOCK_S));
-        wmove(inventoryWindow, 2, 3*2);
+        wmove(inventoryWindow, 2, 5);
         wprintw(inventoryWindow, "    ");
-        wmove(inventoryWindow, 3, 2*2);
+        wmove(inventoryWindow, 3, 3);
         wprintw(inventoryWindow, "    ");
         wattroff(inventoryWindow, COLOR_PAIR(BLOCK_S));
     } else if(tetriminoID == BLOCK_Z){
         wattron(inventoryWindow, COLOR_PAIR(BLOCK_Z));
-        wmove(inventoryWindow, 2, 2*2);
+        wmove(inventoryWindow, 2, 3);
         wprintw(inventoryWindow, "    ");
-        wmove(inventoryWindow, 3, 3*2);
+        wmove(inventoryWindow, 3, 5);
         wprintw(inventoryWindow, "    ");
         wattroff(inventoryWindow, COLOR_PAIR(BLOCK_Z));
     } else if(tetriminoID == BLOCK_L){
         wattron(inventoryWindow, COLOR_PAIR(BLOCK_L));
-        wmove(inventoryWindow, 2, 3*2);
+        wmove(inventoryWindow, 2, 7);
         wprintw(inventoryWindow, "  ");
-        wmove(inventoryWindow, 3, 1*2);
+        wmove(inventoryWindow, 3, 3);
         wprintw(inventoryWindow, "      ");
         wattroff(inventoryWindow, COLOR_PAIR(BLOCK_L));
     } else if(tetriminoID == BLOCK_J){
         wattron(inventoryWindow, COLOR_PAIR(BLOCK_J));
-        wmove(inventoryWindow, 2, 1*2);
+        wmove(inventoryWindow, 2, 3);
         wprintw(inventoryWindow, "  ");
-        wmove(inventoryWindow, 3, 1*2);
+        wmove(inventoryWindow, 3, 3);
         wprintw(inventoryWindow, "      ");
         wattroff(inventoryWindow, COLOR_PAIR(BLOCK_J));
     } else if(tetriminoID == BLOCK_T){
         wattron(inventoryWindow, COLOR_PAIR(BLOCK_T));
-        wmove(inventoryWindow, 2, 2*2);
+        wmove(inventoryWindow, 2, 5);
         wprintw(inventoryWindow, "  ");
-        wmove(inventoryWindow, 3, 1*2);
+        wmove(inventoryWindow, 3, 3);
         wprintw(inventoryWindow, "      ");
         wattroff(inventoryWindow, COLOR_PAIR(BLOCK_T));
     } else if(tetriminoID == BLOCK_DEBUG){
@@ -195,8 +195,24 @@ void drawScore(int score){
 
 /* Affichage du temps écoulé */
 void drawTimer(int timer){
+    int secondes;
+    int minutes;
+    secondes = (int)timer%60;
+    minutes = (int)timer/60;
+
     move(NBLINES+7, 4);
-    printw("Temps écoulé : %d", timer);
+    printw("Temps écoulé :");
+
+    if((int)timer != 0){
+        move(NBLINES+7, 19);
+        if (minutes < 10) printw("0");
+        printw("%d", minutes);
+        move(NBLINES+7, 21);
+        printw(":");
+        move(NBLINES+7, 22);
+        if (secondes < 10) printw("0");
+        printw("%d", secondes);
+    }
 
     return;
 }
