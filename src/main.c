@@ -53,9 +53,9 @@ int main(){
 	            
 	            case 0 :	// Jouer
 	            gameModePicker(&gameMode);
-	            if (gameMode != -1){
+	            if (gameMode != -1){ //si gameMode est différent de -1, un mode de jeu a été sélectionné, on permet donc au joueur de choisir la difficulté 
 	            	difficultyPicker(&difficulty);
-	            	if (difficulty != -1){
+	            	if (difficulty != -1){ //même chose que pour gameMode, on lance alors la partie
 						clear();
 		            	score = 0;
 		            	playTetros(difficulty, &score, gameMode);

@@ -32,19 +32,23 @@ void playTetros(int difficulty, int* score, int gameMode){
     /* Grille*/
 	int mainGrid[NBLINES][NBCOLUMNS];
     int mobileGrid[NBLINES][NBCOLUMNS];
-    initGrid(mainGrid);
-    initGrid(mobileGrid);
+    initGrid(mainGrid); 
+    initGrid(mobileGrid); //on initialise les 2 grilles en les remplissant de 0
 
     /* Boucle principal du jeu */
 	bool inGame = true;
 	while(inGame){
 
-		if((int)timer(timeStarted) >=10 && (int)timer(timeStarted) >= time_gm1+10 && gameMode == 0 && speedCycle>50){
+		if((int)timer(timeStarted) >= time_gm1+10 && gameMode == 0 && speedCycle>50){
 			speedCycle=speedCycle-20;
 			time_gm1=timer(timeStarted);
 			if (speedCycle<50){
 				speedCycle=50;
 			}
+		/* si le mode de jeu sélectionné est celui dépendant du temps, on stocke dans time_gm1 la valeur de timer(timeStarted) qui correspond au nombre de secondes écoulées depuis le lancement du jeu
+		Ensuite, toutes les 10 secondes, on décrémente speedCycle pour accélérer la descente des blocs, on affecte à time_gm1 la temps écoulé depuis le début de la partie
+		on répète ceci jusqu'à que speedCycle soit inférieur à 50, cette vitesse rendant déjà le jeu très difficile, on fixe speedCycle à 50 jusqu'à la fin de la partie
+		*/
 		}
 
         /* Fenêtre du jeu */
@@ -142,6 +146,12 @@ void playTetros(int difficulty, int* score, int gameMode){
 			}
 			temp_score=*score;
 		}
+		/* si le mode de jeu sélectionné est celui dépendant des points, on stocke dans temp_score la valeur de score qui correspond au nombre de points accumulés par le joueur
+		Ensuite, à chaque placement de tetrimino, on vérifie si le joueur a gagné des points en comparant la valeur de score avec temp_score, si c'est le cas on décrémente speedCycle 
+		pour accélérer la descente des blocs en fonction du nombre de points gagnés par rapport au score précédent
+		on affecte ensuite à temp_score la valeur actuelle de score 
+		on répète ceci jusqu'à que speedCycle soit inférieur à 50, cette vitesse rendant déjà le jeu très difficile, on fixe speedCycle à 50 jusqu'à la fin de la partie
+		*/
 
         /* Fin du jeu */
         if (isGridfull(mainGrid)){

@@ -24,7 +24,7 @@ void initNcurses(){
     return;
 }
 
-/* Affiche le sélectionneur de difficulté */
+/* Affiche la fenêtre des difficultés */
 void drawDifficultyPicker(int selection){
     WINDOW *difficultyWindow = newwin(12, 21, 15, 80);
     box(difficultyWindow, 0, 0);
@@ -47,7 +47,8 @@ void drawDifficultyPicker(int selection){
     wrefresh(difficultyWindow);
 }
 
-/* Montre le menu des difficultés */
+/* Affiche le menu de sélection de la difficulté */
+
 void difficultyPicker(int* difficulty){
 
     int key;
@@ -111,6 +112,8 @@ void difficultyPicker(int* difficulty){
     return;
 }
 
+/* Affiche la fenêtre des modes de jeu */
+
 void drawGameModePicker(int selection){
     WINDOW *gameModeWindow = newwin(12, 66, 15, 13);
     box(gameModeWindow, 0, 0);
@@ -132,6 +135,7 @@ void drawGameModePicker(int selection){
     return;
 }
 
+/* Affiche le menu de sélection du mode de jeu */
 
 void gameModePicker(int* gameMode){
     int key;
@@ -245,6 +249,7 @@ void drawHelp(){
     return;
 }
 
+/* Affiche le menu des crédits */
 void drawCredits(){
 
     WINDOW *creditsWindow = newwin(8 , 50, 18, 14);
