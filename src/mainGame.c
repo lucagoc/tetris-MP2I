@@ -103,7 +103,7 @@ void playTetros(int difficulty, int* score, int gameMode){
                 		break;
 
                 	case 'y':	// Touche Y
-						if(DEBUG_MODE == true){
+						if(DEBUG_MODE){
                 			genDebugtetrimino(mobileGrid);
 						}
                 		break;
