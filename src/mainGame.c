@@ -114,7 +114,7 @@ void playTetros(int difficulty, int* score, int gameMode){
                 		break;
 
                 	case 'p':	// Touche P
-                		pause();
+                		pause(&timeStarted);
                 		break;
                 };
 

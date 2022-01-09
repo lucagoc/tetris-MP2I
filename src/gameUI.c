@@ -9,8 +9,9 @@
 
 
 /* Mets le jeu en pause en cachant l'affichage */
-void pause(){
+void pause(time_t* timeStarted){
     
+    time_t timePausestart = time(NULL);
 
     /* Affichage fenêtre*/
     WINDOW *pauseWindow = newwin(NBLINES,(NBCOLUMNS*2)+2, 1, 3);
@@ -23,6 +24,9 @@ void pause(){
 
     timeout(-1);
     getch();
+
+    time_t timePauseend = time(NULL);
+    *timeStarted += (timePauseend-timePausestart);
     
     return;
 }
