@@ -7,6 +7,7 @@
 #include "header/rules.h"
 #include "header/gameUI.h"
 
+
 const int BLOCK_VIDE = 0;
 const int BLOCK_O = 1;  // Correspond au tétromino en forme de carré
 const int BLOCK_I = 2;  // Correspond au tétromino en forme de bâton
@@ -16,6 +17,7 @@ const int BLOCK_L = 5;  // Correspond au tétromino en forme de L
 const int BLOCK_J = 6;  // Correspond au tétromino en forme de L inversé
 const int BLOCK_T = 7;  // Correspond au tétromino en forme de T
 
+
 /* Cette fonction void remplit de 0 la grille passée en entrée. */
 void initGrid(int grid[NBLINES][NBCOLUMNS]){
     for (int x = 0; x < NBLINES; x++){
@@ -24,7 +26,6 @@ void initGrid(int grid[NBLINES][NBCOLUMNS]){
         }
     }
 }
-
 
 /* Renvoie si une grille donnée est vide ou non */
 bool isGridempty(int grid[NBLINES][NBCOLUMNS]){
@@ -36,7 +37,7 @@ bool isGridempty(int grid[NBLINES][NBCOLUMNS]){
     return true;
 }
 
-/* Fonction qui génère un nombre aléatoire entre 1 et 8 en se basant sur rand() et la date */
+/* Change la valeur d'une variable en un nombre aléatoire compris entre 1 et 7 */
 void setRandom(int* tetriminoID){
 
     /* Comme random est dépendant de la machine, on ajoute des données de temps pour se rapprocher d'une génération vraiment aléatoire. */
@@ -207,7 +208,7 @@ void goLeft(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]
         for(int j = 0; j < NBCOLUMNS; j++){
             mobileGrid[i][j] = mobileGrid[i][j+1];
         }
-        mobileGrid[i][NBCOLUMNS] = BLOCK_VIDE; //on remplis de bloc_VIDE sur la dernière colonne
+        mobileGrid[i][NBCOLUMNS] = BLOCK_VIDE;  // On remplis de bloc_VIDE sur la dernière colonne
     }
 
     return;
@@ -230,7 +231,7 @@ void goRight(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS
         for(int j = NBCOLUMNS-1; j > 0; j--){
             mobileGrid[i][j] = mobileGrid[i][j-1];
         }
-        mobileGrid[i][0] = BLOCK_VIDE; // Remplit de bloc_VIDE sur la dernière colonne
+        mobileGrid[i][0] = BLOCK_VIDE;  // Remplit de bloc_VIDE sur la dernière colonne
     }
 
     return;
@@ -239,7 +240,7 @@ void goRight(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS
 /* Descend un tétrimino le plus bas possible. Voir documentation pour plus de détails*/
 void goBottom(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS]){
 
-    if(isGridempty(mobileGrid)) return;  // Prévent d'une boucle infinie
+    if(isGridempty(mobileGrid)) return;  // Evite une boucle infinie
     while(isDownfree(mainGrid, mobileGrid)){
         goDown(mainGrid, mobileGrid);
     }
