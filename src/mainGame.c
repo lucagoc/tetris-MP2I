@@ -137,7 +137,7 @@ void playTetros(int difficulty, int* score, int gameMode){
         int nbLinesfull = countLinesfull(mainGrid);
         scoring(nbLinesfull, difficulty, score);
 
-		if (gameMode == 1 && *score > temp_score && time && speedCycle > 50){
+		if (gameMode == 1 && *score > temp_score && speedCycle > 50){
 			speedCycle = speedCycle - (((*score) - (temp_score)) / 10);
 			if (speedCycle < 50) speedCycle = 50;
 			temp_score = *score;
