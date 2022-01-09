@@ -18,6 +18,7 @@ int main(){
 
 	int score = 0;
 	int highScore = 0;
+	int lastScore = 0;
 
 	int difficulty = -1;
 	int gameMode = -1;
@@ -28,7 +29,7 @@ int main(){
 
 	while(gameOn){
 
-		drawMenu(selection, highScore); // Affichage du menu du jeu
+		drawMenu(selection, highScore, lastScore); // Affichage du menu du jeu
 		
 		key = getch();
 
@@ -60,6 +61,7 @@ int main(){
 		            	score = 0;
 		            	playTetros(difficulty, &score, gameMode);
 						clear();
+						lastScore = score;
 		            	if (score > highScore) highScore = score;  // Enregistrement du score si meilleur.
 		            }
 	        	}

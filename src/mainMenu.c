@@ -205,21 +205,23 @@ void drawButton(int selection){
 }
 
 /* Affiche le meilleur score sur le menu */
-void drawMenuscore(int highScore){
+void drawMenuscore(int highScore, int lastScore){
     move(28, 2);
     printw("Meilleur score : %d", highScore);
+    move(30, 2);
+    printw("Dernier score : %d", lastScore);
 
     return;
 }
 
 /* Affiche le menu principal */
-void drawMenu(int selection, int highScore){
+void drawMenu(int selection, int highScore, int lastScore){
 
     erase();
 
     animatedTitle(13);
     drawButton(selection);
-    drawMenuscore(highScore);
+    drawMenuscore(highScore, lastScore);
 
     refresh();
 

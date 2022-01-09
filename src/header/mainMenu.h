@@ -2,7 +2,7 @@
 
 void initNcurses();
 
-void drawMenu(int selection, int highScore);
+void drawMenu(int selection, int highScore, int lastScore);
 
 void difficultyPicker(int* difficulty);
 
