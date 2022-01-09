@@ -10,21 +10,22 @@ int main(){
 	bool gameOn = true;
 	
 	initNcurses();
-	int difficulty = -1;
 	curs_set(0);  // Cache le curseur
 	startAnimation();
 
 	int key;
-
 	int selection = 0;
-	
 
 	int score = 0;
 	int highScore = 0;
 
+	int difficulty = -1;
 	int gameMode = -1;
-	// si gameMode est égal à 0, l'accélération de la descente des blocs sera proportionnelle au temps passé au cours d'une partie donnée
-	// si gameMode est égal à 1, celle-ci sera proportionnelle au nombre de points déjà obtenus par le joueur
+	/* 
+	 * gameMode = 0, l'accélération de la descente des blocs sera proportionnelle au temps passé au cours d'une partie donnée
+	 * gameMode = 1, celle-ci sera proportionnelle au nombre de points déjà obtenus par le joueur
+	 */
+
 	while(gameOn){
 
 		drawMenu(selection, highScore); // Affichage du menu du jeu
@@ -44,43 +45,37 @@ int main(){
 			break;
 
 			case 66 :	// Flèche Bas
-			if(selection < 5) selection++;
+			if(selection < 3) selection++;
 			break;
 
 			case 10:	// Touche Entrée
 	        switch(selection){
-
-				case 0 : // Sélection du mode de jeu
-				gameModePicker(&gameMode);
-				break;
-
-				case 1 : //Sélection du niveau de difficulté
-				difficultyPicker(&difficulty);
-				break;
 	            
-	            case 2 :	// Jouer
-	            if (difficulty != -1 && gameMode!=-1){
-					clear();
-	            	score = 0;
-	            	playTetros(difficulty, &score, gameMode);
-					clear();
-	            	if (score > highScore) highScore = score;  // Enregistrement du score si meilleur.
-	            }
-				else{
-					drawDiffNotSet(difficulty,gameMode); // Affichage d'un menu indiquant au joueur ce qu'il doit choisir avant de pouvoir jouer (difficulté et/ou mode de jeu)
-				}
+	            case 0 :	// Jouer
+	            gameModePicker(&gameMode);
+	            if (gameMode != -1){
+	            	difficultyPicker(&difficulty);
+	            	if (difficulty != -1){
+						clear();
+		            	score = 0;
+		            	playTetros(difficulty, &score, gameMode);
+						clear();
+		            	if (score > highScore) highScore = score;  // Enregistrement du score si meilleur.
+		            }
+	        	}
+	        	gameMode = -1;
+	        	difficulty = -1;
 	            break;
-
 	            
-	            case 3 :	// Aide
+	            case 1 :	// Aide
 	            drawHelp();
 	            break;
 
-	            case 4 :	// Crédits
+	            case 2 :	// Crédits
 	            drawCredits();
 	            break;
 
-	            case 5 :	//Quitter
+	            case 3 :	//Quitter
 	            gameOn = false;
 	            exitAnimation();
 	            break;
