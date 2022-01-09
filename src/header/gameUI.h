@@ -2,6 +2,6 @@
 
 void blinkLine(int line);
 
-void drawGame(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int inventory, int score, int timer, int difficulty, WINDOW *gridWindow);
+void drawGame(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int inventory, int score, int timer, int difficulty, WINDOW *gridWindow, int gameMode);
 
 void pause(time_t* timeStarted);

@@ -13,21 +13,20 @@ void playTetros(int difficulty, int* score, int gameMode){
 	int key;
 	int tetriminoID;
 	bool tetriminoPlaced;
+	int temp_score=0;
 
     /* Timer */
-	int timeCounting = 0;  // Temps depuis la dernière descente du tetrimino
+	int timeCounting = 0;
     time_t timeStarted = time(NULL);
 
-    /* Variable pour l'accélération */
-	int time_gm1 = 0;
-	int temp_score = 0;
+	int time_gm1=0;
 
     /* Difficulté */
 	int speedCycle;
     setDifficulty(difficulty, &speedCycle);
 
     /* Inventaire */
-	int inventory = 0;  // Bloc vide
+	int inventory = 0; // Bloc vide
 	bool invUsed = false;
 
     /* Grille*/
@@ -40,12 +39,11 @@ void playTetros(int difficulty, int* score, int gameMode){
 	bool inGame = true;
 	while(inGame){
 
-		/* Accélération en fonction du temps. */
-		if((int)timer(timeStarted) >= 10 && (int)timer(timeStarted) >= time_gm1+10 && gameMode == 0 && speedCycle>50){
-			speedCycle = speedCycle-20;
-			time_gm1 = timer(timeStarted);
-			if (speedCycle < 50){
-				speedCycle = 50;
+		if((int)timer(timeStarted) >=10 && (int)timer(timeStarted) >= time_gm1+10 && gameMode == 0 && speedCycle>50){
+			speedCycle=speedCycle-20;
+			time_gm1=timer(timeStarted);
+			if (speedCycle<50){
+				speedCycle=50;
 			}
 		}
 
@@ -103,7 +101,7 @@ void playTetros(int difficulty, int* score, int gameMode){
                 		break;
 
                 	case 'y':	// Touche Y
-						if(DEBUG_MODE){
+						if(DEBUG_MODE == true){
                 			genDebugtetrimino(mobileGrid);
 						}
                 		break;
@@ -119,7 +117,7 @@ void playTetros(int difficulty, int* score, int gameMode){
                 };
 
                 /* Actualisation de l'écran */
-                drawGame(mainGrid, mobileGrid, inventory, *score, timer(timeStarted), difficulty, gridWindow);
+                drawGame(mainGrid, mobileGrid, inventory, *score, timer(timeStarted), difficulty, gridWindow, gameMode);
                 timeCounting++;
             }
 
@@ -137,11 +135,10 @@ void playTetros(int difficulty, int* score, int gameMode){
         int nbLinesfull = countLinesfull(mainGrid);
         scoring(nbLinesfull, difficulty, score);
 
-        /* Accélération en fonction du score */
-		if (gameMode == 1 && *score > temp_score && time && speedCycle > 50){
-			speedCycle = speedCycle-(((*score)-(temp_score)) / 10);
-			if (speedCycle < 50){
-				speedCycle = 50;
+		if (gameMode == 1 && *score>temp_score && time && speedCycle>50){
+			speedCycle=speedCycle-( ((*score)-(temp_score)) /10);
+			if (speedCycle<50){
+				speedCycle=50;
 			}
 			temp_score=*score;
 		}
@@ -156,3 +153,4 @@ void playTetros(int difficulty, int* score, int gameMode){
 
 	return;
 }
+

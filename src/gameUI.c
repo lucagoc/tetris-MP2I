@@ -171,16 +171,27 @@ void drawInventory(int tetriminoID, WINDOW *inventoryWindow){
     }
 }
 
+/* Affichage du mode de jeu */
+void drawGameMode(int gameMode){
+    move(NBLINES+3, 4);
+    if (gameMode == 0){
+        printw("Mode de jeu : Temps");
+    }else{
+        printw("Mode de jeu : Points");
+    }
+    return;
+}
+
 /* Affichage du score */
 void drawScore(int score){
-    move(NBLINES+3, 4);
+    move(NBLINES+5, 4);
     printw("Score : %d", score);
     return;
 }
 
 /* Affichage du temps écoulé */
 void drawTimer(int timer){
-    move(NBLINES+5, 4);
+    move(NBLINES+7, 4);
     printw("Temps écoulé : %d", timer);
     return;
 }
@@ -224,7 +235,7 @@ void drawCommands(){
 }
 
 /* Affiche l'interface du jeu. */
-void drawGame(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int inventory, int score, int timer, int difficulty, WINDOW *gridWindow){
+void drawGame(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMNS], int inventory, int score, int timer, int difficulty, WINDOW *gridWindow, int gameMode){
 
     werase(gridWindow);
 
@@ -241,6 +252,7 @@ void drawGame(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMN
 
     /* Affichage annexe */
     drawScore(score);
+    drawGameMode(gameMode);
     drawTimer(timer);
     drawDifficulty(difficulty);
     drawCommands();
