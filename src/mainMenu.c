@@ -48,7 +48,6 @@ void drawDifficultyPicker(int selection){
 }
 
 /* Affiche le menu de sélection de la difficulté */
-
 void difficultyPicker(int* difficulty){
 
     int key;
@@ -113,7 +112,6 @@ void difficultyPicker(int* difficulty){
 }
 
 /* Affiche la fenêtre des modes de jeu */
-
 void drawGameModePicker(int selection){
     WINDOW *gameModeWindow = newwin(12, 66, 15, 13);
     box(gameModeWindow, 0, 0);
@@ -136,7 +134,6 @@ void drawGameModePicker(int selection){
 }
 
 /* Affiche le menu de sélection du mode de jeu */
-
 void gameModePicker(int* gameMode){
     int key;
     int selection = 0;
@@ -207,7 +204,7 @@ void drawButton(int selection){
     return;
 }
 
-/* Affiche le meilleur score sur le menu*/
+/* Affiche le meilleur score sur le menu */
 void drawMenuscore(int highScore){
     move(28, 2);
     printw("Meilleur score : %d", highScore);

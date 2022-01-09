@@ -169,6 +169,8 @@ void drawInventory(int tetriminoID, WINDOW *inventoryWindow){
         wmove(inventoryWindow, 2, 2*2);
         wprintw(inventoryWindow, "{}");
     }
+
+    return;
 }
 
 /* Affichage du mode de jeu */
@@ -179,6 +181,7 @@ void drawGameMode(int gameMode){
     }else{
         printw("Mode de jeu : Points");
     }
+
     return;
 }
 
@@ -186,6 +189,7 @@ void drawGameMode(int gameMode){
 void drawScore(int score){
     move(NBLINES+5, 4);
     printw("Score : %d", score);
+
     return;
 }
 
@@ -193,6 +197,7 @@ void drawScore(int score){
 void drawTimer(int timer){
     move(NBLINES+7, 4);
     printw("Temps écoulé : %d", timer);
+
     return;
 }
 
@@ -258,11 +263,14 @@ void drawGame(int mainGrid[NBLINES][NBCOLUMNS], int mobileGrid[NBLINES][NBCOLUMN
     drawCommands();
     drawDebug(mobileGrid, mainGrid);
 
+    /* Rafraichissement général */
     wrefresh(gridWindow);
     wrefresh(inventoryWindow);
     refresh();
 
     delwin(inventoryWindow);  // Pour ne pas surcharger la mémoire.
+
+    return;
 }
 
 

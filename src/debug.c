@@ -6,12 +6,12 @@
 #include "header/rules.h"
 #include "header/tetrimino.h"
 
-
-
+/* Définit si le mode de débuggage est activé ou non. */
 const bool DEBUG_MODE = false;
 
 /*Bloc à l'affichage particulier pour être différencié des blocs classiques.*/
 const int BLOCK_DEBUG = -1;
+
 
 /*Affiche les valeurs des matrices utilisées par le jeu*/
 void drawDebug(int mobileGrid[NBLINES][NBCOLUMNS], int mainGrid[NBLINES][NBCOLUMNS]){
@@ -32,6 +32,8 @@ void drawDebug(int mobileGrid[NBLINES][NBCOLUMNS], int mainGrid[NBLINES][NBCOLUM
 	    }
 		refresh();
 	}
+
+	return;
 }
 
 /*Génère un bloc avec 9 valeurs différentes.*/
@@ -48,4 +50,6 @@ void genDebugtetrimino(int mobileGrid[NBLINES][NBCOLUMNS]){
         mobileGrid[2][1] = BLOCK_J;
         mobileGrid[2][2] = BLOCK_T;
 	}
+
+	return;
 }
