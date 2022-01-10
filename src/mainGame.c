@@ -40,7 +40,7 @@ void playTetros(int difficulty, int* score, int gameMode){
 	while(inGame){
 
 		if((int)timer(timeStarted) >= time_gm1+10 && gameMode == 0 && speedCycle>50){
-			speedCycle = speedCycle-20;
+			speedCycle = speedCycle-15;
 			time_gm1 = timer(timeStarted);
 			if (speedCycle < 50) speedCycle = 50;
 		}
