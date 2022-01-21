@@ -22,7 +22,7 @@ Clone de Tetris codé en C.
 
 ---
 
-## Crédit
+## Crédits
 
 Groupe Tetros :
 - Adrien Frachet
