@@ -1,21 +1,36 @@
-tetris-MP2I (Il faut trouver un nom !)
+Tetros
 ============
 
-C'est tetris, mais en C et fait par nous !
+Projet étudiant pour la classe de MP2I Fauriel (2021-2022).
+
+Clone de Tetris codé en C.
 
 ![Game Preview](./demo.gif)
 
 ---
 
 ## Fonctionnalités
-- Translation (wow)
-- Rotation (woow)
-- Téléportation (woooow)
-- Couleurs (woooooooooow)
+
+- Translation
+- Rotation
+- Téléportation
+- Couleurs dans le terminal
+- Réserve
+- Comptage des points
+- Plusieurs mode de difficultés
+- Menu / Interface animé(e)
+
+---
+
+## Crédit
+
+Groupe Tetros :
+- Adrien Frachet
+- Théo Court
+- Lucas Balmès
 
 ---
 
 ## Licence
 
 Ce projet est sous licence MIT.
-Licence complète disponible [ici](https://bit.ly/3uTw3UC).
